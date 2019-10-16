@@ -7,6 +7,8 @@ import './index.css';
 import LogIn from '../SignIn/index';
 import Landing from '../Landing/index';
 import SignUp from '../SignUp/index';
+import Faq from '../Faq/index';
+import ClassList from '../ClassList/index';
 
 const { Content, Footer } = Layout;
 
@@ -23,6 +25,14 @@ class Navbar extends Component {
                                 <span>Home</span>
                                 <Link to="/" />
                             </Menu.Item>
+                            <Menu.Item key="4">
+                                <span>Classes</span>
+                                <Link to="/classList" />
+                            </Menu.Item>
+                            <Menu.Item key="5">
+                                <span>FAQ</span>
+                                <Link to="/faq" />
+                            </Menu.Item>
                             <Menu.Item key="2" className="Nav_Menu_Item">
                                 <Icon type="login" />
                                 <span>Log In</span>
@@ -37,6 +47,8 @@ class Navbar extends Component {
                         <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
                             <Switch>
                                 <Route exact path="/" component={Landing} />
+                                <Route exact path="/classList" component={ClassList} />
+                                <Route exact path="/faq" component={Faq} />
                                 <Route exact path="/logIn" component={LogIn} />
                                 <Route exact path="/signUp" component={SignUp} />
                             </Switch>
