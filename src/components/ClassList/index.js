@@ -1,36 +1,36 @@
 import React from 'react';
 import './index.css';
-import Class from "./Class";
+import ClassItem from "./Class";
+import { Col, Row, Divider } from 'antd';
 
 class ClassList extends React.Component {
     render() {
         return (
             <div className="list">
-                <Class
-                    info={{
-                        title: "TOEFL no brainer",
-                        intro: "Dive in and learn TOEFL from scratch! Learn Reading, Speaking, Listening, Writing and way more!",
-                        tutor: "Leonardo da Vinci",
-                        imgURL: "Image URL",
-                        price: "49.99",
-                        classLink: "Class Detail URL"
-                    }}
-                />
-
-                <hr/>
-
-                <Class
-                    info={{
-                        title: "TOEFL no brainer",
-                        intro: "Dive in and learn TOEFL from scratch! Learn Reading, Speaking, Listening, Writing and way more!",
-                        tutor: "Leonardo da Vinci",
-                        imgURL: "Image URL",
-                        price: "49.99",
-                        classLink: "Class Detail URL"
-                    }}
-                />
+                <Row gutter={24}>
+                    <Col span={8}>
+                        <ClassItem />
+                    </Col>
+                    <Col span={8}>
+                        <ClassItem />
+                    </Col>
+                    <Col span={8}>
+                        <ClassItem />
+                    </Col>
+                </Row>
+                <Divider />
+                <Row gutter={24}>
+                    <Col span={8}>
+                        <ClassItem />
+                    </Col>
+                    <Col span={8}>
+                        <ClassItem />
+                    </Col>
+                    <Col span={8}>
+                        <ClassItem />
+                    </Col>
+                </Row>
             </div>
-
         );
     }
 }

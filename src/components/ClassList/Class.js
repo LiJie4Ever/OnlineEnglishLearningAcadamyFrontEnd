@@ -1,36 +1,70 @@
-import React from "react";
-import "./index.css"
+import React, { Component }from 'react';
+import 'antd/dist/antd.css';
+import './index.css';
+import { Card, Icon, Avatar, Popover, Button } from 'antd';
+import testImage from '../../images/test.jpeg';
+import head from '../../images/profile.jpeg';
 
-function Class(props) {
+const { Meta } = Card;
 
-    var title = props.info.title
-    var intro = props.info.intro
-    var tutor = props.info.tutor
-    var imgURL = props.info.imgURL
-    var price = props.info.price
-    var classLink = props.info.classLink
+const LessonIntro = (
+    <div>
+        <p>This is the introduction to the lesson</p>
+    </div>
+);
 
+const TeacherIntro = (
+    <div>
+        <p>This is the introduction to the teacher</p>
+    </div>
+);
 
-    return (
-        <div className='item'>
-            <div className='left'>
-                <img src={imgURL} />
-            </div>
+const priceIntro = (
+    <div>
+        <p>This is the introduction to the price</p>
+    </div>
+);
 
-            <div className='middle'>
-                <div className="title"><a href={classLink}>{title}</a></div>
-                <div className="subtitle">{tutor}</div>
-                <div className="intro">{intro}</div>
-            </div>
+class ClassItem extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-            <div className='right'>
-                <div className="price">US$ {price}</div>
-            </div>
+    componentDidMount() {
+        //TODO
+    }
 
-            <div className="clear"></div>
-
-        </div>
-    )
+    render() {
+        return(
+            <Card
+                style={{ width: 300 }}
+                hoverable={true}
+                cover={
+                    <img
+                        alt="example"
+                        src={testImage}
+                    />
+                }
+                actions={[
+                    <Popover content={LessonIntro} title="Teacher" trigger="hover">
+                        <Button type="primary" shape="circle" icon="book" />
+                    </Popover>,
+                    <Popover content={TeacherIntro} title="Price" trigger="hover">
+                        <Button type="primary" shape="circle" icon="money-collect" />
+                    </Popover>,
+                    <Popover content={priceIntro} title="More" trigger="hover">
+                        <Button type="primary" shape="circle" icon="more" />
+                    </Popover>,
+                ]}
+            >
+                <Meta
+                    avatar={<Avatar src={head} />}
+                    title="Course Title"
+                    description="This is a very good course!!!"
+                />
+            </Card>
+        )
+    }
 }
 
-export default Class;
+export default ClassItem;

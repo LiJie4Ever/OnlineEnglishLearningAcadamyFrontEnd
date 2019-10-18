@@ -8,10 +8,7 @@
     width: 100%;
 }
 .LogIn_Container {
-    left: 50%;
-    top: 50%;
-    position: absolute;
-    -webkit-transform: translate3d(-50%, -50%, 0);
-    -moz-transform: translate3d(-50%, -50%, 0);
-    transform: translate3d(-50%, -50%, 0);
+    width: 300px;
+    margin: 20px auto;
+    align-content: center;
 }

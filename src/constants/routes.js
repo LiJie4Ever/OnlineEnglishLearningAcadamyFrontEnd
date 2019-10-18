@@ -1,7 +1,10 @@
 export const LANDING = '/';
-export const SIGN_UP = '/api/signUp';
-export const SIGN_IN = '/api/signIn';
-export const HOME = '/api/home';
-export const ACCOUNT = '/api/account';
-export const ADMIN = '/api/admin';
-export const PASSWORD_FORGET = '/api/pw-forget';
+export const SIGN_UP = '/signUp';
+export const LOG_IN = '/signIn';
+export const HOME = '/home';
+export const ACCOUNT = '/account';
+export const ADMIN = '/admin';
+export const PASSWORD_FORGET = '/pwdForget';
+export const CLASS_LIST = '/classList';
+export const FAQ = '/FAQ';
+export const PROFILE = '/profile';
