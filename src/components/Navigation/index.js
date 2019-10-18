@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 import './index.css';
 
 import LogIn from '../SignIn/index';
-import Landing from '../Landing/index';
+import Landing from '../Landing/index.jsx';
 import SignUp from '../SignUp/index';
 import Faq from '../Faq/index';
 import ClassList from '../ClassList/index';
@@ -44,7 +44,7 @@ class Navbar extends Component {
                                 <Link to="/signUp" />
                             </Menu.Item>
                         </Menu>
-                        <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+                        <Content style={{ margin: '0px 0px', padding: 0, background: '#fff', Height: 1000, }}>
                             <Switch>
                                 <Route exact path="/" component={Landing} />
                                 <Route exact path="/classList" component={ClassList} />

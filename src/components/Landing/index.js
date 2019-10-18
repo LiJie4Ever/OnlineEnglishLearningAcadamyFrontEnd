@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-
-class Landing extends Component {
+/* eslint no-undef: 0 */
+/* eslint arrow-parens: 0 */
+class Landing extends Component{
     render() {
-        return(
-            <div>
-                This is the Landing page~~~~
-            </div>
-        )
-    }
+
+    return (
+        <div>
+
+        </div>
+    );
+  }
+
 }
 
-export default Landing;
