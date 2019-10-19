@@ -9,6 +9,8 @@ import Landing from '../Landing/index.jsx';
 import SignUp from '../SignUp/index';
 import Faq from '../Faq/index';
 import ClassList from '../ClassList/index';
+import Session from '../Session/index';
+import Tutor from '../Tutor/index';
 
 const { Content, Footer } = Layout;
 
@@ -25,6 +27,10 @@ class Navbar extends Component {
                                 <span>Home</span>
                                 <Link to="/" />
                             </Menu.Item>
+                            <Menu.Item key="7">
+                                <span>Tutors</span>
+                                <Link to="/tutor" />
+                            </Menu.Item>
                             <Menu.Item key="4">
                                 <span>Classes</span>
                                 <Link to="/classList" />
@@ -33,6 +39,15 @@ class Navbar extends Component {
                                 <span>FAQ</span>
                                 <Link to="/faq" />
                             </Menu.Item>
+                            <Menu.Item key="6">
+                                <span>Session</span>
+                                <Link to="/session" />
+                            </Menu.Item>
+                            <Menu.Item key="8">
+                                <span>Blog</span>
+                                <Link to="/session" />
+                            </Menu.Item>
+
                             <Menu.Item key="2" className="Nav_Menu_Item">
                                 <Icon type="login" />
                                 <span>Log In</span>
@@ -51,6 +66,8 @@ class Navbar extends Component {
                                 <Route exact path="/faq" component={Faq} />
                                 <Route exact path="/logIn" component={LogIn} />
                                 <Route exact path="/signUp" component={SignUp} />
+                                <Route exact path="/session" component={Session} />
+                                <Route exact path="/tutor" component={Tutor} />
                             </Switch>
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>
