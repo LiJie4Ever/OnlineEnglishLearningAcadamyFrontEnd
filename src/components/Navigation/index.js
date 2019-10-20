@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 import './index.css';
 
 import LogIn from '../SignIn/index';
-import Landing from '../Landing/index.jsx';
+import Landing from '../Landing/index';
 import SignUp from '../SignUp/index';
 import Faq from '../Faq/index';
 import ClassList from '../ClassList/index';
