@@ -48,3 +48,8 @@
 
   color: #fff;
 }
+.WelcomePicContainer{
+    width:1280px;
+    height:500px;
+    mode:'fit' ;
+}

@@ -21,36 +21,53 @@ const data = [
     title: 'Title 4',
   },
 ];
+const data2 = [
+  {
+    title: 'Title 1',
+  },
+  {
+    title: 'Title 2',
+  },
+  {
+    title: 'Title 3',
+  },
+];
+function WelcomeSlider(){
+    return (
+        <Carousel autoplay>
+            <div>
+                <img className="WelcomePicContainer"
+                     src="https://wallpaperplay.com/walls/full/c/1/d/86360.jpg"
+                />
+            </div>
+            <div>
+                <img className="WelcomePicContainer"
+                     src="https://zos.alipayobjects.com/rmsportal/hzPBTkqtFpLlWCi.jpg"
+                 />
+            </div>
+            <div>
+                <img className="WelcomePicContainer"
+                     src="https://i.pinimg.com/originals/a8/ca/9b/a8ca9bb30361ccd7ebc30562303703de.png"
+                 />
+            </div>
+            <div>
+                <img className="WelcomePicContainer"
+                     src="https://cdn1.epicgames.com/ue/product/Screenshot/19-1920x1080-67576b6000ce6090012a4ecd1c818d55.jpg"
+                 />
+            </div>
+         </Carousel>
+    );
+}
 
 class landing extends React.Component {
     render() {
         return (
             <div>
-    <Layout>
-      <Header>
-          Welcome to Online English Language Academy
-      </Header>
-      <Content>
-            <Carousel autoplay>
-    <div>
-        <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/826753e8-445c-4b0c-a004-afe99a4f4f4e/d88lxe8-ed62b36e-3ba2-4f0e-8d24-1faf0b3ef95a.png/v1/fill/w_1192,h_670,q_70,strp/low_poly_hills_by_terrance8d_d88lxe8-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA4MCIsInBhdGgiOiJcL2ZcLzgyNjc1M2U4LTQ0NWMtNGIwYy1hMDA0LWFmZTk5YTRmNGY0ZVwvZDg4bHhlOC1lZDYyYjM2ZS0zYmEyLTRmMGUtOGQyNC0xZmFmMGIzZWY5NWEucG5nIiwid2lkdGgiOiI8PTE5MjAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.fguEeGdvd9lyBPvA8rVuw8gW_ro750hLuRHCe2AWBf4"width={1280} height={1000} mode='fit'/>
-    </div>
-    <div>
-        <img src="https://zos.alipayobjects.com/rmsportal/hzPBTkqtFpLlWCi.jpg"width={1280} height={500} mode='fit'/>
-    </div>
-    <div>
-        <img src="https://i.pinimg.com/originals/a8/ca/9b/a8ca9bb30361ccd7ebc30562303703de.png"width={1280} height={500} mode='fit'/>
-    </div>
-    <div>
-        <img src="https://wallpaperplay.com/walls/full/c/1/d/86360.jpg"width={1280} height={500} mode='fit'/>
-    </div>
-  </Carousel>
-      </Content>
-        <Content>
-
-        </Content>
-      <Footer>
-              <Row gutter={16}>
+                <Layout>
+                    <Header>Welcome to Online English Language Academy</Header>
+                    <Content><WelcomeSlider />,</Content>
+                    <Footer>
+                        <Row gutter={16}>
       <Col span={8}>
         <Card title="PROGRAM" bordered={false}  extra={<a href="http://www.usc.edu">More</a>} style={{ width: 320, height:600 }}
         cover={<img alt="example" src="data:image/jpeg;base64,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" />}>
@@ -66,23 +83,33 @@ Not located in Los Angeles, but still want to take part in amazing learning oppo
         cover={<img alt="example" src="data:image/jpeg;base64,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" />}>
 Aspen Learning’s educators promote self-advocacy in our students, giving them the confidence and multitude of strategies to become successful, independent learners. By encouraging growth in communication and increased confidence, students learn to communicate with teachers in an effective way, gaining clarity in their studies, and promoting accountability. Our tutoring philosophy is based on developing a positive, respectful, and trusting relationship with our students and families.         </Card>
       </Col>
-    </Row>
-      </Footer>
-        <Footer>
-              <List
-    grid={{ gutter: 8, column: 2 }}
-    dataSource={data}
-    renderItem={item => (
-      <List.Item>
-        <Card title={item.title}>Card content</Card>
-      </List.Item>
-    )}
-  />
-        </Footer>
-        <Footer>
-            “I have twin boys who are currently enrolled in a LAUSD high school. Prior to being introduced to Aspen Learning, our home would become a battleground when it was time to do homework. My sons were not receiving enough instruction at school and were often feeling frustration and confusion around the curriculum. I cannot say enough good things in regard to the incredibly mindful process of Aspen Learning – from the exploratory testing to discover what type of learner your child is, to meeting with Kelsey who is obviously passionate about her product, to matching your child with a tutor who is the best fit for him/her, to consistent follow up with both the parent and tutor and lastly, to inspiring your child to want to learn on their own. Our experience with Aspen Learning went above and beyond all our tutoring expectations and I would highly recommend their services. With great appreciation”
-        </Footer>
-    </Layout>
+                        </Row></Footer>
+                    <Footer>
+                        <List grid={{ gutter: 16, column: 3, span:8, bordered:false }}
+                              dataSource={data2}
+                              renderItem={item => (
+                                  <List.Item>
+                                      <Card style={{ width: 320, height:200 }}
+                                          title={item.title}>
+                                      </Card>
+                                  </List.Item>
+                              )}
+                        />
+                    </Footer>
+                    <Footer>
+                        <List grid={{ gutter: 8, column: 2 }}
+                              dataSource={data}
+                              renderItem={item => (
+                                  <List.Item>
+                                      <Card title={item.title}>Card content</Card>
+                                  </List.Item>
+                              )}
+                        />
+                    </Footer>
+                    <Footer>
+                        “I have twin boys who are currently enrolled in a LAUSD high school. Prior to being introduced to Aspen Learning, our home would become a battleground when it was time to do homework. My sons were not receiving enough instruction at school and were often feeling frustration and confusion around the curriculum. I cannot say enough good things in regard to the incredibly mindful process of Aspen Learning – from the exploratory testing to discover what type of learner your child is, to meeting with Kelsey who is obviously passionate about her product, to matching your child with a tutor who is the best fit for him/her, to consistent follow up with both the parent and tutor and lastly, to inspiring your child to want to learn on their own. Our experience with Aspen Learning went above and beyond all our tutoring expectations and I would highly recommend their services. With great appreciation”
+                    </Footer>
+                </Layout>
             </div>
         );
     }

@@ -9,7 +9,7 @@ import Landing from '../Landing/index';
 import SignUp from '../SignUp/index';
 import Faq from '../Faq/index';
 import ClassList from '../ClassList/index';
-import Session from '../Session/index';
+import Courses from '../Account/index';
 import Tutor from '../Tutor/index';
 
 const { Content, Footer } = Layout;
@@ -40,8 +40,8 @@ class Navbar extends Component {
                                 <Link to="/faq" />
                             </Menu.Item>
                             <Menu.Item key="6">
-                                <span>Session</span>
-                                <Link to="/session" />
+                                <span>Courses</span>
+                                <Link to="/account" />
                             </Menu.Item>
                             <Menu.Item key="8">
                                 <span>Blog</span>
@@ -66,7 +66,7 @@ class Navbar extends Component {
                                 <Route exact path="/faq" component={Faq} />
                                 <Route exact path="/logIn" component={LogIn} />
                                 <Route exact path="/signUp" component={SignUp} />
-                                <Route exact path="/session" component={Session} />
+                                <Route exact path="/account" component={Courses} />
                                 <Route exact path="/tutor" component={Tutor} />
                             </Switch>
                         </Content>
