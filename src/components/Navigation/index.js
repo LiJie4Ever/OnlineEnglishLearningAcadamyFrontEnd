@@ -1,46 +1,47 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { Layout, Menu, Icon } from 'antd';
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { Layout } from 'antd';
 import 'antd/dist/antd.css';
 import './index.css';
 import * as ROUTES from '../../constants/routes';
+import { AuthUserContext } from '../Session';
 
-import LogIn from '../SignIn/index';
-import Landing from '../Landing/index';
-import SignUp from '../SignUp/index';
-import Faq from '../Faq/index';
-import ClassList from '../ClassList/index';
-import Profile from '../Profile/index';
+
+import Landing from "../Landing";
+import ClassList from "../ClassList";
+import Faq from "../Faq";
+import LogIn from "../SignIn";
+import SignUp from "../SignUp";
+import Profile from "../Profile";
+import Account from "../Account";
+
+import MenuAuth from "./MenuAuth";
+import MenuUnAuth from "./MenuUnAuth";
+import PasswordForgetPage from "../PasswordForget";
 
 const { Content, Footer } = Layout;
 
 class Navbar extends Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
+        const CustomizedMenu = () => (
+            <div>
+                <AuthUserContext.Consumer>
+                    {authUser =>
+                        authUser.authUser ? <MenuAuth /> : <MenuUnAuth />
+                    }
+                </AuthUserContext.Consumer>
+            </div>
+        );
+
         return (
             <Router>
                 <Layout style={{ minHeight: '100vh' }}>
+                    <CustomizedMenu />
                     <Layout>
-                        <Menu theme="dark" mode="horizontal" className='Nav_Menu'>
-                            <Menu.Item key="1">
-                                <Icon type="home" />
-                                <span>Home</span>
-                                <Link to={ROUTES.LANDING} />
-                            </Menu.Item>
-                            <Menu.Item key="4">
-                                <span>Classes</span>
-                                <Link to={ROUTES.CLASS_LIST} />
-                            </Menu.Item>
-                            <Menu.Item key="5">
-                                <span>FAQ</span>
-                                <Link to={ROUTES.FAQ} />
-                            </Menu.Item>
-                            <Menu.Item key="2" className="Nav_Menu_Item">
-                                <Icon type="login" />
-                                <span>Log In</span>
-                                <Link to={ROUTES.LOG_IN} />
-                            </Menu.Item>
-                        </Menu>
                         <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
                             <Switch>
                                 <Route exact path={ROUTES.LANDING} component={Landing} />
@@ -49,6 +50,8 @@ class Navbar extends Component {
                                 <Route exact path={ROUTES.LOG_IN} component={LogIn} />
                                 <Route exact path={ROUTES.SIGN_UP} component={SignUp} />
                                 <Route exact path={ROUTES.PROFILE} component={Profile} />
+                                <Route exact path={ROUTES.ACCOUNT} component={Account} />
+                                <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
                             </Switch>
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>
