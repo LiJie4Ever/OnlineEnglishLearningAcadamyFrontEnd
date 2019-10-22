@@ -8,3 +8,4 @@ export const PASSWORD_FORGET = '/pwdForget';
 export const CLASS_LIST = '/classList';
 export const FAQ = '/FAQ';
 export const PROFILE = '/profile';
+export const CART = '/Cart';
