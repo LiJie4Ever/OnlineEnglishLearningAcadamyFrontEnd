@@ -31,15 +31,15 @@ class MenuUnAuth extends Component {
                     <Icon type="team" />
                     <Link to="/tutor" />
                 </Menu.Item>
-                <Menu.Item key="8" className="Nav_Menu_Item">
-                    <Icon type="shopping-cart" />
-                    <span>Cart</span>
-                    <Link to="/cart" />
-                </Menu.Item>
                 <Menu.Item key="4" className="Nav_Menu_Item">
                     <Icon type="login" />
                     <span>Log In</span>
                     <Link to={ROUTES.LOG_IN} />
+                </Menu.Item>
+                <Menu.Item key="8" className="Nav_Menu_Item">
+                    <Icon type="shopping-cart" />
+                    <span>Cart</span>
+                    <Link to="/cart" />
                 </Menu.Item>
             </Menu>
         )
