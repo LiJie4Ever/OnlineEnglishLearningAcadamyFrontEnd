@@ -25,15 +25,15 @@ class RegistrationForm extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                this.props.firebase
-                    .doCreateUserWithEmailAndPassword(values.email, values.password)
-                    .then(authUser => {
-                        this.setState({ ...INITIAL_STATE });
-                        this.props.history.push(ROUTES.PROFILE);
-                    })
-                    .catch(error => {
-                        this.setState({ ...INITIAL_STATE });
-                    });
+                this.props.history.push(
+                    {
+                        pathname: ROUTES.PROFILE,
+                        state: {
+                            email: values.email,
+                            password: values.password
+                        }
+                    }
+                )
             }
         });
     };

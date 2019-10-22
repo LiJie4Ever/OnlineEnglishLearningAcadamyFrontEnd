@@ -25,8 +25,14 @@ class RegistrationForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
-                this.props.history.push(ROUTES.LANDING);
+                this.props.firebase
+                    .doCreateUserWithEmailAndPassword(this.props.location.state.email, this.props.location.state.password)
+                    .then(authUser => {
+                        this.props.history.push(ROUTES.LANDING);
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
             }
         });
     };
