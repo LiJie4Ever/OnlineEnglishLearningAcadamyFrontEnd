@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PasswordChangePage from '../PasswordChange/index';
 import { AuthUserContext, withAuthorization } from '../Session';
+import BroughtCourse from './BroughtCourse';
 
 class AccountPage extends Component {
     constructor(props) {
@@ -14,6 +15,7 @@ class AccountPage extends Component {
                     <div>
                         <h1>Account: {data.authUser.email}</h1>
                         <PasswordChangePage />
+                        <BroughtCourse />
                     </div>
                 )}
             </AuthUserContext.Consumer>
@@ -23,3 +25,4 @@ class AccountPage extends Component {
 
 const condition = authUser => !!authUser;
 export default withAuthorization(condition)(AccountPage);
+

@@ -1,0 +1,50 @@
+.left{
+    float: left;
+    padding: 50px;
+    width: 600px;
+}
+
+.right{
+    float: right;
+    padding: 50px;
+    width: 400px;
+    margin-right: 200px;
+}
+
+h1{
+    font-size: 25px;
+}
+
+.img{
+    width: 50px;
+    height: 50px;
+}
+
+.summary-left{
+    float: left;
+}
+
+.summary-right{
+    float: right;
+}
+
+.clear{
+    clear: both;
+}
+
+.box{
+    margin-top: 40px;
+    padding: 30px 50px 30px 50px;
+    border: 2px solid #ededed;
+    border-radius: 8px;
+    width: 300px;
+    font-size: 15px;
+    line-height: 30px;
+    color: black;
+}
+
+hr{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #e8e8e8;
+}
