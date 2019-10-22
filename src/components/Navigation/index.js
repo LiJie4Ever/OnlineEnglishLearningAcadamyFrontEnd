@@ -11,6 +11,7 @@ import Faq from '../Faq/index';
 import ClassList from '../ClassList/index';
 import Courses from '../Account/index';
 import Tutor from '../Tutor/index';
+import Cart from '../Cart/index';
 
 const { Content, Footer } = Layout;
 
@@ -44,8 +45,8 @@ class Navbar extends Component {
                                 <Link to="/account" />
                             </Menu.Item>
                             <Menu.Item key="8">
-                                <span>Blog</span>
-                                <Link to="/session" />
+                                <span>Cart</span>
+                                <Link to="/cart" />
                             </Menu.Item>
 
                             <Menu.Item key="2" className="Nav_Menu_Item">
@@ -68,6 +69,7 @@ class Navbar extends Component {
                                 <Route exact path="/signUp" component={SignUp} />
                                 <Route exact path="/account" component={Courses} />
                                 <Route exact path="/tutor" component={Tutor} />
+                                <Route exact path="/cart" component={Cart} />
                             </Switch>
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>

@@ -7,54 +7,31 @@ import { List, Card } from 'antd';
 
 
 const { Header, Footer, Content } = Layout;
-const data = [
-  {
-    title: 'Title 1',
-  },
-  {
-    title: 'Title 2',
-  },
-  {
-    title: 'Title 3',
-  },
-  {
-    title: 'Title 4',
-  },
-];
-const data2 = [
-  {
-    title: 'Title 1',
-  },
-  {
-    title: 'Title 2',
-  },
-  {
-    title: 'Title 3',
-  },
-];
+
 function WelcomeSlider(){
     return (
         <Carousel autoplay>
             <div>
                 <img className="WelcomePicContainer"
-                     src="https://wallpaperplay.com/walls/full/c/1/d/86360.jpg"
+                     src="https://66.media.tumblr.com/92ba6aa44457b2e298b0da231f414c72/tumblr_inline_ptmikgMJBL1rjic88_1280.jpg"
+                 />
+            </div>
+            <div>
+                <img className="WelcomePicContainer"
+                     src="https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Freignoftroy.com%2Fwp-content%2Fuploads%2Fgetty-images%2F2016%2F04%2F1172602027.jpeg&c=sc&w=736&h=485"
                 />
             </div>
             <div>
                 <img className="WelcomePicContainer"
-                     src="https://zos.alipayobjects.com/rmsportal/hzPBTkqtFpLlWCi.jpg"
+                     src="https://www.insidehighered.com/sites/default/server_files/media/2015105_USC_Spring_2015_1529_0.jpg"
                  />
             </div>
             <div>
                 <img className="WelcomePicContainer"
-                     src="https://i.pinimg.com/originals/a8/ca/9b/a8ca9bb30361ccd7ebc30562303703de.png"
+                     src="https://housing.usc.edu/wp-content/uploads/2013/06/UV-Panorama-x2.jpg"
                  />
             </div>
-            <div>
-                <img className="WelcomePicContainer"
-                     src="https://cdn1.epicgames.com/ue/product/Screenshot/19-1920x1080-67576b6000ce6090012a4ecd1c818d55.jpg"
-                 />
-            </div>
+
          </Carousel>
     );
 }
@@ -64,8 +41,16 @@ class landing extends React.Component {
         return (
             <div>
                 <Layout>
-                    <Header>Welcome to Online English Language Academy</Header>
-                    <Content><WelcomeSlider />,</Content>
+                    <Header>Welcome to Online English Language Academy
+                    <div>
+                        Located in the heart of Los Angeles, USC’s University
+                    </div>
+                    </Header>
+                    <Content><WelcomeSlider />
+                    <div>
+                        Why US?Our experience with Aspen Learning went above and beyond all our tutoring expectations and I would highly recommend their service
+                    </div>
+                    </Content>
                     <Footer>
                         <Row gutter={16}>
       <Col span={8}>
@@ -84,28 +69,6 @@ Not located in Los Angeles, but still want to take part in amazing learning oppo
 Aspen Learning’s educators promote self-advocacy in our students, giving them the confidence and multitude of strategies to become successful, independent learners. By encouraging growth in communication and increased confidence, students learn to communicate with teachers in an effective way, gaining clarity in their studies, and promoting accountability. Our tutoring philosophy is based on developing a positive, respectful, and trusting relationship with our students and families.         </Card>
       </Col>
                         </Row></Footer>
-                    <Footer>
-                        <List grid={{ gutter: 16, column: 3, span:8, bordered:false }}
-                              dataSource={data2}
-                              renderItem={item => (
-                                  <List.Item>
-                                      <Card style={{ width: 320, height:200 }}
-                                          title={item.title}>
-                                      </Card>
-                                  </List.Item>
-                              )}
-                        />
-                    </Footer>
-                    <Footer>
-                        <List grid={{ gutter: 8, column: 2 }}
-                              dataSource={data}
-                              renderItem={item => (
-                                  <List.Item>
-                                      <Card title={item.title}>Card content</Card>
-                                  </List.Item>
-                              )}
-                        />
-                    </Footer>
                     <Footer>
                         “I have twin boys who are currently enrolled in a LAUSD high school. Prior to being introduced to Aspen Learning, our home would become a battleground when it was time to do homework. My sons were not receiving enough instruction at school and were often feeling frustration and confusion around the curriculum. I cannot say enough good things in regard to the incredibly mindful process of Aspen Learning – from the exploratory testing to discover what type of learner your child is, to meeting with Kelsey who is obviously passionate about her product, to matching your child with a tutor who is the best fit for him/her, to consistent follow up with both the parent and tutor and lastly, to inspiring your child to want to learn on their own. Our experience with Aspen Learning went above and beyond all our tutoring expectations and I would highly recommend their services. With great appreciation”
                     </Footer>

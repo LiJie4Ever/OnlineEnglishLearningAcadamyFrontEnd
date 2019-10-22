@@ -3,31 +3,35 @@
   text-align: center;
 }
 .ant-layout-header{
-    color:grey;
-    background: #e5e5e5;
+    color:white;
+    background: #FA292A;
     height: 16vh;
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
+}
+.ant-layout-header div{
+    font-size: 20px;
+    color: #e5e5e5;
+    padding-top: -25px;
 }
 .ant-layout-footer {
     text-align: center;
-  background: #7dbcea;
+  background: #B89F5D;
   color: #fff;
 }
 .ant-layout-footer {
   line-height: 1.5;
 }
 .ant-layout-content {
-  background: rgba(16, 142, 233, 1);
+    background: #FA292A;
   color: #fff;
   min-height: 120px;
   line-height: 120px;
 }
-.ant-layout-content {
-  background: rgba(16, 142, 233, 1);
+.ant-layout-content{
+  background: #5A7670;
   color: #fff;
-  min-height: 120px;
-  line-height: 120px;
+    text-align: center;
 }
 > .code-box-demo > div > .ant-layout {
   margin-bottom: 48px;
@@ -40,7 +44,7 @@
   text-align: center;
   height: 75vh;
   line-height: 160px;
-  background: #364d79;
+  background: white;
   overflow: hidden;
 }
 
@@ -49,6 +53,7 @@
   color: #fff;
 }
 .WelcomePicContainer{
+
     width:1280px;
     height:500px;
     mode:'fit' ;
