@@ -64,5 +64,13 @@ a:hover{
     color: #FFCD00;
 }
 
+.description{
+    float: left;
+}
+
+.price{
+    float: right;
+}
+
 
 

@@ -10,3 +10,4 @@ export const FAQ = '/FAQ';
 export const PROFILE = '/profile';
 export const CART = '/cart';
 export const TUTOR = '/tutor';
+
