@@ -5,25 +5,17 @@ import { List, Avatar, Skeleton, Button } from 'antd';
 
 const data = [
     {
-        title: 'Class Title 1',
-        tutor: 'Tutor 1',
-        price: 19.99
-    },
-    {
-        title: 'Class Title 2',
-        tutor: 'Tutor 2',
-        price: 29.99
-    },
-    {
-        title: 'Class Title 3',
-        tutor: 'Tutor 3',
-        price: 39.99
-    },
-    {
-        title: 'Class Title 4',
-        tutor: 'Tutor 4',
+        title: 'TOEFL No Brainer - Listening',
+        tutor: 'Lisa Brian',
+        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/KaitlynM_e13daf1e.png',
         price: 49.99
     },
+    {
+        title: 'TOEFL No Brainer - Reading',
+        tutor: 'Tommy Chen',
+        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/DerekT_74d615e5.png',
+        price: 49.99
+    }
 ];
 
 class Cart extends React.Component {
@@ -63,7 +55,7 @@ class Cart extends React.Component {
                                 <Skeleton avatar title={false} loading={item.loading} active>
                                     <List.Item.Meta
                                         avatar={
-                                            <Avatar className='img' src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                            <Avatar className='img' src={item.avatar} />
                                         }
                                         title={<a href="/">{item.title}</a>}
                                         description={item.tutor}
