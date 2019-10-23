@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PasswordChangePage from '../PasswordChange/index';
 import { AuthUserContext, withAuthorization } from '../Session';
+import { Divider } from 'antd';
+import 'antd/dist/antd.css';
 import BoughtCourse from './BoughtCourse';
 
 class AccountPage extends Component {
