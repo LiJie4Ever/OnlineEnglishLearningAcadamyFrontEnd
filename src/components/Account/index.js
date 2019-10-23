@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PasswordChangePage from '../PasswordChange/index';
 import { AuthUserContext, withAuthorization } from '../Session';
-import BroughtCourse from './BroughtCourse';
+import BoughtCourse from './BoughtCourse';
 
 class AccountPage extends Component {
     constructor(props) {
@@ -15,7 +15,7 @@ class AccountPage extends Component {
                     <div>
                         <h1>Account: {data.authUser.email}</h1>
                         <PasswordChangePage />
-                        <BroughtCourse />
+                        <BoughtCourse />
                     </div>
                 )}
             </AuthUserContext.Consumer>

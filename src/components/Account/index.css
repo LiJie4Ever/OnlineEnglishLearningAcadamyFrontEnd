@@ -1,0 +1,82 @@
+.list{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.item{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 900px;
+}
+
+.left{
+    float: left;
+    width: 200px;
+}
+
+.middle{
+    float: left;
+    margin-left: 20px;
+    width: 450px;
+}
+
+.right{
+    float: right;
+    width: 150px;
+}
+
+.title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.subtitle{
+    font-size: 13px;
+    color: #919191;
+}
+
+.intro{
+    margin-top: 10px;
+    width: 400px;
+}
+
+.price{
+    color: #810000;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.clear{
+    clear: both;
+}
+
+hr{
+    margin-top: 5px;
+    border: 1px solid #e8e8e8;
+}
+
+a{
+    color: #990000;
+}
+
+a:hover{
+    color: #FFCD00;
+}
+
+.description{
+    float: left;
+}
+
+.price{
+    float: right;
+}
+
+.ant-list-item-extra{
+    width: 400px;
+    height: 200px;
+    text-align: center;
+}
+
+
+
+
