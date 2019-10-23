@@ -5,15 +5,15 @@ import { List, Avatar, Skeleton, Button } from 'antd';
 
 const data = [
     {
-        title: 'TOEFL No Brainer - Listening',
-        tutor: 'Lisa Brian',
-        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/KaitlynM_e13daf1e.png',
+        title: 'TOEFL No Brainer - Speaking',
+        tutor: 'Jack Ber',
+        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/Jeremy_548a87ab.png',
         price: 49.99
     },
     {
-        title: 'TOEFL No Brainer - Reading',
-        tutor: 'Tommy Chen',
-        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/DerekT_74d615e5.png',
+        title: 'TOEFL No Brainer - Writing',
+        tutor: 'Martin D. D',
+        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/LoganM_be634aab.png',
         price: 49.99
     }
 ];
@@ -27,14 +27,14 @@ class Cart extends React.Component {
         var sum = {
             cost: 0,
             tax: 0,
-            total: 0
+            total: 0,
         }
 
         for (var i = 0; i < data.length; i++){
             sum.cost += data[i].price
         }
-        sum.tax = Math.round((sum.cost * 0.15) * 100) / 100
-        sum.total = Math.round((sum.cost + sum.tax) * 100) / 100
+        sum.tax = (sum.cost * 0.15).toFixed(2);
+        sum.total = parseFloat(sum.cost) + parseFloat(sum.tax);
 
 
         return sum
