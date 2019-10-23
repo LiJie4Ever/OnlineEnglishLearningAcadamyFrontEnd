@@ -1,7 +1,7 @@
 .list{
     margin-left: auto;
     margin-right: auto;
-    width: 900px;
+    width: 80%;
 }
 
 .item{
@@ -71,6 +71,13 @@ a:hover{
 .price{
     float: right;
 }
+
+.ant-list-item-extra{
+    width: 400px;
+    height: 200px;
+    text-align: center;
+}
+
 
 
 

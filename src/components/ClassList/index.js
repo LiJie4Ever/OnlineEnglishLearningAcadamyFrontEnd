@@ -6,7 +6,7 @@ import { Col, Row, Divider } from 'antd';
 class ClassList extends React.Component {
     render() {
         return (
-            <div className="list">
+            <div>
                 <ClassItem />
             </div>
         );
