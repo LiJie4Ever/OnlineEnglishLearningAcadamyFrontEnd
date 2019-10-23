@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PasswordChangePage from '../PasswordChange/index';
 import { AuthUserContext, withAuthorization } from '../Session';
+import { Divider } from 'antd';
+import 'antd/dist/antd.css';
 import BroughtCourse from './BroughtCourse';
 
 class AccountPage extends Component {
@@ -13,9 +15,10 @@ class AccountPage extends Component {
             <AuthUserContext.Consumer>
                 {data => (
                     <div>
-                        <h1>Account: {data.authUser.email}</h1>
-                        <PasswordChangePage />
+                        <h1>Hi: {data.authUser.email}</h1>
                         <BroughtCourse />
+                        <Divider />
+                        <PasswordChangePage />
                     </div>
                 )}
             </AuthUserContext.Consumer>
