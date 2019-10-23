@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css"
 import 'antd/dist/antd.css';
-import { List, Avatar, Skeleton } from 'antd';
+import { List, Avatar, Skeleton, Button } from 'antd';
 
 const data = [
     {
@@ -92,6 +92,8 @@ class Cart extends React.Component {
                         <div className='summary-right'>{this.getSummary().total }</div>
                         <div className="clear"></div>
                     </div>
+
+                    <Button>Check Out</Button>
                 </div>
 
                 <div className="clear"></div>
