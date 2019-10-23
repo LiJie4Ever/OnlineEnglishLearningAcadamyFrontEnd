@@ -26,12 +26,18 @@ class MenuUnAuth extends Component {
                     <span>FAQ</span>
                     <Link to={ROUTES.FAQ} />
                 </Menu.Item>
+                <Menu.Item key="7">
+                    <Icon type="team" />
+                    <span>Tutors</span>
+                    <Link to={ROUTES.TUTOR} />
+                </Menu.Item>
                 <Menu.Item key="4" className="Nav_Menu_Item">
                     <Icon type="login" />
                     <span>Log In</span>
                     <Link to={ROUTES.LOG_IN} />
                 </Menu.Item>
-                <Menu.Item key="5" className="Nav_Menu_Item">
+                <Menu.Item key="8" className="Nav_Menu_Item">
+                    <Icon type="shopping-cart" />
                     <span>Cart</span>
                     <Link to={ROUTES.CART} />
                 </Menu.Item>

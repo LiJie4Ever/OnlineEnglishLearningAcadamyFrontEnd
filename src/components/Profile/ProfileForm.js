@@ -10,6 +10,8 @@ import {
     DatePicker,
     Select,
 } from 'antd';
+import * as ROUTES from "../../constants/routes";
+
 
 const { Option } = Select;
 
@@ -23,8 +25,14 @@ class RegistrationForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
-                console.log(this.props.data.idToken);
+                this.props.firebase
+                    .doCreateUserWithEmailAndPassword(this.props.location.state.email, this.props.location.state.password)
+                    .then(authUser => {
+                        this.props.history.push(ROUTES.LANDING);
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
             }
         });
     };

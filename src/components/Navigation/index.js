@@ -14,11 +14,13 @@ import LogIn from "../SignIn";
 import SignUp from "../SignUp";
 import Profile from "../Profile";
 import Account from "../Account";
-import Cart from "../Cart";
+import Tutor from '../Tutor/index';
+import Cart from '../Cart/index';
 
 import MenuAuth from "./MenuAuth";
 import MenuUnAuth from "./MenuUnAuth";
 import PasswordForgetPage from "../PasswordForget";
+
 
 const { Content, Footer } = Layout;
 
@@ -53,6 +55,8 @@ class Navbar extends Component {
                                 <Route exact path={ROUTES.CART} component={Cart} />
                                 <Route exact path={ROUTES.PROFILE} component={Profile} />
                                 <Route exact path={ROUTES.ACCOUNT} component={Account} />
+                                <Route exact path={ROUTES.TUTOR} component={Tutor} />
+                                <Route exact path={ROUTES.CART} component={Cart} />
                                 <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
                             </Switch>
                         </Content>

@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import SignOutButton from "../SignOut";
 
-
 class MenuAuth extends Component {
     constructor(props) {
         super(props);
@@ -28,6 +27,11 @@ class MenuAuth extends Component {
                     <span>FAQ</span>
                     <Link to={ROUTES.FAQ} />
                 </Menu.Item>
+                <Menu.Item key="7">
+                    <Icon type="team" />
+                    <span>Tutors</span>
+                    <Link to={ROUTES.TUTOR} />
+                </Menu.Item>
                 <Menu.Item key="4">
                     <Icon type="profile" />
                     <span>Account</span>
@@ -37,7 +41,8 @@ class MenuAuth extends Component {
                     <Icon type="logout" />
                     <SignOutButton />
                 </Menu.Item>
-                <Menu.Item key="6" className="Nav_Menu_Item">
+                <Menu.Item key="8" className="Nav_Menu_Item">
+                    <Icon type="shopping-cart" />
                     <span>Cart</span>
                     <Link to={ROUTES.CART} />
                 </Menu.Item>
