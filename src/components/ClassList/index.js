@@ -7,29 +7,7 @@ class ClassList extends React.Component {
     render() {
         return (
             <div className="list">
-                <Row gutter={24}>
-                    <Col span={8}>
-                        <ClassItem />
-                    </Col>
-                    <Col span={8}>
-                        <ClassItem />
-                    </Col>
-                    <Col span={8}>
-                        <ClassItem />
-                    </Col>
-                </Row>
-                <Divider />
-                <Row gutter={24}>
-                    <Col span={8}>
-                        <ClassItem />
-                    </Col>
-                    <Col span={8}>
-                        <ClassItem />
-                    </Col>
-                    <Col span={8}>
-                        <ClassItem />
-                    </Col>
-                </Row>
+                <ClassItem />
             </div>
         );
     }

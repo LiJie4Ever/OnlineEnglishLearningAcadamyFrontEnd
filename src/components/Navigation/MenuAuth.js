@@ -37,6 +37,10 @@ class MenuAuth extends Component {
                     <Icon type="logout" />
                     <SignOutButton />
                 </Menu.Item>
+                <Menu.Item key="6" className="Nav_Menu_Item">
+                    <span>Cart</span>
+                    <Link to={ROUTES.CART} />
+                </Menu.Item>
             </Menu>
         )
     }
