@@ -3,7 +3,7 @@ import PasswordChangePage from '../PasswordChange/index';
 import { AuthUserContext, withAuthorization } from '../Session';
 import { Divider } from 'antd';
 import 'antd/dist/antd.css';
-import BroughtCourse from './BroughtCourse';
+import BoughtCourse from './BoughtCourse';
 
 class AccountPage extends Component {
     constructor(props) {
@@ -15,10 +15,9 @@ class AccountPage extends Component {
             <AuthUserContext.Consumer>
                 {data => (
                     <div>
-                        <h1>Hi: {data.authUser.email}</h1>
-                        <BroughtCourse />
-                        <Divider />
+                        <h1>Account: {data.authUser.email}</h1>
                         <PasswordChangePage />
+                        <BoughtCourse />
                     </div>
                 )}
             </AuthUserContext.Consumer>
