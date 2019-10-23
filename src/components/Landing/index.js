@@ -42,13 +42,10 @@ class landing extends React.Component {
             <div>
                 <Layout>
                     <Header>Welcome to Online English Language Academy
-                    <div>
-                        Located in the heart of Los Angeles, USC’s University
-                    </div>
                     </Header>
                     <Content><WelcomeSlider />
-                    <div>
-                        Why US?Our experience with Aspen Learning went above and beyond all our tutoring expectations and I would highly recommend their service
+                    <div style={{paddingLeft: '20px'}}>
+                        Why USC? Our experience with Aspen Learning went above and beyond all our tutoring expectations and I would highly recommend their service
                     </div>
                     </Content>
                     <Footer>
