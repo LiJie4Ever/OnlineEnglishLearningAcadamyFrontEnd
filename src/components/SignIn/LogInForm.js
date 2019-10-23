@@ -2,6 +2,7 @@ import React from "react";
 import {Button, Checkbox, Form, Icon, Input} from "antd";
 import {Link} from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
+import "./index.css";
 
 const INITIAL_STATE = {
     email: '',
