@@ -122,7 +122,7 @@ const IconText = ({ type, text }) => (
 class BroughtCourse extends React.Component {
     render() {
         return (
-            <div className='table'>
+            <div className='list'>
                 <List
                     itemLayout="vertical"
                     size="large"
