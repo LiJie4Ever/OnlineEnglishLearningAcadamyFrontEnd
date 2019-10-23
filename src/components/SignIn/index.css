@@ -1,5 +1,7 @@
 .login-form {
-    max-width: 300px;
+    width: 350px;
+    margin-right: auto !important;
+    margin-left: auto !important;
 }
 .login-form-forgot {
     float: right;
@@ -8,7 +10,7 @@
     width: 100%;
 }
 .LogIn_Container {
-    width: 300px;
+    width: 500px;
     margin: 20px auto;
     align-content: center;
 }

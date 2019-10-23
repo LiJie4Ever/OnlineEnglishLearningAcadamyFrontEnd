@@ -31,7 +31,7 @@ class Cart extends React.Component {
 
     }
 
-     getSummary(){
+    getSummary(){
         var sum = {
             cost: 0,
             tax: 0,
@@ -53,26 +53,26 @@ class Cart extends React.Component {
             <div>
                 <div className="left">
                     <h1>Items</h1>
-                        <List
-                            itemLayout="horizontal"
-                            dataSource={data}
-                            renderItem={item => (
-                                <List.Item
-                                    actions={[<a onClick={this.removeItem}>remove</a>]}
-                                >
-                                    <Skeleton avatar title={false} loading={item.loading} active>
-                                        <List.Item.Meta
-                                            avatar={
-                                                <Avatar className='img' src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                                            }
-                                            title={<a href="/">{item.title}</a>}
-                                            description={item.tutor}
-                                        />
-                                        <div>US$ {item.price}</div>
-                                    </Skeleton>
-                                </List.Item>
-                            )}
-                        />
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={data}
+                        renderItem={item => (
+                            <List.Item
+                                actions={[<a onClick={this.removeItem}>remove</a>]}
+                            >
+                                <Skeleton avatar title={false} loading={item.loading} active>
+                                    <List.Item.Meta
+                                        avatar={
+                                            <Avatar className='img' src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                        }
+                                        title={<a href="/">{item.title}</a>}
+                                        description={item.tutor}
+                                    />
+                                    <div>US$ {item.price}</div>
+                                </Skeleton>
+                            </List.Item>
+                        )}
+                    />
                 </div>
 
                 <div className="right">
@@ -93,7 +93,7 @@ class Cart extends React.Component {
                         <div className="clear"></div>
                     </div>
 
-                    <Button>Check Out</Button>
+                    <Button className='button'>Check Out</Button>
                 </div>
 
                 <div className="clear"></div>
