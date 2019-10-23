@@ -43,7 +43,7 @@ const listData = [
             'speaking skills. In addition, students are given practice in critical thinking ' +
             'and note-taking skills.',
         image: 'https://adlc.uad.ac.id/wp-content/uploads/TOEFL-Exam-Prep-1.jpg',
-        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/Jeremy_548a87ab.png\n',
+        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/Jeremy_548a87ab.png',
         star: 398,
         like: 234,
         cmmt: 4
