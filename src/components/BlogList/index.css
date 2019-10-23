@@ -1,0 +1,46 @@
+.blogItem {
+    margin: 0 auto;
+    width: 65%;
+}
+
+.ant-card-head {
+    font-weight: bolder;
+}
+.ant-card-head:hover {
+    color: #990000;;
+}
+
+.blogContent {
+    margin: 0 auto;
+    background: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+.blogAuthor {
+    margin-top: 1%;
+    margin-bottom: 0;
+    width: 30%;
+    background: white;
+}
+
+.ant-pagination{
+    margin: 2% 40%;
+}
+
+.blogPage {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.blogPageAuthor {
+    background: white;
+}
+.blogPageContent {
+    background: white;
+}
+
+
