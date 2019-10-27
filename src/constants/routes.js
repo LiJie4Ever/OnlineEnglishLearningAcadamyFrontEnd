@@ -10,4 +10,8 @@ export const FAQ = '/FAQ';
 export const PROFILE = '/profile';
 export const CART = '/cart';
 export const TUTOR = '/tutor';
+export const USER_LIST='/userList';
+export const SCHEDULE='/schedule';
+export const MANAGE_BLOG='/manageBlog';
+export const PAYMENT='/payment';
 

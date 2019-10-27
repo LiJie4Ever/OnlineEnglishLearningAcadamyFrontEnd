@@ -17,7 +17,6 @@ class MenuUnAuth extends Component {
                     <Link to={ROUTES.LANDING} />
                 </Menu.Item>
                 <Menu.Item key="2">
-                    <Icon type="video-camera" />
                     <span>Classes</span>
                     <Link to={ROUTES.CLASS_LIST} />
                 </Menu.Item>

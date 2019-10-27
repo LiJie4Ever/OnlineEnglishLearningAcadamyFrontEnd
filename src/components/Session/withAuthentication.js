@@ -16,18 +16,32 @@ const withAuthentication = Component => {
         componentDidMount() {
             this.listener = this.props.firebase.auth.onAuthStateChanged(
                 authUser => {
-                    if (authUser !== null) {
-                        localStorage.setItem('authUser', JSON.stringify(authUser));
-                        this.setState({
-                            authUser: authUser,
-                        });
+                    if (authUser) {
                         authUser.getIdToken().then(string => {
                             localStorage.setItem('idToken', string);
                             this.setState({idToken: string});
                         }).catch(() => {
                             localStorage.removeItem('idToken');
                             this.setState({idToken: null});
-                        })
+                        });
+                        this.props.firebase
+                            .user(authUser.uid)
+                            .once('value')
+                            .then(snapshot => {
+                                const dbUser = snapshot.val();
+                                // default empty roles
+                                if (!dbUser.roles) {
+                                    dbUser.roles = {};
+                                }
+                                // merge auth and db user
+                                authUser = {
+                                    uid: authUser.uid,
+                                    email: authUser.email,
+                                    ...dbUser,
+                                };
+                                this.setState({ authUser: authUser });
+                                localStorage.setItem('authUser', JSON.stringify(authUser));
+                            });
                     } else {
                         localStorage.removeItem('authUser');
                         localStorage.removeItem('idToken');

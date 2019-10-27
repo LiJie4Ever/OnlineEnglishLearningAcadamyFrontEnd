@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Layout } from 'antd';
 import 'antd/dist/antd.css';
 import './index.css';
 import * as ROUTES from '../../constants/routes';
+import * as ROLES from '../../constants/roles';
 import { AuthUserContext } from '../Session';
 
 
@@ -16,6 +17,7 @@ import Profile from "../Profile";
 import Account from "../Account";
 import Tutor from '../Tutor/index';
 import Cart from '../Cart/index';
+import Admin from '../Admin/index';
 
 import MenuAuth from "./MenuAuth";
 import MenuUnAuth from "./MenuUnAuth";
@@ -33,8 +35,8 @@ class Navbar extends Component {
         const CustomizedMenu = () => (
             <div>
                 <AuthUserContext.Consumer>
-                    {authUser =>
-                        authUser.authUser ? <MenuAuth /> : <MenuUnAuth />
+                    {data =>
+                        data.authUser ? <MenuAuth authUser={data.authUser}/> : <MenuUnAuth />
                     }
                 </AuthUserContext.Consumer>
             </div>
@@ -58,6 +60,7 @@ class Navbar extends Component {
                                 <Route exact path={ROUTES.TUTOR} component={Tutor} />
                                 <Route exact path={ROUTES.CART} component={Cart} />
                                 <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+                                <Route exact path={ROUTES.ADMIN} component={Admin} />
                             </Switch>
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>

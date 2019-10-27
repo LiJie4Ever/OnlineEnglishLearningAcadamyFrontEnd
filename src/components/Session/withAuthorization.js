@@ -13,7 +13,27 @@ const withAuthorization = condition => Component => {
         componentDidMount() {
             this.listener = this.props.firebase.auth.onAuthStateChanged(
                 authUser => {
-                    if (!condition(authUser)) {
+                    if (authUser) {
+                        this.props.firebase
+                            .user(authUser.uid)
+                            .once('value')
+                            .then(snapshot => {
+                                const dbUser = snapshot.val();
+                                // default empty roles
+                                if (!dbUser.roles) {
+                                    dbUser.roles = {};
+                                }
+                                // merge auth and db user
+                                authUser = {
+                                    uid: authUser.uid,
+                                    email: authUser.email,
+                                    ...dbUser,
+                                };
+                                if (!condition(authUser)) {
+                                    this.props.history.push(ROUTES.LOG_IN);
+                                }
+                            });
+                    } else {
                         this.props.history.push(ROUTES.LOG_IN);
                     }
                 },

@@ -95,7 +95,7 @@ class BoughtCourse extends React.Component {
                                     <List.Item.Meta
                                         avatar={<Avatar src={item.avatar} />}
                                         title={<a href="https://usc.edu">{item.title}</a>}
-                                        description={<spam>{item.description} ·  {item.tutor} · {item.date} {item.time}</spam>}
+                                        description={<span>{item.description} ·  {item.tutor} · {item.date} {item.time}</span>}
                                     />
                                 </List.Item>
                             )}

@@ -3,6 +3,8 @@ import {Icon, Menu} from "antd";
 import {Link} from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import SignOutButton from "../SignOut";
+import * as ROLES from '../../constants/roles';
+
 
 class MenuAuth extends Component {
     constructor(props) {
@@ -18,7 +20,6 @@ class MenuAuth extends Component {
                     <Link to={ROUTES.LANDING} />
                 </Menu.Item>
                 <Menu.Item key="2">
-                    <Icon type="video-camera" />
                     <span>Classes</span>
                     <Link to={ROUTES.CLASS_LIST} />
                 </Menu.Item>
@@ -26,16 +27,20 @@ class MenuAuth extends Component {
                     <span>FAQ</span>
                     <Link to={ROUTES.FAQ} />
                 </Menu.Item>
-                <Menu.Item key="7">
+                <Menu.Item key="4">
                     <span>Tutors</span>
                     <Link to={ROUTES.TUTOR} />
                 </Menu.Item>
-                <Menu.Item key="4">
-                    <Icon type="profile" />
+                <Menu.Item key="5">
                     <span>Account</span>
                     <Link to={ROUTES.ACCOUNT} />
                 </Menu.Item>
-                <Menu.Item key="5" className="Nav_Menu_Item">
+                {!!this.props.authUser.roles[ROLES.ADMIN] && (
+                    <Menu.Item>
+                        <Link to={ROUTES.ADMIN}>Admin</Link>
+                    </Menu.Item>
+                )}
+                <Menu.Item key="7" className="Nav_Menu_Item">
                     <Icon type="logout" />
                     <SignOutButton />
                 </Menu.Item>
