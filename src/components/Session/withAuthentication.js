@@ -37,6 +37,8 @@ const withAuthentication = Component => {
                                 authUser = {
                                     uid: authUser.uid,
                                     email: authUser.email,
+                                    emailVerified: authUser.emailVerified,
+                                    providerData: authUser.providerData,
                                     ...dbUser,
                                 };
                                 this.setState({ authUser: authUser });

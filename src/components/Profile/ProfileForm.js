@@ -37,17 +37,22 @@ class RegistrationForm extends React.Component {
                 this.props.firebase
                     .doCreateUserWithEmailAndPassword(this.props.location.state.email, this.props.location.state.password)
                     .then(authUser => {
-                        this.props.firebase
-                            .user(authUser.user.uid)
-                            .set({
-                                userName: values.userName,
-                                email: this.props.location.state.email,
-                                gender: values.gender,
-                                birthDay: birthDay,
-                                country: values.country,
-                                roles: roles,
-                                zoomAccountId: values.zoomAccountId
-                            });
+                         return this.props.firebase
+                                .user(authUser.user.uid)
+                                .set({
+                                    userName: values.userName,
+                                    email: this.props.location.state.email,
+                                    gender: values.gender,
+                                    birthDay: birthDay,
+                                    country: values.country,
+                                    roles: roles,
+                                    zoomAccountId: values.zoomAccountId
+                                });
+                    })
+                    .then(() => {
+                        return this.props.firebase.doSendEmailVerification();
+                    })
+                    .then(() => {
                         this.props.history.push(ROUTES.LANDING);
                     })
                     .catch(error => {

@@ -37,9 +37,10 @@ class Firebase {
     doPasswordUpdate = password =>
         this.auth.currentUser.updatePassword(password);
 
-    doSendEmailVerification = () => this.auth.currentUser.sendEmailVerification({
-        url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
-    });
+    doSendEmailVerification = () =>
+        this.auth.currentUser.sendEmailVerification({
+            url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
+        });
 
     // *** User API ***
     user = uid => this.db.ref(`users/${uid}`);

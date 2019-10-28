@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 import { Layout, Menu, Icon } from 'antd';
 import { compose } from 'recompose';
 import * as ROLES from '../../constants/roles';
-import withAuthorization from "../Session/withAuthorization";
+import { withAuthorization, withEmailVerification } from '../Session';
 import * as ROUTES from "../../constants/routes";
 
 const { Sider, Content } = Layout;
@@ -94,6 +94,7 @@ class AdminPage extends Component {
 const condition = authUser =>
     authUser && !!authUser.roles[ROLES.ADMIN];
 export default compose(
+    withEmailVerification,
     withAuthorization(condition),
-    withFirebase,
+    withFirebase
 )(AdminPage);

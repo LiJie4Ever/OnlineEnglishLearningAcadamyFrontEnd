@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PasswordChangePage from '../PasswordChange/index';
-import { AuthUserContext, withAuthorization } from '../Session';
+import { AuthUserContext, withAuthorization, withEmailVerification } from '../Session';
 import 'antd/dist/antd.css';
 import BoughtCourse from './BoughtCourse';
+import { compose } from 'recompose';
 
 class AccountPage extends Component {
     constructor(props) {
@@ -25,5 +26,8 @@ class AccountPage extends Component {
 }
 
 const condition = authUser => !!authUser;
-export default withAuthorization(condition)(AccountPage);
+export default compose(
+    withEmailVerification,
+    withAuthorization(condition),
+)(AccountPage);
 
