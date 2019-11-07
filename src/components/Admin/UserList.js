@@ -66,7 +66,7 @@ class UserList extends Component {
             showHeader,
             rowSelection: undefined,
             scroll: undefined,
-            hasData: this.props.data.hasData,
+            hasData: false,
             tableLayout: undefined,
             ellipsis: 'enable'
         };
@@ -81,18 +81,17 @@ class UserList extends Component {
     // zoomAccountId: "1234556"
 
     componentDidMount() {
-        console.log(this.props.data.users);
-        this.props.data.users.map((item, index) => {
-            data.push({
-                key: index,
-                name: item.userName,
-                country: item.country,
-                email: item.email,
-                gender: item.gender,
-                userGroup: item.roles,
-                zoomAccountId: item.zoomAccountId
-            })
-        })
+        // this.props.data.users.map((item, index) => {
+        //     data.push({
+        //         key: index,
+        //         name: item.userName,
+        //         country: item.country,
+        //         email: item.email,
+        //         gender: item.gender,
+        //         userGroup: item.roles,
+        //         zoomAccountId: item.zoomAccountId
+        //     })
+        // })
     }
 
     render() {

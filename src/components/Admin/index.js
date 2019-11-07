@@ -80,7 +80,7 @@ class AdminPage extends Component {
                     <Layout>
                         <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
                             <Switch>
-                                <Route exact path={`${match.url}${ROUTES.USER_LIST}`} component={() => <UserList data={this.state} />}
+                                <Route exact path={`${match.url}${ROUTES.USER_LIST}`} component={UserList} />}
                                 />
                             </Switch>
                         </Content>

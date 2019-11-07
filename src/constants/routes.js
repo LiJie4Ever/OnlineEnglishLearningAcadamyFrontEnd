@@ -14,4 +14,7 @@ export const USER_LIST='/userList';
 export const SCHEDULE='/schedule';
 export const MANAGE_BLOG='/manageBlog';
 export const PAYMENT='/payment';
-
+export const STUDENT_TUTORING='/takeCourse';
+export const TUTOR_TUTORING='/instructCourse';
+export const BLOGLIST = '/blogList';
+export const BLOG = '/blog/:blogId';

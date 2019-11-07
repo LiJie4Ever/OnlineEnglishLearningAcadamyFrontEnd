@@ -1,6 +1,7 @@
 .blogItem {
     margin: 0 auto;
     width: 65%;
+    text-align: left;
 }
 
 .ant-card-head {
@@ -42,5 +43,3 @@
 .blogPageContent {
     background: white;
 }
-
-

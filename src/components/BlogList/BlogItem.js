@@ -4,10 +4,15 @@ import { Card } from 'antd';
 import './index.css';
 import {Link} from "react-router-dom";
 
+
 class BlogItem extends Component {
     constructor(props) {
         super(props);
-        //this.showBlog = this.showBlog().bind(this);
+        this.showBlog = this.showBlog.bind(this);
+    }
+
+    showBlog() {
+        this.props.history.push();
     }
 
     render() {
@@ -24,7 +29,7 @@ class BlogItem extends Component {
                 <Card className="blogItem" title={blogTitle} extra={time} hoverable onClick={this.showBlog}>
                     <p className="blogContent"> {blogContent} </p>
                     <p className="blogAuthor"> 作者：{blogAuthor} </p>
-                    <Link to={`/blog/${this.props.blogId}`}/>
+                    <Link to={`/blog/1`}/>
                 </Card>
             </div>
         )
@@ -46,9 +51,6 @@ class BlogItem extends Component {
     //     time: propTypes.string
     // };
 
-    showBlog() {
-        console.log("hello");
-    }
 }
 
 export default BlogItem;

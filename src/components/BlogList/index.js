@@ -4,6 +4,16 @@ import './index.css';
 import { Row, Col, List } from 'antd';
 import { Pagination } from 'antd';
 import { BackTop } from 'antd';
+import { compose } from "recompose";
+import { withFirebase } from "../Firebase";
+import { withRouter } from 'react-router-dom';
+import BlogPage from "./BlogPage";
+
+const BlogPageWrapper = compose(
+    withRouter,
+    withFirebase,
+)(BlogItem);
+
 
 class BlogList extends Component {
     render() {
@@ -11,19 +21,19 @@ class BlogList extends Component {
             <div className="blogList">
                 <Row>
                     <Col span={24}>
-                        <BlogItem />
+                        <BlogPageWrapper />
                     </Col>
                     <Col span={24}>
-                        <BlogItem />
+                        <BlogPageWrapper />
                     </Col>
                     <Col span={24}>
-                        <BlogItem />
+                        <BlogPageWrapper />
                     </Col>
                     <Col span={24}>
-                        <BlogItem />
+                        <BlogPageWrapper />
                     </Col>
                     <Col span={24}>
-                        <BlogItem />
+                        <BlogPageWrapper />
                     </Col>
                 </Row>
                 <Pagination defaultCurrent={1} total={50}/>

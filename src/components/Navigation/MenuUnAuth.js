@@ -20,6 +20,10 @@ class MenuUnAuth extends Component {
                     <span>Classes</span>
                     <Link to={ROUTES.CLASS_LIST} />
                 </Menu.Item>
+                <Menu.Item key="10">
+                    <span>Blog</span>
+                    <Link to={ROUTES.BLOG} />
+                </Menu.Item>
                 <Menu.Item key="3">
                     <span>FAQ</span>
                     <Link to={ROUTES.FAQ} />
