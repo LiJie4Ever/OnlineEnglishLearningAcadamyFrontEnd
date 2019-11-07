@@ -19,11 +19,11 @@ const data = [
 ];
 
 class Cart extends React.Component {
-    removeItem(){
+    remove = (index) => {
+        this.setState(data.splice(index, 1));
+    };
 
-    }
-
-    getSummary(){
+    getSummary = () => {
         var sum = {
             cost: 0,
             tax: 0,
@@ -31,13 +31,14 @@ class Cart extends React.Component {
         }
 
         for (var i = 0; i < data.length; i++){
-            sum.cost += data[i].price
+            sum.cost += data[i].price;
         }
+        sum.cost = sum.cost.toFixed(2);
         sum.tax = (sum.cost * 0.15).toFixed(2);
-        sum.total = parseFloat(sum.cost) + parseFloat(sum.tax);
+        sum.total = (parseFloat(sum.cost) + parseFloat(sum.tax)).toFixed(2)
 
 
-        return sum
+        return sum;
     }
 
     render() {
@@ -50,7 +51,9 @@ class Cart extends React.Component {
                         dataSource={data}
                         renderItem={item => (
                             <List.Item
-                                actions={[<a onClick={this.removeItem}>remove</a>]}
+                                actions={[
+                                    <Button onClick={() => this.remove(data.indexOf(item))}>remove</Button>
+                                ]}
                             >
                                 <Skeleton avatar title={false} loading={item.loading} active>
                                     <List.Item.Meta
