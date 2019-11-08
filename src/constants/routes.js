@@ -18,3 +18,4 @@ export const STUDENT_TUTORING='/takeCourse';
 export const TUTOR_TUTORING='/instructCourse';
 export const BLOGLIST = '/blogList';
 export const BLOG = '/blog/:blogId';
+export const COURSE_REQUEST = '/courseReq';

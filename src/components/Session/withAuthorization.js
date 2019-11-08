@@ -16,9 +16,9 @@ const withAuthorization = condition => Component => {
                     if (authUser) {
                         this.props.firebase
                             .user(authUser.uid)
-                            .once('value')
+                            .get()
                             .then(snapshot => {
-                                const dbUser = snapshot.val();
+                                const dbUser = snapshot.data();
                                 // default empty roles
                                 if (!dbUser.roles) {
                                     dbUser.roles = {};

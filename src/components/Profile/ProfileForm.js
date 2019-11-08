@@ -37,7 +37,7 @@ class RegistrationForm extends React.Component {
                 this.props.firebase
                     .doCreateUserWithEmailAndPassword(this.props.location.state.email, this.props.location.state.password)
                     .then(authUser => {
-                         return this.props.firebase
+                         this.props.firebase
                                 .user(authUser.user.uid)
                                 .set({
                                     userName: values.userName,
@@ -47,7 +47,26 @@ class RegistrationForm extends React.Component {
                                     country: values.country,
                                     roles: roles,
                                     zoomAccountId: values.zoomAccountId
-                                });
+                                }, { merge: true },);
+                        if (roles[ROLES.STUDENT]) {
+                            let courseArray = [];
+                            let tutoringArray = [];
+                            return this.props.firebase
+                                .student(authUser.user.uid)
+                                .set({
+                                    courseArray: courseArray,
+                                    tutoringArray: tutoringArray
+                                }, { merge: true },);
+                        }
+                        if (roles[ROLES.TUTOR]) {
+                            return this.props.firebase
+                                .tutor(authUser.user.uid)
+                                .set({
+                                    bio: "Please add your introduction",
+                                    teachingExperience: 0,
+                                    videoLink: ""
+                                }, { merge: true },);
+                        }
                     })
                     .then(() => {
                         return this.props.firebase.doSendEmailVerification();

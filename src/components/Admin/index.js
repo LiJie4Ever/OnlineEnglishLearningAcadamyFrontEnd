@@ -23,29 +23,23 @@ class AdminPage extends Component {
 
     componentDidMount() {
         this.setState({ loading: true });
-        this.props.firebase.users().on('value', snapshot => {
-            const usersObject = snapshot.val();
-            if (usersObject !== null) {
-                const usersList = Object.keys(usersObject).map(key => ({
-                    ...usersObject[key],
-                    uid: key,
-                }));
-                this.setState({
-                    users: usersList,
-                    loading: false,
-                    hasData: true
-                });
-            } else {
-                this.setState({
-                    loading: false,
-                    hasData: false
-                });
-            }
+        this.unsubscribe = this.props.firebase.users().onSnapshot(snapshot => {
+            let users = [];
+            console.log(snapshot);
+            snapshot.forEach(doc => {
+                    users.push({ ...doc.data(), uid: doc.id });
+                }
+            );
+            this.setState({
+                users: users,
+                loading: false,
+                hasData: true
+            });
         });
     }
 
     componentWillUnmount() {
-        this.props.firebase.users().off();
+        this.unsubscribe();
     }
 
     render() {
