@@ -2,7 +2,6 @@ import React, {Component} from "react";
 // import PropTypes from 'prop-types';
 import { Card } from 'antd';
 import './index.css';
-import {Link} from "react-router-dom";
 
 
 class BlogItem extends Component {
@@ -12,24 +11,22 @@ class BlogItem extends Component {
     }
 
     showBlog() {
-        this.props.history.push();
+        var blogInfo = this.props.blogInfo;
+        this.props.history.push({pathname:'/blog/' + blogInfo.id, state:{blogInfo}});
     }
 
     render() {
-        var blogTitle = "党的十九大明确宣告：经过长期努力，中国特色社会主义进入了新时代。";
-        var blogContent = "回溯千年，星云浩瀚。如今这金秋玉树银花，锦绣山河画卷，是烽烟四起时先辈抛洒热血，胼手胝足换来的，华夏儿女生与斯长于斯，光荣与梦想，皆与祖国紧紧相连，不可分割。世事变迁，青山不老，赤心不变。" +
-            "回溯千年，星云浩瀚。如今这金秋玉树银花，锦绣山河画卷，是烽烟四起时先辈抛洒热血，胼手胝足换来的，华夏儿女生与斯长于斯，光荣与梦想，皆与祖国紧紧相连，不可分割。世事变迁，青山不老，赤心不变。" +
-            "回溯千年，星云浩瀚。如今这金秋玉树银花，锦绣山河画卷，是烽烟四起时先辈抛洒热血，胼手胝足换来的，华夏儿女生与斯长于斯，光荣与梦想，皆与祖国紧紧相连，不可分割。世事变迁，青山不老，赤心不变。" +
-            "回溯千年，星云浩瀚。如今这金秋玉树银花，锦绣山河画卷，是烽烟四起时先辈抛洒热血，胼手胝足换来的，华夏儿女生与斯长于斯，光荣与梦想，皆与祖国紧紧相连，不可分割。世事变迁，青山不老，赤心不变。";
-        var blogAuthor = "反正8是我";
-        var time = "10/01/2019";
+        var blogId = this.props.blogInfo.id;
+        var blogTitle = this.props.blogInfo.title;
+        var blogContent = this.props.blogInfo.content;
+        var blogAuthor = this.props.blogInfo.author;
+        var blogDate = this.props.blogInfo.date;
 
         return(
             <div>
-                <Card className="blogItem" title={blogTitle} extra={time} hoverable onClick={this.showBlog}>
+                <Card className="blogItem" title={blogTitle} extra={blogDate} hoverable onClick={this.showBlog}>
                     <p className="blogContent"> {blogContent} </p>
                     <p className="blogAuthor"> 作者：{blogAuthor} </p>
-                    <Link to={`/blog/1`}/>
                 </Card>
             </div>
         )

@@ -1,5 +1,5 @@
 export const LANDING = '/';
-export const SIGN_UP = '/signUp';
+export const SIGN_UP = '/c';
 export const LOG_IN = '/signIn';
 export const HOME = '/home';
 export const ACCOUNT = '/account';
@@ -19,3 +19,5 @@ export const TUTOR_TUTORING='/instructCourse';
 export const BLOGLIST = '/blogList';
 export const BLOG = '/blog/:blogId';
 export const COURSE_REQUEST = '/courseReq';
+export const BLOGMANAGEMENT = '/admin/blogList';
+export const BLOGEDIT = '/admin/blogEdit';

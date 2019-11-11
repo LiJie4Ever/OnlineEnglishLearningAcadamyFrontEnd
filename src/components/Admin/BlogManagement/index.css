@@ -1,0 +1,75 @@
+.blogManagement {
+    margin: 0 auto;
+    width: 65%;
+}
+
+.createBTN {
+    font-weight: bolder;
+    font-size: 1.5em;
+    line-height: 5px;
+    padding: 40px;
+    border-color: #990000;
+}
+
+.createBTN:hover {
+    color: #990000;
+    border-color: #990000;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .1);
+}
+
+.blogCard {
+    margin: 5px 0;
+}
+
+.blogTitle {
+    background: white;
+    text-align: left;
+    font-weight: bolder;
+    border-bottom: 1px dashed lightgrey;
+}
+
+.blogAuthor {
+    text-align: left;
+    display: inline-block;
+    float: left;
+    margin: 0;
+    padding: 5px;
+}
+
+.actionBTN {
+    display: inline-block;
+    float: right;
+    padding: 5px;
+}
+
+.deleteBTN{
+    border-left: 1px solid #990000;
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+.ant-pagination{
+    margin: 2% 40%;
+}
+
+/* Blog Edit Page */
+.blog-edit-form {
+    margin: 0 auto;
+    width: 60%;
+}
+
+.contentEditInput {
+    height: 400px;
+    white-space: pre-wrap;
+}
+
+.comfirmBTN {
+    margin: 0 auto;
+    background-color: #990000;
+}
+
+.cancelBTN {
+    text-decoration:underline;
+    color: darkgray;
+    float: right;
+}

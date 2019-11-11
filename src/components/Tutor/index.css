@@ -17,6 +17,7 @@
 }
 
 .ant-card-head-title {
+    margin: 0 auto;
     font-weight: bolder;
     color: #990000;
 }

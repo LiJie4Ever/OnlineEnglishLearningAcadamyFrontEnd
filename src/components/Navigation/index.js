@@ -27,6 +27,10 @@ import MenuUnAuth from "./MenuUnAuth";
 import PasswordForgetPage from "../PasswordForget";
 import CourseRequestPage from "../CourseReqest";
 
+import BlogList from "../BlogList";
+import BlogPage from "../BlogList/BlogPage";
+import BlogManagement from "../Admin/BlogManagement";
+import BlogEdit from "../Admin/BlogManagement/BlogEdit";
 
 const { Content, Footer } = Layout;
 
@@ -70,6 +74,8 @@ class Navbar extends Component {
                                 <Route exact path={ROUTES.BLOGLIST} component={BlogList}/>
                                 <Route exact path={ROUTES.BLOG} component={BlogPage} />
                                 <Route exact path={ROUTES.COURSE_REQUEST} component={CourseRequestPage} />
+                                <Route exact path={ROUTES.BLOGMANAGEMENT} component={BlogManagement}/>
+                                <Route exact path={ROUTES.BLOGEDIT} component={BlogEdit}/>
                             </Switch>
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>

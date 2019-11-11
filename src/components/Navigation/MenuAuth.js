@@ -78,6 +78,11 @@ class MenuAuth extends Component {
                     <span>Cart</span>
                     <Link to={ROUTES.CART} />
                 </Menu.Item>
+                <Menu.Item key="9">
+                    <Icon type="file-text" />
+                    <span>Blog</span>
+                    <Link to={ROUTES.BLOGLIST} />
+                </Menu.Item>
             </Menu>
         )
     }
