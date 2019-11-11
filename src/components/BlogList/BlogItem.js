@@ -3,6 +3,7 @@ import React, {Component} from "react";
 import { Card } from 'antd';
 import './index.css';
 
+
 class BlogItem extends Component {
     constructor(props) {
         super(props);

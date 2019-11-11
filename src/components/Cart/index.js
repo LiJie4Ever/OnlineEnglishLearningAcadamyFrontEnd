@@ -1,51 +1,44 @@
 import React from "react";
 import "./index.css"
 import 'antd/dist/antd.css';
-import { List, Avatar, Skeleton } from 'antd';
+import { List, Avatar, Skeleton, Button } from 'antd';
 
 const data = [
     {
-        title: 'Class Title 1',
-        tutor: 'Tutor 1',
-        price: 19.99
-    },
-    {
-        title: 'Class Title 2',
-        tutor: 'Tutor 2',
-        price: 29.99
-    },
-    {
-        title: 'Class Title 3',
-        tutor: 'Tutor 3',
-        price: 39.99
-    },
-    {
-        title: 'Class Title 4',
-        tutor: 'Tutor 4',
+        title: 'TOEFL No Brainer - Speaking',
+        tutor: 'Jack Ber',
+        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/Jeremy_548a87ab.png',
         price: 49.99
     },
+    {
+        title: 'TOEFL No Brainer - Writing',
+        tutor: 'Martin D. D',
+        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/LoganM_be634aab.png',
+        price: 49.99
+    }
 ];
 
 class Cart extends React.Component {
-    removeItem(){
+    remove = (index) => {
+        this.setState(data.splice(index, 1));
+    };
 
-    }
-
-     getSummary(){
+    getSummary = () => {
         var sum = {
             cost: 0,
             tax: 0,
-            total: 0
+            total: 0,
         }
 
         for (var i = 0; i < data.length; i++){
-            sum.cost += data[i].price
+            sum.cost += data[i].price;
         }
-        sum.tax = Math.round((sum.cost * 0.15) * 100) / 100
-        sum.total = Math.round((sum.cost + sum.tax) * 100) / 100
+        sum.cost = sum.cost.toFixed(2);
+        sum.tax = (sum.cost * 0.15).toFixed(2);
+        sum.total = (parseFloat(sum.cost) + parseFloat(sum.tax)).toFixed(2)
 
 
-        return sum
+        return sum;
     }
 
     render() {
@@ -53,26 +46,28 @@ class Cart extends React.Component {
             <div>
                 <div className="left">
                     <h1>Items</h1>
-                        <List
-                            itemLayout="horizontal"
-                            dataSource={data}
-                            renderItem={item => (
-                                <List.Item
-                                    actions={[<a onClick={this.removeItem}>remove</a>]}
-                                >
-                                    <Skeleton avatar title={false} loading={item.loading} active>
-                                        <List.Item.Meta
-                                            avatar={
-                                                <Avatar className='img' src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                                            }
-                                            title={<a href="/">{item.title}</a>}
-                                            description={item.tutor}
-                                        />
-                                        <div>US$ {item.price}</div>
-                                    </Skeleton>
-                                </List.Item>
-                            )}
-                        />
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={data}
+                        renderItem={item => (
+                            <List.Item
+                                actions={[
+                                    <Button onClick={() => this.remove(data.indexOf(item))}>remove</Button>
+                                ]}
+                            >
+                                <Skeleton avatar title={false} loading={item.loading} active>
+                                    <List.Item.Meta
+                                        avatar={
+                                            <Avatar className='img' src={item.avatar} />
+                                        }
+                                        title={<a href="/">{item.title}</a>}
+                                        description={item.tutor}
+                                    />
+                                    <div>US$ {item.price}</div>
+                                </Skeleton>
+                            </List.Item>
+                        )}
+                    />
                 </div>
 
                 <div className="right">
@@ -92,6 +87,8 @@ class Cart extends React.Component {
                         <div className='summary-right'>{this.getSummary().total }</div>
                         <div className="clear"></div>
                     </div>
+
+                    <Button className='button'>Check Out</Button>
                 </div>
 
                 <div className="clear"></div>

@@ -1,18 +1,19 @@
 .left{
     float: left;
-    padding: 50px;
+    padding-left: 50px;
     width: 600px;
 }
 
 .right{
     float: right;
-    padding: 50px;
+    padding-left: 50px;
     width: 400px;
     margin-right: 200px;
 }
 
 h1{
     font-size: 25px;
+    height: 80px;
 }
 
 .img{
@@ -47,4 +48,12 @@ hr{
     margin-top: 15px;
     margin-bottom: 15px;
     border: 1px solid #e8e8e8;
+}
+
+.button{
+    background-color: #990000;
+    color: white;
+    padding: 15px;
+    height: 50px;
+    margin-left: 33.3%;
 }

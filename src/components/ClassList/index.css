@@ -1,7 +1,7 @@
 .list{
     margin-left: auto;
     margin-right: auto;
-    width: 900px;
+    width: 80%;
 }
 
 .item{
@@ -63,6 +63,21 @@ a{
 a:hover{
     color: #FFCD00;
 }
+
+.description{
+    float: left;
+}
+
+.price{
+    float: right;
+}
+
+.ant-list-item-extra{
+    width: 400px;
+    height: 200px;
+    text-align: center;
+}
+
 
 
 
