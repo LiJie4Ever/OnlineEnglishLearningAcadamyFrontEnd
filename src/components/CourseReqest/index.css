@@ -1,0 +1,11 @@
+.Request_Container {
+    max-width: 500px;
+    margin: 20px auto;
+    align-content: center;
+}
+
+.Form_tittle {
+    margin: 20px auto;
+    align-content: center;
+    padding-left: 100px;
+}

@@ -20,9 +20,9 @@ class MenuUnAuth extends Component {
                     <span>Classes</span>
                     <Link to={ROUTES.CLASS_LIST} />
                 </Menu.Item>
-                <Menu.Item key="10">
+                <Menu.Item key="9">
                     <span>Blog</span>
-                    <Link to={ROUTES.BLOG} />
+                    <Link to={ROUTES.BLOGLIST} />
                 </Menu.Item>
                 <Menu.Item key="3">
                     <span>FAQ</span>
@@ -41,11 +41,6 @@ class MenuUnAuth extends Component {
                     <Icon type="shopping-cart" />
                     <span>Cart</span>
                     <Link to={ROUTES.CART} />
-                </Menu.Item>
-                <Menu.Item key="9">
-                    <Icon type="file-text" />
-                    <span>Blog</span>
-                    <Link to={ROUTES.BLOGLIST} />
                 </Menu.Item>
             </Menu>
         )

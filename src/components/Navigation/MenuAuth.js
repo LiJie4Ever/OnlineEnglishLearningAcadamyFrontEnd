@@ -26,7 +26,7 @@ class MenuAuth extends Component {
                 </Menu.Item>
                 <Menu.Item key="10">
                     <span>Blog</span>
-                    <Link to={ROUTES.BLOG} />
+                    <Link to={ROUTES.BLOGLIST} />
                 </Menu.Item>
                 <Menu.Item key="3">
                     <span>FAQ</span>
@@ -77,11 +77,6 @@ class MenuAuth extends Component {
                     <Icon type="shopping-cart" />
                     <span>Cart</span>
                     <Link to={ROUTES.CART} />
-                </Menu.Item>
-                <Menu.Item key="9">
-                    <Icon type="file-text" />
-                    <span>Blog</span>
-                    <Link to={ROUTES.BLOGLIST} />
                 </Menu.Item>
             </Menu>
         )

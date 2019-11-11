@@ -54,6 +54,7 @@ class RegistrationForm extends React.Component {
                             return this.props.firebase
                                 .student(authUser.user.uid)
                                 .set({
+                                    userName: values.userName,
                                     courseArray: courseArray,
                                     tutoringArray: tutoringArray
                                 }, { merge: true },);
@@ -62,6 +63,7 @@ class RegistrationForm extends React.Component {
                             return this.props.firebase
                                 .tutor(authUser.user.uid)
                                 .set({
+                                    userName: values.userName,
                                     bio: "Please add your introduction",
                                     teachingExperience: 0,
                                     videoLink: ""

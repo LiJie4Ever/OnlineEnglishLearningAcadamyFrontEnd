@@ -22,7 +22,7 @@ class CourseRequestPage extends Component {
         return (
             <AuthUserContext.Consumer>
                 {data => (
-                    <div>
+                    <div className='Request_Container'>
                         <CourseRequestForm data={data} />
                     </div>
                 )}

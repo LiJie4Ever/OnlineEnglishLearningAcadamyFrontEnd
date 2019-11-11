@@ -19,9 +19,6 @@ import Admin from '../Admin/index';
 import TakeCoursePage from "../TakeCourse";
 import InstructPage from "../InstructCourse";
 
-import BlogList from "../BlogList";
-import BlogPage from "../BlogList/BlogPage";
-
 import MenuAuth from "./MenuAuth";
 import MenuUnAuth from "./MenuUnAuth";
 import PasswordForgetPage from "../PasswordForget";
