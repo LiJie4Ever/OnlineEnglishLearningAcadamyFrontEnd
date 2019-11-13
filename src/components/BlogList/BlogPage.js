@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { Card, BackTop } from 'antd';
 import './index.css';
 import {Link} from "react-router-dom";
+import moment from "moment";
 
 class BlogPage extends Component {
     constructor(props) {
@@ -10,10 +11,11 @@ class BlogPage extends Component {
     }
 
     render() {
-        var blogTitle = this.blogInfo.title;
-        var blogContent = this.blogInfo.content;
-        var blogAuthor = this.blogInfo.author;
-        var blogDate = this.blogInfo.date;
+        let blogTitle = this.blogInfo.title;
+        let blogContent = this.blogInfo.content;
+        let blogAuthor = this.blogInfo.author;
+        let utcdate = this.blogInfo.date.seconds;
+        let blogDate = moment.unix(utcdate).format('MM/DD/YYYY');
 
         return (
             <div>

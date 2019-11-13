@@ -2,7 +2,7 @@ import React, {Component} from "react";
 // import PropTypes from 'prop-types';
 import { Card } from 'antd';
 import './index.css';
-
+import moment from 'moment'
 
 class BlogItem extends Component {
     constructor(props) {
@@ -11,16 +11,18 @@ class BlogItem extends Component {
     }
 
     showBlog() {
-        var blogInfo = this.props.blogInfo;
+        let blogInfo = this.props.blogInfo;
         this.props.history.push({pathname:'/blog/' + blogInfo.id, state:{blogInfo}});
     }
 
     render() {
-        var blogId = this.props.blogInfo.id;
-        var blogTitle = this.props.blogInfo.title;
-        var blogContent = this.props.blogInfo.content;
-        var blogAuthor = this.props.blogInfo.author;
-        var blogDate = this.props.blogInfo.date;
+        let blogId = this.props.blogInfo.id;
+        let blogTitle = this.props.blogInfo.title;
+        let blogContent = this.props.blogInfo.content;
+        let blogAuthor = this.props.blogInfo.author;
+        let utcdate = this.props.blogInfo.date.seconds;
+        let blogDate = moment.unix(utcdate).format('MM/DD/YYYY');
+
 
         return(
             <div>
