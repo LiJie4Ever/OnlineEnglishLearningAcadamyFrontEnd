@@ -33,7 +33,8 @@ class BlogManagement extends Component {
     }
 
     createBlog() {
-        this.props.history.push('/admin/createBlog');
+        var item = null;
+        this.props.history.push({pathname:'/admin/createBlog', state:{item}});
     }
 
     editBlog(item) {
