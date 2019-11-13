@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
-import UserList from './UserList';
 import { BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import 'antd/dist/antd.css';
 import { Layout, Menu, Icon } from 'antd';
@@ -10,6 +9,10 @@ import { withAuthorization, withEmailVerification } from '../Session';
 import * as ROUTES from "../../constants/routes";
 import BlogManagement from "./BlogManagement";
 import BlogEdit from "./BlogManagement/BlogEdit";
+import TutorManagement from "./TutorManagement";
+import TutorEdit from"./TutorManagement/TutorEdit";
+import CourseManagement from "./CourseManagement";
+import CourseEdit from "./CourseManagement/CourseEdit";
 
 const { Sider, Content } = Layout;
 
@@ -54,7 +57,12 @@ class AdminPage extends Component {
                             <Menu.Item key="1">
                                 <Icon type="user" />
                                 <span>Tutors</span>
-                                <Link to={`${match.url}${ROUTES.USER_LIST}`} />
+                                <Link to={`${match.url}${ROUTES.MANAGE_TUTOR}`} />
+                            </Menu.Item>
+                            <Menu.Item key="5">
+                                <Icon type="read" />
+                                <span>Courses</span>
+                                <Link to={`${match.url}${ROUTES.MANAGE_COURSE}`} />
                             </Menu.Item>
                             <Menu.Item key="2">
                                 <Icon type="file" />
@@ -76,11 +84,14 @@ class AdminPage extends Component {
                     <Layout>
                         <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
                             <Switch>
-                                <Route exact path={`${match.url}${ROUTES.USER_LIST}`} component={UserList} />}
+                                <Route exact path={`${match.url}${ROUTES.MANAGE_TUTOR}`} component={TutorManagement} />}
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_BLOG}`} component={BlogManagement} />}
                                 <Route exact path={`${match.url}${ROUTES.BLOGEDIT}`} component={BlogEdit} />}
                                 <Route exact path={`${match.url}${ROUTES.BLOGCREATE}`} component={BlogEdit} />}
-                                />
+                                <Route exact path={`${match.url}${ROUTES.TUTOREDIT}`} component={TutorEdit} />}
+                                <Route exact path={`${match.url}${ROUTES.MANAGE_COURSE}`} component={CourseManagement} />}
+                                <Route exact path={`${match.url}${ROUTES.COURSEEDIT}`} component={CourseEdit} />}
+                                <Route exact path={`${match.url}${ROUTES.COURSECREATE}`} component={CourseEdit} />}
                             </Switch>
                         </Content>
                     </Layout>
