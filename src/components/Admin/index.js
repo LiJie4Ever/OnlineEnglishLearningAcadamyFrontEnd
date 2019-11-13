@@ -10,6 +10,7 @@ import { withAuthorization, withEmailVerification } from '../Session';
 import * as ROUTES from "../../constants/routes";
 import BlogManagement from "./BlogManagement";
 import BlogEdit from "./BlogManagement/BlogEdit";
+import RequestManagement from "./RequestManagement"
 
 const { Sider, Content } = Layout;
 
@@ -24,6 +25,7 @@ class AdminPage extends Component {
     }
 
     componentDidMount() {
+        /*
         this.setState({ loading: true });
         this.unsubscribe = this.props.firebase.users().onSnapshot(snapshot => {
             let users = [];
@@ -38,10 +40,12 @@ class AdminPage extends Component {
                 hasData: true
             });
         });
+
+         */
     }
 
     componentWillUnmount() {
-        this.unsubscribe();
+        //this.unsubscribe();
     }
 
     render() {
@@ -71,6 +75,11 @@ class AdminPage extends Component {
                                 <span>Payment</span>
                                 <Link to={`${match.url}${ROUTES.PAYMENT}`} />
                             </Menu.Item>
+                            <Menu.Item key="5">
+                                <Icon type="money-collect" />
+                                <span>Request</span>
+                                <Link to={`${match.url}${ROUTES.MANAGE_REQUEST}`} />
+                            </Menu.Item>
                         </Menu>
                     </Sider>
                     <Layout>
@@ -80,6 +89,7 @@ class AdminPage extends Component {
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_BLOG}`} component={BlogManagement} />}
                                 <Route exact path={`${match.url}${ROUTES.BLOGEDIT}`} component={BlogEdit} />}
                                 <Route exact path={`${match.url}${ROUTES.BLOGCREATE}`} component={BlogEdit} />}
+                                <Route exact path={`${match.url}${ROUTES.MANAGE_REQUEST}`} component={RequestManagement} />}
                                 />
                             </Switch>
                         </Content>
@@ -93,7 +103,7 @@ class AdminPage extends Component {
 const condition = authUser =>
     authUser && !!authUser.roles[ROLES.ADMIN];
 export default compose(
-    withEmailVerification,
-    withAuthorization(condition),
-    withFirebase
+    //withEmailVerification,
+    //withAuthorization(condition),
+    //withFirebase
 )(AdminPage);
