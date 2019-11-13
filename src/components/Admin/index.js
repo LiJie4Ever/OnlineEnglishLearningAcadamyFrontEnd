@@ -51,7 +51,7 @@ class AdminPage extends Component {
                         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                             <Menu.Item key="1">
                                 <Icon type="user" />
-                                <span>Users</span>
+                                <span>Tutors</span>
                                 <Link to={`${match.url}${ROUTES.USER_LIST}`} />
                             </Menu.Item>
                             <Menu.Item key="2">

@@ -21,3 +21,4 @@ export const BLOG = '/blog/:blogId';
 export const COURSE_REQUEST = '/courseReq';
 export const BLOGMANAGEMENT = '/admin/blogList';
 export const BLOGEDIT = '/admin/blogEdit';
+export const MANAGE_TUTOR='/editTutor/:uid';
