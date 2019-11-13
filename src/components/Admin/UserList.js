@@ -6,7 +6,6 @@ const showHeader = true;
 const pagination = { position: 'bottom' };
 
 const moment = require('moment');
-
 const columns = [
     {
         title: 'Name',

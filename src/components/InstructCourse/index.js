@@ -1,20 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import InstructPage from "./InstructPage";
 import * as ROLES from "../../constants/roles";
+import { withRouter } from 'react-router-dom';
+import { withFirebase } from '../Firebase';
 import {compose} from "recompose";
-import {withAuthorization, withEmailVerification} from "../Session";
-import {withFirebase} from "../Firebase";
+import {AuthUserContext, withAuthorization, withEmailVerification} from "../Session";
+import {Tabs} from "antd";
+import NewSessionForm from "./NewSessionForm";
+import UpcomingSessionTable from "./UpcomingSessionTable";
 
-class InstructPage extends Component {
+const InstructPageWrapper = compose(
+    withRouter,
+    withFirebase
+)(InstructPage);
+
+class InstructCourse extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
         return(
-            <div>
-                This is the instruct page
-            </div>
-        );
+            <AuthUserContext.Consumer>
+                {data => <InstructPageWrapper data={data.authUser} />}
+            </AuthUserContext.Consumer>
+        )
     }
 }
 
@@ -24,4 +34,4 @@ export default compose(
     withEmailVerification,
     withAuthorization(condition),
     withFirebase
-)(InstructPage);
+)(InstructCourse);

@@ -18,7 +18,7 @@ import TutorPage from "../Tutor/TutorPage";
 import Cart from '../Cart/index';
 import Admin from '../Admin/index';
 import TakeCoursePage from "../TakeCourse";
-import InstructPage from "../InstructCourse";
+import InstructPage from "../InstructCourse/index";
 
 import MenuAuth from "./MenuAuth";
 import MenuUnAuth from "./MenuUnAuth";
