@@ -22,4 +22,6 @@ export const BLOG = '/blog/:blogId';
 export const COURSE_REQUEST = '/courseReq';
 export const BLOGEDIT = '/editBlog/:blogId';
 export const BLOGCREATE = '/createBlog';
-export const MANAGE_TUTOR='/editTutor/:uid';
+export const EDIT_TUTOR = '/editTutor/:uid';
+export const DELETE_TUTOR = '/deleteTutor/:uid';
+
