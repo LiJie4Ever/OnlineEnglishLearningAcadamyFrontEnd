@@ -8,6 +8,8 @@ import { compose } from 'recompose';
 import * as ROLES from '../../constants/roles';
 import { withAuthorization, withEmailVerification } from '../Session';
 import * as ROUTES from "../../constants/routes";
+import BlogManagement from "./BlogManagement";
+import BlogEdit from "./BlogManagement/BlogEdit";
 
 const { Sider, Content } = Layout;
 
@@ -75,6 +77,9 @@ class AdminPage extends Component {
                         <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
                             <Switch>
                                 <Route exact path={`${match.url}${ROUTES.USER_LIST}`} component={UserList} />}
+                                <Route exact path={`${match.url}${ROUTES.MANAGE_BLOG}`} component={BlogManagement} />}
+                                <Route exact path={`${match.url}${ROUTES.BLOGEDIT}`} component={BlogEdit} />}
+                                <Route exact path={`${match.url}${ROUTES.BLOGCREATE}`} component={BlogEdit} />}
                                 />
                             </Switch>
                         </Content>
