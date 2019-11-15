@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import { Card, BackTop } from 'antd';
 import './index.css';
-import {Link} from "react-router-dom";
-import moment from "moment";
 
 class BlogPage extends Component {
     constructor(props) {
@@ -13,13 +11,11 @@ class BlogPage extends Component {
     render() {
         let blogTitle = this.blogInfo.title;
         let blogContent = this.blogInfo.content;
-        let blogAuthor = this.blogInfo.author;
-        let utcdate = this.blogInfo.date.seconds;
-        let blogDate = moment.unix(utcdate).format('MM/DD/YYYY');
+        let blogAuthor = this.blogInfo.tutor;
 
         return (
             <div>
-                <Card className="blogItem" title={blogTitle} extra={blogDate}>
+                <Card className="blogItem" title={blogTitle}>
                     <p className="blogPageAuthor"> 作者：{blogAuthor} </p>
                     <p className="blogPageContent"> {blogContent} </p>
                 </Card>

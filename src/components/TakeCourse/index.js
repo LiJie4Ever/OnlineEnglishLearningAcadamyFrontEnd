@@ -3,7 +3,7 @@ import * as ROLES from "../../constants/roles";
 import {compose} from "recompose";
 import {withAuthorization, withEmailVerification} from "../Session";
 import {withFirebase} from "../Firebase";
-import BoughtCourse from './BoughtCourse';
+import BoughtCourse from '../Account/BoughtCourse';
 
 class TakeCoursePage extends Component {
     constructor(props) {
@@ -13,7 +13,7 @@ class TakeCoursePage extends Component {
     render() {
         return(
             <div>
-                <BoughtCourse/>
+                this is takeing courses
             </div>
         );
     }
