@@ -2,36 +2,39 @@
 .code-box-demo {
   text-align: center;
 }
-.ant-layout-header{
-    color:white;
-    background: #990000;
-    height: 16vh;
-    text-align: center;
-    font-size: 30px;
-    padding-top: 15px;
+.ant-layout{
+    margin-left: -14px;
+    margin-right: -14px;
+    background:white;
 }
 .ant-layout-header{
-    font-size: 30px;
-    color: #e5e5e5;
-    padding-top: -5px;
+    margin-top: -20px;
+    min-height:15vh;
+    color:black;
+    background: white;
+    height: 10vh;
+    text-align: center;
+    font-size: 40px;
+    font-family:Times New Roman;
 }
 .ant-layout-footer {
     text-align: center;
-  background: #B89F5D;
-  color: #fff;
+    background:white;
+    color: #fff;
 }
 .ant-layout-footer {
   line-height: 1.5;
 }
 .ant-layout-content {
+    margin-top: -10px;
     background: #990000;
   color: #000;
   min-height: 120px;
   line-height: 120px;
 }
 .ant-layout-content{
-  background: #5A7670;
-  color: #000;
+  background:white;
+  color: black;
 }
 > .code-box-demo > div > .ant-layout {
   margin-bottom: 48px;
@@ -53,7 +56,8 @@
 }
 
 .WelcomePicContainer{
-    width:100%;
+    margin:auto;
+    width:95%;
     height:500px;
     mode:'fit' ;
 }
