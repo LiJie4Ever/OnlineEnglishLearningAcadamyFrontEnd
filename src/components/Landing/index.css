@@ -6,6 +6,7 @@
     margin-left: -14px;
     margin-right: -14px;
     background:white;
+    margin-bottom: -10px;
 }
 .ant-layout-header{
     margin-top: -20px;
@@ -31,6 +32,7 @@
   color: #000;
   min-height: 120px;
   line-height: 120px;
+    padding: 0px;
 }
 .ant-layout-content{
   background:white;
