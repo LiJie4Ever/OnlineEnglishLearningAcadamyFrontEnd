@@ -9,6 +9,8 @@
     "babel-plugin-import": "^1.12.2",
     "customize-cra": "^0.8.0",
     "enquire-js": "^0.2.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
     "firebase": "^7.2.1",
     "install": "^0.13.0",
     "jwt-decode": "^2.2.0",
@@ -16,7 +18,7 @@
     "less-loader": "^5.0.0",
     "mock.js": "^0.2.0",
     "moment": "^2.24.0",
-    "npm": "^6.12.0",
+    "npm": "^6.13.0",
     "rc-banner-anim": "^2.4.2",
     "rc-queue-anim": "^1.8.2",
     "rc-scroll-anim": "^2.6.2",
@@ -53,6 +55,10 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
     "babel-preset-es2015-node5": "^1.2.0"
+=======
+    "react-test-renderer": "^16.12.0"
+>>>>>>> b2fdff633a9f9a3defc14f5975dcf88fcdd0b791
   }
 }

@@ -36,10 +36,10 @@ class InstructPage extends Component {
             <div>
                 <Tabs defaultActiveKey="1">
                     <TabPane tab="Upcoming Sessions" key="1">
-                        <NewSessionForm data={this.props.data} />
+                        <UpcomingSessionTable data={this.props.data}  />
                     </TabPane>
                     <TabPane tab="Create New Session" key="2">
-                        <UpcomingSessionTable data={this.props.data}  />
+                        <NewSessionForm data={this.props.data} />
                     </TabPane>
                 </Tabs>
             </div>
