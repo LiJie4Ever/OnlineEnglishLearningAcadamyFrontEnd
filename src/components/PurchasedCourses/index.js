@@ -7,16 +7,15 @@ import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import app from 'firebase/app';
-import { Tabs, List, Avatar, Icon} from 'antd';
-import PasswordChangePage from "../Account";
 import {AuthUserContext} from "../Session";
+import List from "antd/lib/list";
+
 
 const BlogItemWrapper = compose(
-    withRouter,
     withFirebase,
 )(PurchasedItem);
 
-class BlogList extends Component {
+class CourseList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,7 +28,9 @@ class BlogList extends Component {
         let allBlogs = blogRef.get().then(snapshot => {
             let list = this.state.CourseList;
             snapshot.forEach(doc =>{
-                let blogObject = {id:doc.id, tutor:doc.data().tutor, content:doc.data().content, title:doc.data().title,price:doc.data().price};
+               // let ObjectId = {courseArray:doc.data().courseArray};
+               // console.log(ObjectId);
+                let blogObject = {id:doc.id, content:doc.data().content, title:doc.data().title,price:doc.data().price, image:doc.data().image,tutor:doc.data().tutor};
                 console.log(doc.data().date);
                 list.push(blogObject);
             });
@@ -48,9 +49,8 @@ class BlogList extends Component {
             <AuthUserContext.Consumer>
                 {data => (
                     <div>
-                        <h1><b> {data.authUser.userName}</b>
+                        <h1><b> {data.authUser.name}</b>
                             ,here are your purchased courses.</h1>
-
                     </div>
                 )}
             </AuthUserContext.Consumer>
@@ -75,6 +75,6 @@ class BlogList extends Component {
 
 const BlogListWrapper = compose(
     withFirebase
-)(BlogList);
+)(CourseList);
 
 export default BlogListWrapper;
