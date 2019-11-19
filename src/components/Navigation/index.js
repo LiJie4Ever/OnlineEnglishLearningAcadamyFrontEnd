@@ -52,7 +52,7 @@ class Navbar extends Component {
                 <Layout style={{ minHeight: '100vh' }}>
                     <CustomizedMenu />
                     <Layout>
-                        <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+                        <Content style={{ padding: 40, background: '#fff', minHeight: 280 }}>
                             <Switch>
                                 <Route exact path={ROUTES.LANDING} component={Landing} />
                                 <Route exact path={ROUTES.CLASS_LIST} component={ClassList} />
