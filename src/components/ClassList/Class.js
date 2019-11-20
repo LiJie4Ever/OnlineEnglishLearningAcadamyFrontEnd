@@ -15,7 +15,7 @@ class Class extends React.Component {
         this.state = {
             uid: "",
             courseList: []
-        }
+        };
         this.showClass = this.showClass.bind(this);
     }
 
