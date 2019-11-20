@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import PurchasedItem from "./PurchasedItem";
 import './index.css';
-import { Row, Col } from 'antd';
+import {Row, Col, Avatar} from 'antd';
 import { BackTop } from 'antd';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import app from 'firebase/app';
-import { Tabs, List, Avatar, Icon} from 'antd';
-import PasswordChangePage from "../Account";
 import {AuthUserContext} from "../Session";
+import List from "antd/lib/list";
+
 
 const BlogItemWrapper = compose(
-    withRouter,
     withFirebase,
 )(PurchasedItem);
 
-class BlogList extends Component {
+
+class CourseList extends Component {
+
     constructor(props) {
         super(props);
+        this.userId = '';
         this.state = {
-            CourseList: [],
+            dataList: [],
         }
     }
 
@@ -75,47 +77,65 @@ class BlogList extends Component {
             }
             ;
         }).catch(err => {
-           console.log('Error getting documents', err);
+            console.log('Error getting documents', err);
         });
-    }
-
-    componentWillUnmount() {
-
-    }
-
+}
     render() {
         return(
             <div>
-            <AuthUserContext.Consumer>
+                <div className='user'>
+                <AuthUserContext.Consumer>
                 {data => (
                     <div>
-                        <h1><b> {data.authUser.userName}</b>
-                            ,here are your purchased courses.</h1>
-
+                        <h1>Account: {this.userId = data.authUser.uid}  ,here are your purchased courses.</h1>
                     </div>
                 )}
-            </AuthUserContext.Consumer>
-                <div style={{width:'80%',margin:'auto'}}>
-                <Row>
-                    {
-                        this.state.CourseList.map((item, index) => {
-                            return (
-                                <Col span={24}>
-                                    <BlogItemWrapper CourseInfo={item} />
-                                </Col>
-                            )
-                        })
-                    }
-                </Row>
+                </AuthUserContext.Consumer>
                 </div>
-                <BackTop />
+           <div className='list'>
+                <List
+                    itemLayout="vertical"
+                    size="large"
+                    pagination={{
+                        onChange: page => {
+                            console.log(page);
+                        },
+                        pageSize: 5,
+                    }}
+                    dataSource={this.state.dataList}
+                    renderItem={item => (
+                        <List.Item
+                            key={item.title}
+                            extra={
+                                <img
+                                    width={272}
+                                    alt="logo"
+                                    src={item.image}
+                                />
+                            }
+                        >
+                            <List.Item.Meta
+                                avatar={<Avatar src={item.tutorPic} />}
+                                title={<a href={item.href}>{item.title}</a>}
+                                description={
+                                    <div>
+                                        <div className='price'>US$ {item.price}</div>
+                                        <div className='name'>{item.tutorName}</div>
+                                    </div>
+                                }
+                            />
+                            <div className={'content'}>{item.content}</div>
+                        </List.Item>
+                    )}
+                />
             </div>
+                </div>
         )
     }
 }
 
 const BlogListWrapper = compose(
     withFirebase
-)(BlogList);
+)(CourseList);
 
 export default BlogListWrapper;
