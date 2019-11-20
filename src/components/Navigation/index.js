@@ -5,7 +5,6 @@ import 'antd/dist/antd.css';
 import './index.css';
 import * as ROUTES from '../../constants/routes';
 import { AuthUserContext } from '../Session';
-
 import Landing from "../Landing";
 import ClassList from "../ClassList";
 import Faq from "../Faq";
@@ -50,7 +49,7 @@ class Navbar extends Component {
             <Router>
                 <Layout style={{ minHeight: '100vh' }}>
                     <CustomizedMenu />
-                    <Layout>
+                    <Layout className='.navigation_layout'>
                         <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
                             <Switch>
                                 <Route exact path={ROUTES.LANDING} component={Landing} />

@@ -1,6 +1,6 @@
 import React from 'react';
-import 'antd/dist/antd.css';
 import './index.css';
+import 'antd/dist/antd.css';
 import {Col, Layout, Row} from 'antd';
 import { Carousel } from 'antd';
 import { List, Card } from 'antd';

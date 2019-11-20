@@ -5,15 +5,21 @@ import {
     Input,
     Button,
     DatePicker,
-    InputNumber
+    AutoComplete
 } from 'antd';
 import * as URL from '../../constants/url';
 const axios = require('axios');
-const defaultQuery = '/tutorClassroom/meetings/createMeeting';
+const AutoCompleteOption = AutoComplete.Option;
+const moment_tz = require('moment-timezone');
+const moment = require('moment');
+const defaultQuery = '/schedule/setScheduleLink'
 
-class NewSessionForm extends Component {
+class NewSessionTable extends Component {
     constructor(props) {
         super(props);
+        this.state ={
+            autoCompleteResult: [],
+        }
     }
 
     componentDidMount() {
@@ -24,11 +30,24 @@ class NewSessionForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
+                let offset = moment_tz().tz(moment_tz.tz.guess(true)).format('Z');
+                let now = moment_tz().tz(moment_tz.tz.guess(true));
+                let UTCTimeString = now.utc().format();
+                let timeData = UTCTimeString.split('T');
+                let createTime = timeData[0] + ' ' + timeData[1].substring(0, timeData[1].length - 1);
+                console.log(offset);
+                console.log(createTime);
+                console.log(this.props.requestID);
+                let data = {
+                    createTime: createTime,
+                    offset: offset,
+                    link: values.website,
+                    topic: values.topic
+                };
+
                 axios.post(`${URL.ENDPOINT}${defaultQuery}`, {
-                    accessToken: this.props.accessToken,
-                    topic: values.topic,
-                    start_time: values.start_time.format('YYYY-MM-DD HH:mm:ss'),
-                    duration: values.duration
+                    id: this.props.requestID,
+                    fields: data
                 }) .then(function (response) {
                     console.log(response);
                 })
@@ -39,8 +58,23 @@ class NewSessionForm extends Component {
         });
     };
 
+    handleWebsiteChange = value => {
+        let autoCompleteResult;
+        if (!value) {
+            autoCompleteResult = [];
+        } else {
+            autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+        }
+        this.setState({ autoCompleteResult });
+    };
+
     render() {
         const { getFieldDecorator } = this.props.form;
+        const { autoCompleteResult } = this.state;
+
+        const websiteOptions = autoCompleteResult.map(website => (
+            <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
+        ));
         const formItemLayout = {
             labelCol: {
                 xs: {
@@ -86,9 +120,18 @@ class NewSessionForm extends Component {
                             <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />,
                         )}
                     </Form.Item>
-                    <Form.Item label="Duration">
-                        {getFieldDecorator('duration', { initialValue: 1 })(<InputNumber min={1} max={10} step={0.5}/>)}
-                        <span className="ant-form-text"> hours</span>
+                    <Form.Item label="Zoom Link">
+                        {getFieldDecorator('website', {
+                            rules: [{ required: true, message: 'Please input website!' }],
+                        })(
+                            <AutoComplete
+                                dataSource={websiteOptions}
+                                onChange={this.handleWebsiteChange}
+                                placeholder="website"
+                            >
+                                <Input />
+                            </AutoComplete>,
+                        )}
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">
@@ -101,5 +144,5 @@ class NewSessionForm extends Component {
     }
 }
 
-const WrappedNewSessionForm = Form.create({ name: 'NewSession' })(NewSessionForm);
+const WrappedNewSessionForm = Form.create({ name: 'NewSession' })(NewSessionTable);
 export default WrappedNewSessionForm;
