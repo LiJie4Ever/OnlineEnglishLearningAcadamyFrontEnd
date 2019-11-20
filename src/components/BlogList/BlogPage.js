@@ -20,8 +20,8 @@ class BlogPage extends Component {
         return (
             <div>
                 <Card className="blogItem" title={blogTitle} extra={blogDate}>
-                    <p className="blogPageAuthor"> 作者：{blogAuthor} </p>
-                    <p className="blogPageContent"> {blogContent} </p>
+                    <p className="blogPageAuthor"> Author：{blogAuthor} </p>
+                    <div className="blogPageContent" dangerouslySetInnerHTML={{__html: blogContent}}/>
                 </Card>
                 <BackTop/>
             </div>

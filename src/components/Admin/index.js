@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 import { Layout, Menu, Icon } from 'antd';
 import { compose } from 'recompose';
 import * as ROLES from '../../constants/roles';
-import { withAuthorization, withEmailVerification } from '../Session';
+import {AuthUserContext, withAuthorization, withEmailVerification} from '../Session';
 import * as ROUTES from "../../constants/routes";
 import BlogManagement from "./BlogManagement";
 import BlogEdit from "./BlogManagement/BlogEdit";
@@ -13,6 +13,8 @@ import TutorManagement from "./TutorManagement";
 import TutorEdit from"./TutorManagement/TutorEdit";
 import CourseManagement from "./CourseManagement";
 import CourseEdit from "./CourseManagement/CourseEdit";
+import MenuAuth from "../Navigation/MenuAuth";
+import MenuUnAuth from "../Navigation/MenuUnAuth";
 
 const { Sider, Content } = Layout;
 
@@ -49,6 +51,14 @@ class AdminPage extends Component {
 
     render() {
         const match = this.props.match;
+        let welcome;
+        console.log(window.location.pathname);
+        console.log("this is the router:" + ROUTES.ADMIN+'/');
+        if (window.location.pathname === ROUTES.ADMIN+'/') {
+            welcome = <div>Welcome, 小仙女</div>
+        } else {
+            welcome = <div></div>
+        }
         return (
             <Router>
                 <Layout style={{ minHeight: '100vh' }}>
@@ -83,6 +93,7 @@ class AdminPage extends Component {
                     </Sider>
                     <Layout>
                         <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+                            {welcome}
                             <Switch>
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_TUTOR}`} component={TutorManagement} />}
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_BLOG}`} component={BlogManagement} />}

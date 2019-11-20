@@ -14,18 +14,16 @@ const BlogItemWrapper = compose(
     withFirebase,
 )(BlogItem);
 
+const numEachPage = 5;   // Use a constant here to keep track of number of cards per page
+
 class BlogList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             blogList: [],
-            // blogList:[
-            //     {id:11, author:'author011', content:'content011', date:'10/01/2019', title:'This is blog#11'},
-            //     {id:12, author:'author012', content:'content012', date:'10/02/2019', title:'This is blog#12'},
-            //     {id:13, author:'author013', content:'content013', date:'10/03/2019', title:'This is blog#13'},
-            //     {id:14, author:'author014', content:'content014', date:'10/04/2019', title:'This is blog#14'},
-            //     {id:15, author:'author015', content:'content015', date:'10/05/2019', title:'This is blog#15'}
-            // ]
+            // pagination
+            minValue: 0,
+            maxValue: 5
         }
     }
 
@@ -44,16 +42,19 @@ class BlogList extends Component {
         });
     }
 
-    componentWillUnmount() {
-
-    }
+    handleChange = value => {
+        this.setState({
+            minValue: (value - 1) * numEachPage,
+            maxValue: value * numEachPage
+        });
+    };
 
     render() {
         return(
             <div className="blogList">
                 <Row>
                     {
-                        this.state.blogList.map((item, index) => {
+                        this.state.blogList.slice(this.state.minValue, this.state.maxValue).map((item, index) => {
                             return (
                                 <Col span={24}>
                                     <BlogItemWrapper blogInfo={item} />
@@ -62,7 +63,12 @@ class BlogList extends Component {
                         })
                     }
                 </Row>
-                <Pagination defaultCurrent={1} total={50}/>
+                <Pagination
+                    defaultCurrent={1}
+                    defaultPageSize={numEachPage} // default size of page
+                    onChange={this.handleChange}
+                    total={this.state.blogList.length} // total number of card data available
+                />
                 <BackTop />
             </div>
         )

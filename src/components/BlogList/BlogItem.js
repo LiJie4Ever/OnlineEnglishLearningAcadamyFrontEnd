@@ -27,29 +27,12 @@ class BlogItem extends Component {
         return(
             <div>
                 <Card className="blogItem" title={blogTitle} extra={blogDate} hoverable onClick={this.showBlog}>
-                    <p className="blogContent"> {blogContent} </p>
-                    <p className="blogAuthor"> 作者：{blogAuthor} </p>
+                    <p className="blogContent" dangerouslySetInnerHTML={{__html: blogContent}}/>
+                    <p className="blogAuthor"> Author：{blogAuthor} </p>
                 </Card>
             </div>
         )
     }
-
-    // BlogItem.defaultProps = {
-    //     blogId: 'blogId',
-    //     blogTitle: 'blogTitle',
-    //     blogAuthor: 'blogAuthor',
-    //     blogContent: 'blogContent',
-    //     time: 'time'
-    // };
-
-    // BlogItem.propTypes = {
-    //     blogId: propTypes.number,
-    //     blogTitle: propTypes.string,
-    //     blogAuthor: propTypes.string,
-    //     blogContent: propTypes.string,
-    //     time: propTypes.string
-    // };
-
 }
 
 export default BlogItem;

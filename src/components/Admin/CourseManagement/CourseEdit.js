@@ -1,12 +1,15 @@
 import React, { Component} from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import {Form, Icon, Input, Button, Select, Modal} from 'antd';
 import * as URL from "../../../constants/url";
 import './index.css';
+import app from "firebase";
 
 const ADDCOURSE = "/course/add";
 const MODIFYCOURSE = "/course/modify";
 const axios = require('axios');
-
+const { Option } = Select;
+const { TextArea } = Input;
+const { confirm } = Modal;
 
 class CourseEdit extends Component{
     constructor(props) {
@@ -14,10 +17,12 @@ class CourseEdit extends Component{
         this.cancelEdit = this.cancelEdit.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.originCourse = this.props.location.state.item;
+        this.state = {
+            tutorSelectList : []
+        };
     }
 
     componentDidMount() {
-        console.log(this.originCourse);
         if (this.originCourse != null) {
             this.props.form.setFieldsValue({
                 title: this.originCourse.title,
@@ -26,10 +31,32 @@ class CourseEdit extends Component{
                 content: this.originCourse.content
             })
         }
+        let tutorRef = app.firestore().collection('tutors');
+        let allTutors = tutorRef.get().then(snapshot => {
+            let list = this.state.tutorSelectList;
+            snapshot.forEach(doc =>{
+                let tutorObject = {tutorId:doc.id, tutorName:doc.data().userName};
+                list.push(tutorObject);
+            });
+            this.setState({ tutorSelectList : list });
+        }).catch(err => {
+            console.log('Error getting documents', err);
+        });
     }
 
     cancelEdit() {
-        this.props.history.push('/admin/manageCourse');
+        confirm({
+            title: 'Do you want to cancel editing?',
+            content: 'When clicked the OK button, the edit page will be closed and the content will not be saved.',
+            visible: true,
+            onOk:() => {
+                return new Promise((resolve, reject) => {
+                    this.props.history.push('/admin/manageCourse');
+                    setTimeout(Math.random() > 0.5 ? resolve : reject, 100);
+                }).catch(() => console.log('Oops errors!'));
+            },
+            onCancel() {},
+        });
     }
 
     handleSubmit = e => {
@@ -83,21 +110,26 @@ class CourseEdit extends Component{
                             />,
                         )}
                     </Form.Item>
-                    <Form.Item className="tutorEdit">
+                    <Form.Item hasFeedback>
                         {getFieldDecorator('tutor', {
-                            rules: [{ required: true, message: 'Please input the tutor\'s name!' }],
+                            rules: [{ required: true, message: 'Please select the tutor!' }],
                         })(
-                            <Input
-                                prefix={<Icon type="contacts" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                placeholder="Tutor"
-                            />,
+                            <Select placeholder="Please select a tutor" >
+                                {
+                                    this.state.tutorSelectList.map((item, index) => {
+                                        return (
+                                            <option key={item.tutorId}>{item.tutorName}</option>
+                                        )
+                                    })
+                                }
+                            </Select>,
                         )}
                     </Form.Item>
                     <Form.Item className="priceEdit">
                         {getFieldDecorator('price', {
                             rules: [{ required: true, message: 'Please input the price!' }],
                         })(
-                            <Input
+                            <InputNumber
                                 prefix={<Icon type="dollar" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                 placeholder="Price"
                             />,
@@ -107,8 +139,7 @@ class CourseEdit extends Component{
                         {getFieldDecorator('content', {
                             rules: [{ required: true, message: 'Please input the description!' }],
                         })(
-                            <Input className="contentEditInput"
-                                   prefix={<Icon type="file-text" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            <TextArea rows={12} className="contentEditInput"
                                    placeholder="Description"
                             />,
                         )}
