@@ -9,10 +9,10 @@ import boolean from "less/lib/less/functions/boolean";
 import * as URL from "../../constants/url";
 
 class Class extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
+            authStatus: "",
             uid: "",
             courseList: []
         };
@@ -21,8 +21,9 @@ class Class extends React.Component {
 
     showClass = (index) => {
         let classInfo = this.state.courseList[index];
+        let authStatus = this.state.authStatus;
         // console.log(this.props.history);
-        this.props.history.push({pathname:'/class/' + classInfo.id, state:{classInfo}});
+        this.props.history.push({pathname:'/class/' + classInfo.id, state:{classInfo, authStatus}});
     };
     addToCart = (index) => {
         this.state.courseList[index].state = "Already in Cart";
@@ -43,94 +44,124 @@ class Class extends React.Component {
     };
 
     componentDidMount() {
-        if (this.state.uid !== ""){
+        if (this.state.authStatus == "exists"){
+            if (this.state.uid !== ""){
+                axios.get(`${URL.ENDPOINT}${"/course"}`,{
+                })
+                    .then(res => {
+                        let courseArray = res.data;
+                        // console.log(courseArray);
+
+                        let boughtArray = [];
+                        let cartArray = [];
+
+                        let studentPromise = new Promise( (resolve) => {
+
+                            let userRef = app.firestore().collection('students').doc(this.state.uid);
+                            let getDoc = userRef.get()
+                                .then(doc => {
+                                    let cartPromise = new Promise((resolve) => {
+                                        if (doc.exists) {
+                                            let list1 = doc.data().courseArrayBought;
+                                            let list2 = doc.data().courseArrayCart;
+
+                                            for (let it1 in list1){
+                                                boughtArray.push(list1[it1]);
+                                            }
+
+                                            for (let it2 in list2){
+                                                cartArray.push(list2[it2]);
+                                            }
+                                        } else {
+                                            console.log('No such document!');
+                                        }
+                                        resolve();
+                                    });
+                                    cartPromise.then( ()=> {
+                                        res.boughtArray = boughtArray;
+                                        res.cartArray = cartArray;
+                                        resolve(res);
+                                    });
+                                })
+                                .catch(err => {
+                                    console.log('Error getting document', err);
+                                });
+                        });
+                        studentPromise.then(res => {
+
+                            let cartArray = res.cartArray;
+                            let boughtArray = res.boughtArray;
+
+                            for (let i in courseArray){
+                                let item  = courseArray[i][1];
+                                item.id = courseArray[i][0];
+                                let tutorItem = app.firestore().collection('tutors').doc(item.tutor);
+                                tutorItem.get().then(doc => {
+                                    if (doc.exists) {
+                                        item.avatar = doc.data().picUrl;
+                                        item.tutorName = doc.data().userName;
+
+                                        item.bool = false;
+                                        item.state = "Add to Cart";
+
+                                        for (let j in cartArray){
+                                            // console.log(cartArray[j]);
+                                            if (cartArray[j] === item.id){
+                                                item.bool = true;
+                                                item.state = "Already in Cart";
+                                                break;
+                                            }
+                                        }
+                                        for (let k in boughtArray){
+                                            // console.log(boughtArray[k]);
+                                            if (boughtArray[k] === item.id){
+                                                item.bool = true;
+                                                item.state = "Already Bought";
+                                                break;
+                                            }
+                                        }
+                                        this.state.courseList.push(item);
+                                        this.setState(this.state.courseList);
+
+                                    } else {
+                                        console.log("No such document!");
+                                    }}).catch(err => {
+                                    console.log('Error getting documents', err);
+                                });
+
+                            }
+                        });
+                    });
+            }
+        }
+        else{
             axios.get(`${URL.ENDPOINT}${"/course"}`,{
             })
                 .then(res => {
                     let courseArray = res.data;
                     // console.log(courseArray);
 
-                    let boughtArray = [];
-                    let cartArray = [];
+                    for (let i in courseArray){
+                        let item  = courseArray[i][1];
+                        item.id = courseArray[i][0];
+                        let tutorItem = app.firestore().collection('tutors').doc(item.tutor);
+                        tutorItem.get().then(doc => {
+                            if (doc.exists) {
+                                item.avatar = doc.data().picUrl;
+                                item.tutorName = doc.data().userName;
 
-                    let studentPromise = new Promise( (resolve) => {
+                                item.bool = true;
+                                item.state = "Log In to Add to Cart";
 
-                        let userRef = app.firestore().collection('students').doc(this.state.uid);
-                        let getDoc = userRef.get()
-                            .then(doc => {
-                                let cartPromise = new Promise((resolve) => {
-                                    if (doc.exists) {
-                                        let list1 = doc.data().courseArrayBought;
-                                        let list2 = doc.data().courseArrayCart;
+                                this.state.courseList.push(item);
+                                this.setState(this.state.courseList);
 
-                                        for (let it1 in list1){
-                                            boughtArray.push(list1[it1]);
-                                        }
-
-                                        for (let it2 in list2){
-                                            cartArray.push(list2[it2]);
-                                        }
-                                    } else {
-                                        console.log('No such document!');
-                                    }
-                                    resolve();
-                                });
-                                cartPromise.then( ()=> {
-                                    res.boughtArray = boughtArray;
-                                    res.cartArray = cartArray;
-                                    resolve(res);
-                                });
-                            })
-                            .catch(err => {
-                                console.log('Error getting document', err);
-                            });
-                    });
-                    studentPromise.then(res => {
-
-                        let cartArray = res.cartArray;
-                        let boughtArray = res.boughtArray;
-
-                        for (let i in courseArray){
-                            let item  = courseArray[i][1];
-                            item.id = courseArray[i][0];
-                            let tutorItem = app.firestore().collection('tutors').doc(item.tutor);
-                            tutorItem.get().then(doc => {
-                                if (doc.exists) {
-                                    item.avatar = doc.data().picUrl;
-                                    item.tutorName = doc.data().userName;
-
-
-                                    item.bool = false;
-                                    item.state = "Add to Cart";
-
-                                    for (let j in cartArray){
-                                        // console.log(cartArray[j]);
-                                        if (cartArray[j] === item.id){
-                                            item.bool = true;
-                                            item.state = "Already in Cart";
-                                            break;
-                                        }
-                                    }
-                                    for (let k in boughtArray){
-                                        // console.log(boughtArray[k]);
-                                        if (boughtArray[k] === item.id){
-                                            item.bool = true;
-                                            item.state = "Already Bought";
-                                            break;
-                                        }
-                                    }
-                                    this.state.courseList.push(item);
-                                    this.setState(this.state.courseList);
-
-
-                                } else {
-                                    console.log("No such document!");
-                                }}).catch(err => {
-                                console.log('Error getting documents', err);
-                            });
-
-                        }
-                    });
+                            } else {
+                                console.log("No such document!");
+                            }}).catch(err => {
+                            console.log('Error getting documents', err);
+                        });
+                    }
                 });
         }
     }
@@ -139,9 +170,10 @@ class Class extends React.Component {
         return (
             <div className='list'>
                 <AuthUserContext.Consumer>
-                    {temp => (
+                    {data => (
                         <div style={{display:"none"}}>
-                            {this.state.uid = temp.authUser.uid}
+                            {this.state.authStatus = (data.authUser) ? "exists" : ""}
+                            {this.state.uid = (data.authUser) ? data.authUser.uid : ""}
                         </div>
                     )}
                 </AuthUserContext.Consumer>

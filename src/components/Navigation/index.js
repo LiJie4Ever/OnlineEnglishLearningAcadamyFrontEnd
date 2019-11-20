@@ -62,7 +62,6 @@ class Navbar extends Component {
                                 <Route exact path={ROUTES.FAQ} component={Faq} />
                                 <Route exact path={ROUTES.LOG_IN} component={LogIn} />
                                 <Route exact path={ROUTES.SIGN_UP} component={SignUp} />
-                                <Route exact path={ROUTES.CART} component={Cart} />
                                 <Route exact path={ROUTES.PROFILE} component={Profile} />
                                 <Route exact path={ROUTES.ACCOUNT} component={Account} />
                                 <Route exact path={ROUTES.TUTOR} component={Tutor} />
