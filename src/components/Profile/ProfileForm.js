@@ -142,7 +142,7 @@ class RegistrationForm extends React.Component {
                     })(
                         <Select placeholder="Please select your identity">
                             <Option value="STUDENT">Student</Option>
-                            <Option value="TUTOR">Teacher</Option>
+                            <Option value="TUTOR">tutor</Option>
                         </Select>,
                     )}
                 </Form.Item>
