@@ -46,7 +46,6 @@ class RegistrationForm extends React.Component {
                                     birthDay: birthDay,
                                     country: values.country,
                                     roles: roles,
-                                    zoomAccountId: values.zoomAccountId
                                 }, { merge: true },);
                         if (roles[ROLES.STUDENT]) {
                             let courseArray = [];
@@ -56,7 +55,10 @@ class RegistrationForm extends React.Component {
                                 .set({
                                     userName: values.userName,
                                     courseArray: courseArray,
-                                    tutoringArray: tutoringArray
+                                    tutoringArray: tutoringArray,
+                                    courseArrayBought: [],
+                                    courseArrayCart: [],
+                                    onlineTutorArrayCart: [],
                                 }, { merge: true },);
                         }
                         if (roles[ROLES.TUTOR]) {

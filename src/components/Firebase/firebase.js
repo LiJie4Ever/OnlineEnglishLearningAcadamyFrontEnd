@@ -56,6 +56,9 @@ class Firebase {
     // *** Course API ***
     course = uid => this.db.doc(`course/${uid}`);
     courses = () => this.db.collection('course');
+
+    //*** request API ***
+    request = () => this.db.collection('request');
 }
 
 export default Firebase;

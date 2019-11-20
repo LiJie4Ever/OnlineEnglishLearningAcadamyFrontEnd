@@ -1,20 +1,27 @@
 .left{
     float: left;
-    padding-left: 50px;
-    width: 600px;
+    padding-left: 50px !important;
+    width: 50% !important;
 }
 
 .right{
     float: right;
-    padding-left: 50px;
-    width: 400px;
-    margin-right: 200px;
+    padding-left: 50px !important;
+    width: 30% !important;
+    margin-right: 10% !important;
 }
 
 h1{
     font-size: 25px;
-    height: 80px;
+    height: 50px;
+    margin-bottom: 40px;
 }
+
+h2{
+    margin: 20px 0px 0px 0px;
+    line-height: 30px;
+}
+
 
 .img{
     width: 50px;
@@ -56,4 +63,16 @@ hr{
     padding: 15px;
     height: 50px;
     margin-left: 33.3%;
+}
+
+.itemContent{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+.cartPrice{
+    color: #990000;
 }
