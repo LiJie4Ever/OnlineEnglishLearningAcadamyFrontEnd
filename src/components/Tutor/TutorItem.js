@@ -22,12 +22,9 @@ class TutorItem extends Component{
         let tutorExp = this.props.tutorInfo.teachExp;
 
         return(
-            <Card className="tutorCard" title={tutorName} hoverable style={{ width: 300, height:400 }}
-                  cover={<img alt="example" src={tutorImg}/>}>
-                <p className="tutorBio">{tutorBio}</p>
-                <div className="moreBTN">
-                    <a href="#" onClick={this.showTutor}>More</a>
-                </div>
+            <Card className="tutorCard" title={tutorName} hoverable onClick={this.showTutor}
+                  cover={<img alt="tutorImg" src={tutorImg}/>}>
+                <div><p className="tutorBio">{tutorBio}</p></div>
             </Card>
         )
     }
