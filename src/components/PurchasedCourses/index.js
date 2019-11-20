@@ -9,16 +9,20 @@ import { withFirebase } from '../Firebase';
 import app from 'firebase/app';
 import {AuthUserContext} from "../Session";
 import List from "antd/lib/list";
-import PasswordChangePage from "../Account";
 
 
 const BlogItemWrapper = compose(
     withFirebase,
 )(PurchasedItem);
 
+
+
+
 class CourseList extends Component {
+
     constructor(props) {
         super(props);
+        this.userId = '';
         this.state = {
             dataList: [],
         }
@@ -65,8 +69,7 @@ class CourseList extends Component {
                 <AuthUserContext.Consumer>
                 {data => (
                     <div>
-                        <h1>Account: {data.authUser.userName}  ,here are your purchased courses.</h1>
-
+                        <h1>Account: {this.userId = data.authUser.uid}  ,here are your purchased courses.</h1>
                     </div>
                 )}
             </AuthUserContext.Consumer>
