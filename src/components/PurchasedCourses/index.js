@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PurchasedItem from "./PurchasedItem";
 import './index.css';
-import { Row, Col } from 'antd';
+import {Row, Col, Avatar} from 'antd';
 import { BackTop } from 'antd';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
@@ -19,55 +19,83 @@ class CourseList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            CourseList: [],
+            dataList: [],
         }
     }
 
     componentDidMount() {
-        let blogRef = app.firestore().collection('course');
-        let allBlogs = blogRef.get().then(snapshot => {
-            let list = this.state.CourseList;
+        let list = this.state.dataList;
+        // query list of course information from database
+        let courseRef = app.firestore().collection('course');
+        let allCourses = courseRef.get().then(snapshot => {
             snapshot.forEach(doc =>{
-               // let ObjectId = {courseArray:doc.data().courseArray};
-               // console.log(ObjectId);
-                let blogObject = {id:doc.id, content:doc.data().content, title:doc.data().title,price:doc.data().price, image:doc.data().image,tutor:doc.data().tutor};
-                console.log(doc.data().date);
-                list.push(blogObject);
+                let testPromise = new Promise( ( resolve, reject ) => {
+                    // query tutor's name by tutorID (for display)
+                    let tutorName = "tutorName";
+                    let tutorPic = "";
+                    let tutorItem = app.firestore().collection('tutors').doc(doc.data().tutor);
+                    tutorItem.get().then(function (doc) {
+                        if (doc.exists) {
+                            tutorName = doc.data().userName;
+                            tutorPic = doc.data().picUrl;
+                            resolve([tutorName,tutorPic]);
+                        } else {
+                            console.log("No such document!");
+                        }
+                    }).catch(err => {
+                        console.log('Error getting documents', err);
+                    });
+                } );
+                testPromise.then((result => {
+                    let courseObject = {id:doc.id, title:doc.data().title, tutor:doc.data().tutor, tutorName:result[0], content:doc.data().content,
+                        image:doc.data().image, price:doc.data().price, url:doc.data().url,tutorPic:result[1]};
+                    list.push(courseObject);
+                    this.setState({ dataList : list });
+                }));
             });
         }).catch(err => {
-           console.log('Error getting documents', err);
+            console.log('Error getting documents', err);
         });
-    }
-
-    componentWillUnmount() {
-
-    }
+}
 
     render() {
         return(
-            <div>
-            <AuthUserContext.Consumer>
-                {data => (
-                    <div>
-                        <h1><b> {data.authUser.name}</b>
-                            ,here are your purchased courses.</h1>
-                    </div>
-                )}
-            </AuthUserContext.Consumer>
-                <div style={{width:'80%',margin:'auto'}}>
-                <Row>
-                    {
-                        this.state.CourseList.map((item, index) => {
-                            return (
-                                <Col span={24}>
-                                    <BlogItemWrapper CourseInfo={item} />
-                                </Col>
-                            )
-                        })
-                    }
-                </Row>
-                </div>
-                <BackTop />
+           <div className='list'>
+                <List
+                    itemLayout="vertical"
+                    size="large"
+                    pagination={{
+                        onChange: page => {
+                            console.log(page);
+                        },
+                        pageSize: 5,
+                    }}
+                    dataSource={this.state.dataList}
+                    renderItem={item => (
+                        <List.Item
+                            key={item.title}
+                            extra={
+                                <img
+                                    width={272}
+                                    alt="logo"
+                                    src={item.image}
+                                />
+                            }
+                        >
+                            <List.Item.Meta
+                                avatar={<Avatar src={item.tutorPic} />}
+                                title={<a href={item.href}>{item.title}</a>}
+                                description={
+                                    <div>
+                                        <div className='price'>US$ {item.price}</div>
+                                        <div className='name'>{item.tutorName}</div>
+                                    </div>
+                                }
+                            />
+                            <div>{item.content}</div>
+                        </List.Item>
+                    )}
+                />
             </div>
         )
     }

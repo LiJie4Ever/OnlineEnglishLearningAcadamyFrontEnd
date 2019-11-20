@@ -55,10 +55,8 @@
     ]
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "babel-preset-es2015-node5": "^1.2.0"
-=======
+
+    "babel-preset-es2015-node5": "^1.2.0",
     "react-test-renderer": "^16.12.0"
->>>>>>> b2fdff633a9f9a3defc14f5975dcf88fcdd0b791
   }
 }
