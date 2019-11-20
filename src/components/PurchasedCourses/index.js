@@ -16,8 +16,6 @@ const BlogItemWrapper = compose(
 )(PurchasedItem);
 
 
-
-
 class CourseList extends Component {
 
     constructor(props) {
@@ -29,40 +27,32 @@ class CourseList extends Component {
     }
 
     componentDidMount() {
-        let list = this.state.dataList;
-        // query list of course information from database
-        let courseRef = app.firestore().collection('course');
-        let allCourses = courseRef.get().then(snapshot => {
-            snapshot.forEach(doc =>{
-                let testPromise = new Promise( ( resolve, reject ) => {
-                    // query tutor's name by tutorID (for display)
-                    let tutorName = "tutorName";
-                    let tutorPic = "";
-                    let tutorItem = app.firestore().collection('tutors').doc(doc.data().tutor);
-                    tutorItem.get().then(function (doc) {
-                        if (doc.exists) {
-                            tutorName = doc.data().userName;
-                            tutorPic = doc.data().picUrl;
-                            resolve([tutorName,tutorPic]);
-                        } else {
-                            console.log("No such document!");
-                        }
-                    }).catch(err => {
-                        console.log('Error getting documents', err);
-                    });
-                } );
-                testPromise.then((result => {
-                    let courseObject = {id:doc.id, title:doc.data().title, tutor:doc.data().tutor, tutorName:result[0], content:doc.data().content,
-                        image:doc.data().image, price:doc.data().price, url:doc.data().url,tutorPic:result[1]};
-                    list.push(courseObject);
-                    this.setState({ dataList : list });
-                }));
-            });
+        let list = [];
+        let courselist = [];
+        let listLength;
+        let courseRef = app.firestore().collection('students').doc(this.userId);
+        courseRef.get().then(doc =>{
+            console.log(doc.data());
+            list.push(doc.data().courseArray);
+            list = list[0];
+            listLength = list.length;
+            console.log(list);
+            console.log(listLength);
+            for(var i =0;i<listLength;i++){
+                let CourseItem = app.firestore().collection('course').doc(list[i]);
+                CourseItem.get().then(doc =>{
+                    console.log(doc.data());
+                    let courseObject = {id:doc.id, title:doc.data().title, tutor:doc.data().tutor, content:doc.data().content,
+                        image:doc.data().image, price:doc.data().price};
+                    courselist.push(courseObject);
+                    this.setState({ dataList : courselist });
+                    console.log(this.state.dataList);
+                });
+            }
         }).catch(err => {
             console.log('Error getting documents', err);
         });
 }
-
     render() {
         return(
             <div>
@@ -105,7 +95,7 @@ class CourseList extends Component {
                                     </div>
                                 }
                             />
-                            <div>{item.content}</div>
+                            <div className={'content'}>{item.content}</div>
                         </List.Item>
                     )}
                 />

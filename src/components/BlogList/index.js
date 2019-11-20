@@ -32,6 +32,7 @@ class BlogList extends Component {
                 list.push(blogObject);
             });
             this.setState({ blogList : list });
+            console.log(list);
         }).catch(err => {
            console.log('Error getting documents', err);
         });
