@@ -2,12 +2,12 @@ import React, {Component} from "react";
 // import PropTypes from 'prop-types';
 import './index.css';
 import List from "antd/lib/list";
+import {Avatar} from "antd";
 
 class PurchasedItem extends Component {
     constructor(props) {
         super(props);
     }
-
 
     render() {
         let CourseTitle = this.props.CourseInfo.title;
@@ -27,7 +27,7 @@ class PurchasedItem extends Component {
                             <img
                                 width={272}
                                 alt="logo"
-                                src='https://i.ytimg.com/vi/8SPTbmew5JY/maxresdefault.jpg'
+                                src={CoursePic}
                             />
                         }
                     >
@@ -39,6 +39,7 @@ class PurchasedItem extends Component {
                     </List.Item>
                 </List>
             </div>
+
         )
     }
 
