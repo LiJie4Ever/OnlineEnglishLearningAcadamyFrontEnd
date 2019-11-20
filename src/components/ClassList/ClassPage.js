@@ -11,8 +11,10 @@ class ClassPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            show: "none",
             uid: "",
             classInfo: this.props.location.state.classInfo,
+            authStatus: this.props.location.state.authStatus,
             sourceList: [],
             vid: {}
         }
@@ -48,30 +50,35 @@ class ClassPage extends Component {
     };
 
     componentDidMount() {
-        let sourceList = [];
-        for (let i in this.state.classInfo.lessonArray) {
-            let lessonPromise = new Promise((resolve => {
-                axios.post(`${URL.ENDPOINT}${"/lesson/get"}`, {
-                    lessonID: this.state.classInfo.lessonArray[i]
-                })
-                    .then(res => {
-                        let item = res.data;
-                        item.index = i;
-                        sourceList.push(item);
-                        if (i == 0){
-                            this.state.vid = item;
-                            item.color = "whitesmoke";
-                        }
-                        resolve();
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+        if (this.state.authStatus == "exists"){
+            if (this.state.classInfo.state == "Already Bought"){
+                let sourceList = [];
+                for (let i in this.state.classInfo.lessonArray) {
+                    let lessonPromise = new Promise((resolve => {
+                        axios.post(`${URL.ENDPOINT}${"/lesson/get"}`, {
+                            lessonID: this.state.classInfo.lessonArray[i]
+                        })
+                            .then(res => {
+                                let item = res.data;
+                                item.index = i;
+                                sourceList.push(item);
+                                if (i == 0){
+                                    this.state.vid = item;
+                                    item.color = "whitesmoke";
+                                }
+                                resolve();
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
 
-            }));
-            lessonPromise.then(() => {
-                this.setState({sourceList: sourceList});
-            });
+                    }));
+                    lessonPromise.then(() => {
+                        this.setState({sourceList: sourceList});
+                    });
+                }
+                this.state.show = "block";
+            }
         }
     }
 
@@ -89,7 +96,7 @@ class ClassPage extends Component {
                 <AuthUserContext.Consumer>
                     {temp => (
                         <div style={{display:"none"}}>
-                            {this.state.uid = temp.authUser.uid}
+                            {this.state.uid = this.state.authStatus ? temp.authUser.uid : null}
                         </div>
                     )}
                 </AuthUserContext.Consumer>
@@ -126,9 +133,10 @@ class ClassPage extends Component {
                 </div>
 
 
-                <div>
+                <div style={{"display": this.state.show}}>
                     <h2 className={"detailClassLessonTitle"}>{vid.lessonTitle}</h2>
                     <div className={"detailClassLessonIntro"}>{vid.lessonIntro}</div>
+
                     <div className={"detailClassLeft"}>
                         <Player
                             className={"detailClassVideo"}
