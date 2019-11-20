@@ -5,7 +5,8 @@ import {
     Input,
     Button,
     DatePicker,
-    AutoComplete
+    AutoComplete,
+    notification
 } from 'antd';
 import * as URL from '../../constants/url';
 const axios = require('axios');
@@ -49,7 +50,14 @@ class NewSessionTable extends Component {
                     id: this.props.requestID,
                     fields: data
                 }) .then(function (response) {
-                    console.log(response);
+                    notification.open({
+                        message: 'Add successfully',
+                        description:
+                            'The meeting link has been added.',
+                        onClick: () => {
+                            console.log('Notification Clicked!');
+                        },
+                    });
                 })
                 .catch(function (error) {
                     console.log(error);

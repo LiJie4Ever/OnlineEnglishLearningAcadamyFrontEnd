@@ -40,9 +40,16 @@ class InstructPage extends Component {
     };
 
     hancleChange = () => {
-        this.setState({
-            currentActiveKey: '1'
-        });
+        let key = this.state.currentActiveKey;
+        if (key === '1') {
+            this.setState({
+                currentActiveKey: '2'
+            })
+        } else {
+            this.setState({
+                currentActiveKey: '1'
+            })
+        }
     };
 
     render() {

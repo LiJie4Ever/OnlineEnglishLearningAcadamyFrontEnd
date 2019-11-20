@@ -80,11 +80,13 @@ class MenuAuth extends Component {
                     <Icon type="logout" />
                     <SignOutButton />
                 </Menu.Item>
-                <Menu.Item key="9" className="Nav_Menu_Item">
-                    <Icon type="shopping-cart" />
-                    <span>Cart</span>
-                    <Link to={ROUTES.CART} />
-                </Menu.Item>
+                {!!this.props.authUser.roles[ROLES.STUDENT] && (
+                    <Menu.Item key="9" className="Nav_Menu_Item">
+                        <Icon type="shopping-cart" />
+                        <span>Cart</span>
+                        <Link to={ROUTES.CART} />
+                    </Menu.Item>
+                )}
             </Menu>
         )
     }
