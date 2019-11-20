@@ -99,17 +99,13 @@ class AdminPage extends Component {
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_BLOG}`} component={BlogManagement} />}
                                 <Route exact path={`${match.url}${ROUTES.BLOGEDIT}`} component={BlogEdit} />}
                                 <Route exact path={`${match.url}${ROUTES.BLOGCREATE}`} component={BlogEdit} />}
-<<<<<<< HEAD
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_REQUEST}`} component={RequestManagement} />}
                                 <Route exact path={`${match.url}${ROUTES.SCHEDULE}`} component={ScheduleManagement} />}
                                 <Route exact path={`${match.url}${ROUTES.ADD_SCHEDULE}`} component={AddSchedule} />}
-                                />
-=======
                                 <Route exact path={`${match.url}${ROUTES.TUTOREDIT}`} component={TutorEdit} />}
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_COURSE}`} component={CourseManagement} />}
                                 <Route exact path={`${match.url}${ROUTES.COURSEEDIT}`} component={CourseEdit} />}
                                 <Route exact path={`${match.url}${ROUTES.COURSECREATE}`} component={CourseEdit} />}
->>>>>>> f9f8f1ab73927e015283a52a61a48e79d349723e
                             </Switch>
                         </Content>
                     </Layout>

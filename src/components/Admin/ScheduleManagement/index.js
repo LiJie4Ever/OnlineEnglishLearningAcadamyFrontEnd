@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Table, Icon, Form, Input, Button } from 'antd';
 import app from "firebase";
 import './index.css';
-
+import * as URL from "../../../constants/url";
 const BACKURL = "http://localhost:5009/onlineenglishacademy-eddb3/us-central1/api";
 //const ENDPOINT = "https://us-central1-onlineenglishacademy-eddb3.cloudfunctions.net/api";
-const ENDPOINT = "http://localhost:5009/onlineenglishacademy-eddb3/us-central1/api";
+const ENDPOINT = URL.ENDPOINT
 const CONFIRMREQUEST = "/request/confirm";
 const axios = require('axios');
 
@@ -15,33 +15,33 @@ class ScheduleManagement extends Component{
       {
           title: 'student',
           dataIndex: 'student',
-          width: 100,
+          width: 120,
 
       },
       {
           title: 'tutor',
           dataIndex: 'tutor',
-          width: 200,
-      },
-      {
-          title: 'status',
-          dataIndex: 'status',
-          width: 100,
+          width: 120,
       },
       {
           title: 'meetingStartTime',
           dataIndex: 'meetingStartTime',
-          width: 200,
+          width: 150,
+      },
+      {
+          title: 'duration',
+          dataIndex: 'duration',
+          width: 80,
       },
       {
           title: 'offset',
           dataIndex: 'offset',
-          width: 200,
+          width: 80,
       },
       {
           title: 'createTime',
           dataIndex: 'createTime',
-          width: 120,
+          width: 150,
       },
       {
           title: 'link',
@@ -51,7 +51,7 @@ class ScheduleManagement extends Component{
       {
           title: 'Action',
           width: 100,
-          fixed: 'right',
+          //fixed: 'right',
           render: (text, record)=>(
               <span>
               <a className="scheDeleteBTN" onClick={(e)=>this.handleDelete(record.id)}>
@@ -117,12 +117,12 @@ class ScheduleManagement extends Component{
         return (
             <div>
                 <Button onClick={this.handleAdd} type="primary" style={{ marginBottom: 16 }}>
-                Add a row
+                Add schedule
                 </Button>
                 <Table
                 columns={columns}
                 dataSource={this.state.data}
-                scroll={{x:1500}}
+                //scroll={{x:1000}}
             />
             </div>
         );

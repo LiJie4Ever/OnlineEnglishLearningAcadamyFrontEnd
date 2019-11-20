@@ -2,24 +2,62 @@ import React, { Component} from 'react';
 import { Form, Icon, Input, Button, Checkbox,Select } from 'antd';
 import * as URL from "../../../constants/url";
 import './index.css';
-
+import { withFirebase } from '../../Firebase';
+import app from "firebase";
+import { DatePicker } from 'antd';
+import { TimePicker } from 'antd';
+import moment from 'moment';
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 const { Option } = Select;
 const ADDBLOG = "/blog/add";
 const MODIFYBLOG = "/blog/modify";
 const axios = require('axios');
-const ENDPOINT = "http://localhost:5009/onlineenglishacademy-eddb3/us-central1/api";
+const ENDPOINT = URL.ENDPOINT;
 
 class AddSchedule extends Component{
     constructor(props) {
         super(props);
         this.cancelAdd = this.cancelAdd.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.state={
+          tutorList:[],
+          studentList:[],
+          pickD:"",
+          pickT:"",
+        };
+        //console.log(this);
     }
 
     componentDidMount() {
-        console.log(this.props);
+        let allTutors = app.firestore().collection("users").where("roles","==",{"TUTOR":"TUTOR"}).get().then(snapshot => {
+            let tutors = [];
+            snapshot.forEach(doc => {
+                tutors.push({
+                        uid: doc.id,
+                        userName: doc.data().userName
+                    });
+                }
+            );
+            this.setState({
+                tutorList: tutors
+            });
+            //console.log(tutors);
+        });
+        let allStudents = app.firestore().collection("users").where("roles","==",{"STUDENT":"STUDENT"}).get().then(snapshot => {
+            let students = [];
+            snapshot.forEach(doc => {
+                students.push({
+                        uid: doc.id,
+                        userName: doc.data().userName
+                    });
+                }
+            );
+            this.setState({
+                studentList: students
+            });
+        });
+        //console.log(this.state);
     }
-
     cancelAdd() {
         this.props.history.push('/admin/schedule');
     }
@@ -29,23 +67,23 @@ class AddSchedule extends Component{
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
 
-            console.log(values);
+            //console.log(values);
             //return;
             if (!err) {
                 var myD = new Date();
                 let date = myD.getFullYear()+"-"+(myD.getMonth()+1)+"-"+myD.getDate()
-                +" "+myD.getHours()+":"+myD.getMinutes();
-                console.log(date);
+                +" "+myD.getHours()+":"+myD.getMinutes()+":"+myD.getSeconds();
+                //console.log(date);
                 //return;
                 let dataObj = {
                     student: values.selectedStudent,
                     tutor: values.selectedTutor,
-                    meetingStartTime: values.startTime,
+                    meetingStartTime: this.state.pickD+" "+this.state.pickT,
                     offset: values.timezone,
                     duration: values.duration,
                     createTime: date,
-                    link:"",
-                    status:""
+                    link:"not avaliable",
+                    topic:""
                 };
                 console.log(dataObj);
                 //return;
@@ -62,8 +100,18 @@ class AddSchedule extends Component{
             }
         });
     };
-
+    onChangeD =(date, dateString)=> {
+      //console.log(date, dateString);
+      //console.log(this.state);
+      this.state.pickD=dateString;
+    }
+    onChangeT=(time, timeString) =>{
+      //console.log(time, timeString);
+      this.state.pickT=timeString;
+    }
     render() {
+
+
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
             labelCol: {
@@ -83,9 +131,13 @@ class AddSchedule extends Component{
                             rules: [{ required: true, message: 'Please select the tutor!' }],
                         })(
                             <Select placeholder="Please select a course">
-                                <Option value="VmytE8ZVT6VlGdMXqn6J">Jack Ber</Option>
-                                <Option value="bqSRNCOz5gguQA5RfRla">Sebastian Evans</Option>
-                                <Option value="h3q4RjwqFmTkHZos1mV1RvyQyp32">Lisa Brian</Option>
+                                {
+                                    this.state.tutorList.map((item, index) => {
+                                        return(
+                                            <Option key={item.uid} value={item.uid}>{item.userName}</Option>
+                                        )
+                                    })
+                                }
                             </Select>,
                         )}
                     </Form.Item>
@@ -94,20 +146,30 @@ class AddSchedule extends Component{
                             rules: [{ required: true, message: 'Please select the student!' }],
                         })(
                             <Select placeholder="Please select a course">
-                                <Option value="ONm5h98A9WUOAbmjdwPajf1DQDA3">ts_Junjing</Option>
-                                <Option value="zeQHpjltTfcVGkxWZ5jPtCv5S2J3">zxuan</Option>
+                            {
+                                this.state.studentList.map((item, index) => {
+                                    return(
+                                        <Option key={item.uid} value={item.uid}>{item.userName}</Option>
+                                    )
+                                })
+                            }
                             </Select>,
                         )}
                     </Form.Item>
-                    <Form.Item label="start time">
-                        {getFieldDecorator('startTime', {
-                            rules: [{ required: true, message: 'Please input the title!' }],
+                    <Form.Item label="start date">
+                        {getFieldDecorator('startDate', {
+                            rules: [{ required: true }],
                         })(
-                            <Input
-                                prefix={<Icon type="edit" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                placeholder="The date and time of the session"
-                            />,
+                          <DatePicker onChange={this.onChangeD} placeholder="Select date" />
                         )}
+                    </Form.Item>
+                    <Form.Item label="start time">
+                      {getFieldDecorator('startTime', {
+                          rules: [{ required: true }],
+                      })(
+                        <TimePicker onChange={this.onChangeT} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />,
+
+                      )}
                     </Form.Item>
                     <Form.Item label="timezone">
                         {getFieldDecorator('timezone', {
@@ -136,7 +198,7 @@ class AddSchedule extends Component{
                     <Button type="primary" htmlType="submit" className="comfirmBTN">
                         Comfirm
                     </Button>
-                    <a className="cancelBTN" onClick={this.cancelEdit}>cancel</a>
+                    <a className="cancelBTN" onClick={this.cancelAdd}>cancel</a>
 
                     </Form.Item>
 

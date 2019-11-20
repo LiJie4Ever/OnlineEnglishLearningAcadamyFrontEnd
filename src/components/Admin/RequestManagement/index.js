@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Table, Icon, Form, Input } from 'antd';
 import app from "firebase";
 import './index.css';
+import * as URL from "../../../constants/url";
 
 const BACKURL = "http://localhost:5009/onlineenglishacademy-eddb3/us-central1/api";
 //const ENDPOINT = "https://us-central1-onlineenglishacademy-eddb3.cloudfunctions.net/api";
-const ENDPOINT = "http://localhost:5009/onlineenglishacademy-eddb3/us-central1/api";
+const ENDPOINT = URL.ENDPOINT;
 const CONFIRMREQUEST = "/request/confirm";
 const axios = require('axios');
 
@@ -107,7 +108,7 @@ class RequestManagement extends Component{
     columns = [
         {
             title: 'Name',
-            dataIndex: 'student',
+            dataIndex: 'studentName',
             width: 100,
 
         },
@@ -119,7 +120,7 @@ class RequestManagement extends Component{
         //},
         {
             title: 'Email',
-            dataIndex: 'email',
+            dataIndex: 'studentEmail',
             width: 200,
         },
         {
@@ -129,8 +130,19 @@ class RequestManagement extends Component{
         },
         {
             title: 'Availability',
-            dataIndex: 'availableTime',
             width: 200,
+            render: (text, record)=>{
+              var avday="";
+              var avtime ="";
+              if(record.availableDay!=undefined)
+                avday = record.availableDay.join(",");
+              if(record.availableTimeSlot!=undefined)
+                avtime = record.availableTimeSlot.join(",");
+              return(
+                <span>
+                    {avday}<br/>{avtime}
+                </span>
+            )},
         },
         {
             title: 'Tutor 1',
@@ -169,18 +181,16 @@ class RequestManagement extends Component{
             fixed: 'right',
             render: (text, record)=>(
                 <span>
-                <a className="reqConfirmBTN" onClick={(e)=>this.handleConfirm(record.id)}>
+                <a className="reqConfirmBTN" onClick={(e)=>this.handleConfirm(record.id, record.studentId)}>
                 <Icon type="check" />
                 </a>
 
-                <a className="cancelBTN" onClick={(e)=>this.handleCancel(record.id)}>
+                <a className="cancelBTN" onClick={(e)=>this.handleCancel(record.id, record.studentId)}>
                 <Icon type="close" />
                 </a>
 
             </span>
             ),
-
-
         },
     ];
     refreshTable=()=>{
@@ -195,13 +205,20 @@ class RequestManagement extends Component{
         });
     };
 
-    handleConfirm = (requestID)=>{
+    handleConfirm = (requestID, studentID)=>{
         //alert("confirmed request from "+requestID);
         axios.post(`${ENDPOINT}${CONFIRMREQUEST}`, {
                 id: requestID
         })
             .then(function (response) {
                 console.log(response);
+                axios.post(`${URL.ENDPOINT}`+"/cart/tutor/add",{
+                    requestID: requestID,
+                    studentID: studentID
+                }).then(function(response){
+                    console.log("all done");
+
+                });
                 this.refreshTable();
             }.bind(this))
             .catch(function (error) {
@@ -210,7 +227,7 @@ class RequestManagement extends Component{
 
     }
 
-    handleCancel = (requestID)=>{
+    handleCancel = (requestID, studentID)=>{
         console.log(`${ENDPOINT}`+"/request/cancel");
         console.log(requestID);
         axios.post(`${ENDPOINT}`+"/request/cancel", {
@@ -218,6 +235,13 @@ class RequestManagement extends Component{
         })
           .then(function (response) {
               console.log(response);
+              axios.post(`${URL.ENDPOINT}`+"/cart/tutor/delete",{
+                  requestID: requestID,
+                  studentID: studentID
+              }).then(function(response){
+                  console.log("all done");
+
+              });
               this.refreshTable();
           }.bind(this))
           .catch(function (error) {
