@@ -67,8 +67,9 @@ class RegistrationForm extends React.Component {
                                 .set({
                                     userName: values.userName,
                                     bio: "Please add your introduction",
-                                    teachingExperience: 0,
-                                    videoLink: ""
+                                    teachExp: 0,
+                                    videoLink: "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
+                                    picUrl: "https://cdn1.iconfinder.com/data/icons/ios-11-glyphs/30/face_ID-512.png"
                                 }, { merge: true },);
                         }
                     })

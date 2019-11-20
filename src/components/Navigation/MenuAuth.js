@@ -20,10 +20,12 @@ class MenuAuth extends Component {
                     <span>Home</span>
                     <Link to={ROUTES.LANDING} />
                 </Menu.Item>
-                <Menu.Item key="2">
-                    <span>Courses</span>
-                    <Link to={ROUTES.CLASS_LIST} />
-                </Menu.Item>
+                {!!this.props.authUser.roles[ROLES.STUDENT] && (
+                    <Menu.Item key="2">
+                        <span>Courses</span>
+                        <Link to={ROUTES.CLASS_LIST} />
+                    </Menu.Item>
+                )}
                 <Menu.Item key="10">
                     <span>Blog</span>
                     <Link to={ROUTES.BLOGLIST} />

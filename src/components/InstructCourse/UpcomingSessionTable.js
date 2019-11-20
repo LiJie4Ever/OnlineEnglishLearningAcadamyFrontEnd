@@ -22,7 +22,6 @@ class ClassList extends React.Component {
 
     componentDidMount() {
         let list = this.state.data;
-        console.log("lalallala");
         axios.post(`${URL.ENDPOINT}${defaultQuery}`, {
             id: this.props.data.uid
         }).then(response => {
@@ -44,6 +43,7 @@ class ClassList extends React.Component {
                 } );
                 testPromise.then(result => {
                     let offset = moment_tz().tz(moment_tz.tz.guess(true)).format('Z');
+                    console.log(item[1]);
                     let operation = offset.split(":")[0][0];
                     let loacalTime = "";
                     if (operation === '+') {
@@ -51,7 +51,8 @@ class ClassList extends React.Component {
                     } else {
                         loacalTime = moment(item[1].meetingStartTime).subtract(parseInt(offset.split(":")[0].substring(1)), 'hours').format("LLL")
                     }
-                    let history = { key: index, startTime: loacalTime, student: result, topic: item[1].topic, duration: item[1].duration, link: item[1].link, requestID: item[0]};
+                    console.log(item[1].student);
+                    let history = { key: index, startTime: loacalTime, student: result, topic: item[1].topic, duration: item[1].duration, link: item[1].link, requestID: item[0], studentId: item[1].student};
                     list.push(history);
                     this.setState({ data : list });
                 });
@@ -161,7 +162,7 @@ class ClassList extends React.Component {
             {
                 title: 'Add Meeting Link',
                 render: (text, record) => (
-                    <Button type="primary" onClick={() => this.addMeetingLink(record.requestID)}>Add meeting link and info</Button>
+                    <Button type="primary" onClick={() => this.addMeetingLink({request: record.requestID, student: record.studentId})}>Add meeting link and info</Button>
                 )
             },
         ];
