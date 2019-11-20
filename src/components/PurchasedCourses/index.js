@@ -33,7 +33,7 @@ class CourseList extends Component {
         let courseRef = app.firestore().collection('students').doc(this.userId);
         courseRef.get().then(doc => {
             console.log(doc.data());
-            list.push(doc.data().courseArray);
+            list.push(doc.data().courseArrayBought);
             list = list[0];
             listLength = list.length;
             console.log(list);
