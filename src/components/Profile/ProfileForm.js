@@ -8,7 +8,7 @@ import {
     Icon,
     Button,
     DatePicker,
-    Select,
+    Select
 } from 'antd';
 import * as ROUTES from "../../constants/routes";
 import * as ROLES from "../../constants/roles";
@@ -79,7 +79,12 @@ class RegistrationForm extends React.Component {
                         this.props.history.push(ROUTES.LANDING);
                     })
                     .catch(error => {
-                        console.log(error)
+                        console.log(error);
+                        alert(error);
+                        //notification.open({
+                        //    message: 'Failed!',
+                        //    description: error,
+                        //});
                     });
             }
         });

@@ -8,9 +8,11 @@ import {
     Row,
     Col,
     InputNumber,
-    DatePicker
+    DatePicker,
+    notification
 } from 'antd';
 import 'antd/dist/antd.css';
+import {withRouter} from "react-router-dom";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -80,6 +82,14 @@ class CourseRequestForm extends Component {
                     status: 0
                 };
                 this.props.firebase.request().doc(uuid()).set(data).then(() => {
+                    notification.open({
+                      message: 'Request submitted!',
+                    });
+                    let history = this.props.history;
+                    setTimeout(function () {
+                        history.push('/');
+                    }, 2000);
+
                     console.log("successfully");
                 }).catch(() => {
                     console.log("error");
