@@ -56,8 +56,11 @@ class MenuAuth extends Component {
                     {!!this.props.authUser.roles[ROLES.STUDENT] && (
                         <Menu.Item>
                             <Link to={ROUTES.STUDENT_TUTORING}>Take Course</Link>
-                        </Menu.Item>
-                    )}
+                        </Menu.Item>)}
+                    {!!this.props.authUser.roles[ROLES.STUDENT] && (
+                        <Menu.Item>
+                            <Link to={ROUTES.STUDENT_COURSES}>Purchased Courses</Link>
+                        </Menu.Item>)}
                     {!!this.props.authUser.roles[ROLES.TUTOR] && (
                         <Menu.Item>
                             <Link to={ROUTES.TUTOR_TUTORING}>Instruct Course</Link>
