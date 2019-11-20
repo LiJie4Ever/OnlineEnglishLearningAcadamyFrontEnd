@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css"
 import 'antd/dist/antd.css';
-import { List, Avatar, Skeleton, Button } from 'antd';
+import { List, Avatar, Skeleton, Button, notification } from 'antd';
 import * as URL from "../../constants/url";
 import {AuthUserContext} from "../Session";
 import axios from 'axios';
@@ -102,8 +102,14 @@ class Cart extends React.Component {
                 id: this.state.sessionList[i].id,
             })
                 .then(res =>{
+                    notification.open({
+                        message:"Checkout successfully"
+                    });
                 })
                 .catch(function (error) {
+                    notification.open({
+                        message:"Checkout Failed"
+                    });
                     console.log(error);
                 });
         }

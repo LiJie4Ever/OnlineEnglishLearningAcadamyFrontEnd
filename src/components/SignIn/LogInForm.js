@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Checkbox, Form, Icon, Input} from "antd";
+import {Button, Checkbox, Form, Icon, Input, notification} from "antd";
 import {Link} from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import "./index.css";
@@ -29,6 +29,9 @@ class NormalLoginForm extends React.Component {
                         this.props.history.push(ROUTES.LANDING);
                     })
                     .catch(error => {
+                        notification.open({
+                            message:"Wrong password!",
+                        });
                         this.setState({ error });
                         console.log(error);
                     });
