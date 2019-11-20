@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 import { Layout, Menu, Icon } from 'antd';
 import { compose } from 'recompose';
 import * as ROLES from '../../constants/roles';
-import {AuthUserContext, withAuthorization, withEmailVerification} from '../Session';
+import { withAuthorization, withEmailVerification} from '../Session';
 import * as ROUTES from "../../constants/routes";
 import BlogManagement from "./BlogManagement";
 import BlogEdit from "./BlogManagement/BlogEdit";
@@ -18,8 +18,6 @@ import ScheduleManagement from "./ScheduleManagement"
 import AddSchedule from "./ScheduleManagement/AddSchedule"
 import LessonManagement from "./LessonManagement";
 import LessonEdit from "./LessonManagement/LessonEdit"
-import MenuAuth from "../Navigation/MenuAuth";
-import MenuUnAuth from "../Navigation/MenuUnAuth";
 
 const { Sider, Content } = Layout;
 
@@ -34,39 +32,13 @@ class AdminPage extends Component {
     }
 
     componentDidMount() {
-        /*
-        this.setState({ loading: true });
-        this.unsubscribe = this.props.firebase.users().onSnapshot(snapshot => {
-            let users = [];
-            console.log(snapshot);
-            snapshot.forEach(doc => {
-                    users.push({ ...doc.data(), uid: doc.id });
-                }
-            );
-            this.setState({
-                users: users,
-                loading: false,
-                hasData: true
-            });
-        });
-
-         */
     }
 
     componentWillUnmount() {
-        //this.unsubscribe();
     }
 
     render() {
         const match = this.props.match;
-        let welcome;
-        console.log(window.location.pathname);
-        console.log("this is the router:" + ROUTES.ADMIN+'/');
-        if (window.location.pathname === ROUTES.ADMIN+'/') {
-            welcome = <div>Welcome, 小仙女</div>
-        } else {
-            welcome = <div></div>
-        }
         return (
             <Router>
                 <Layout style={{ minHeight: '100vh' }}>
@@ -97,11 +69,6 @@ class AdminPage extends Component {
                                 <span>Scheduling</span>
                                 <Link to={`${match.url}${ROUTES.SCHEDULE}`} />
                             </Menu.Item>
-                            <Menu.Item key="4">
-                                <Icon type="money-collect" />
-                                <span>Payment</span>
-                                <Link to={`${match.url}${ROUTES.PAYMENT}`} />
-                            </Menu.Item>
                             <Menu.Item key="6">
                                 <Icon type="money-collect" />
                                 <span>Request</span>
@@ -111,7 +78,6 @@ class AdminPage extends Component {
                     </Sider>
                     <Layout>
                         <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
-                            {welcome}
                             <Switch>
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_TUTOR}`} component={TutorManagement} />}
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_BLOG}`} component={BlogManagement} />}
@@ -139,7 +105,7 @@ class AdminPage extends Component {
 const condition = authUser =>
     authUser && !!authUser.roles[ROLES.ADMIN];
 export default compose(
-    //withEmailVerification,
-    //withAuthorization(condition),
-    //withFirebase
+    withEmailVerification,
+    withAuthorization(condition),
+    withFirebase
 )(AdminPage);
