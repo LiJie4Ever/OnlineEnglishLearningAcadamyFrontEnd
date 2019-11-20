@@ -3,6 +3,17 @@
     width: 65%;
 }
 
+.lessonAdminCard {
+    margin: 5px 0;
+}
+
+.lessonAdminTitle {
+    background: white;
+    text-align: left;
+    font-weight: bolder;
+    border-bottom: 1px dashed lightgrey;
+}
+
 /* Lesson Edit Page */
 
 .lesson-edit-form {
