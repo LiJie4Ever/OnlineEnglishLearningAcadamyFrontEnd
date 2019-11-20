@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Table, Icon, Form, Input, Button } from 'antd';
+import { Table, Icon, Form, Input, Button, notification, Popconfirm } from 'antd';
 import app from "firebase";
 import './index.css';
 import * as URL from "../../../constants/url";
-const BACKURL = "http://localhost:5009/onlineenglishacademy-eddb3/us-central1/api";
+//const BACKURL = "http://localhost:5009/onlineenglishacademy-eddb3/us-central1/api";
 //const ENDPOINT = "https://us-central1-onlineenglishacademy-eddb3.cloudfunctions.net/api";
 const ENDPOINT = URL.ENDPOINT
 const CONFIRMREQUEST = "/request/confirm";
@@ -16,7 +16,6 @@ class ScheduleManagement extends Component{
           title: 'student',
           dataIndex: 'student',
           width: 120,
-
       },
       {
           title: 'tutor',
@@ -53,11 +52,12 @@ class ScheduleManagement extends Component{
           width: 100,
           //fixed: 'right',
           render: (text, record)=>(
-              <span>
-              <a className="scheDeleteBTN" onClick={(e)=>this.handleDelete(record.id)}>
-              <Icon type="close" />
-              </a>
-
+          <span>
+              <Popconfirm title="Sure to confirm?" onConfirm={(e)=>this.handleDelete(record.id)}>
+                <a className="scheDeleteBTN">
+                <Icon type="close" />
+                </a>
+              </Popconfirm>
           </span>
           ),
 
@@ -68,6 +68,14 @@ class ScheduleManagement extends Component{
     constructor(props) {
         super(props);
         this.handleAdd = this.handleAdd.bind(this);
+        console.log("____");
+        //console.log(this.props.location.state);
+        if(this.props.location.state!=undefined && this.props.location.state.message!=undefined){
+          notification.open({
+              message: this.props.location.state.message,
+            });
+        }
+        //console.log(this.props.location.state.message);
         this.state = {
             data: []
         }
@@ -77,10 +85,17 @@ class ScheduleManagement extends Component{
     refreshTable=()=>{
       axios.get(`${ENDPOINT}`+"/schedule/getList", {})
         .then(function (response) {
+            notification.open({
+              message: 'Data reloaded!',
+            });
             this.setState({ data : response.data.content });
         }.bind(this))
         .catch(function (error) {
             console.log(error);// todo
+            notification.open({
+                message: 'Failed!',
+                description: error
+              });
         });
     };
 
@@ -93,10 +108,17 @@ class ScheduleManagement extends Component{
         })
           .then(function (response) {
               console.log(response);
+              notification.open({
+                message: 'Schedule deleted!',
+              });
               this.refreshTable();
           }.bind(this))
           .catch(function (error) {
               console.log(error);// todo
+              notification.open({
+                  message: 'Failed!',
+                  description: error
+                });
           });
     }
     handleAdd (){

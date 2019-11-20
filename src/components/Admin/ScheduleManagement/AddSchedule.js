@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { Form, Icon, Input, Button, Checkbox,Select } from 'antd';
+import { Form, Icon, Input, Button, Checkbox,Select, notification } from 'antd';
 import * as URL from "../../../constants/url";
 import './index.css';
 import { withFirebase } from '../../Firebase';
@@ -59,7 +59,7 @@ class AddSchedule extends Component{
         //console.log(this.state);
     }
     cancelAdd() {
-        this.props.history.push('/admin/schedule');
+        this.props.history.push({pathname: '/admin/schedule' , state:{message:"Schedule creation canceled"}});
     }
 
     handleSubmit = e => {
@@ -92,10 +92,14 @@ class AddSchedule extends Component{
                     fields: dataObj
                 })
                     .then(function (response) {
-                        this.props.history.push('/admin/schedule');
+                        this.props.history.push({pathname: '/admin/schedule' , state:{message:"Schedule created successfully!"}});
                     }.bind(this))
                     .catch(function (error) {
-                        console.log(error);// todo
+                        console.log(error);
+                        notification.open({
+                            message: 'Failed!',
+                            description: error
+                          });
                     });
             }
         });

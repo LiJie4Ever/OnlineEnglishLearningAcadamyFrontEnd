@@ -85,7 +85,7 @@ class AdminPage extends Component {
                                 <span>Payment</span>
                                 <Link to={`${match.url}${ROUTES.PAYMENT}`} />
                             </Menu.Item>
-                            <Menu.Item key="5">
+                            <Menu.Item key="6">
                                 <Icon type="money-collect" />
                                 <span>Request</span>
                                 <Link to={`${match.url}${ROUTES.MANAGE_REQUEST}`} />

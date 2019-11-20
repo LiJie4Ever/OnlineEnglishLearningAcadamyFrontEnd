@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Table, Icon, Form, Input } from 'antd';
+import { Table, Icon, Form, Input, Popconfirm, notification } from 'antd';
 import app from "firebase";
 import './index.css';
 import * as URL from "../../../constants/url";
 
-const BACKURL = "http://localhost:5009/onlineenglishacademy-eddb3/us-central1/api";
+//const BACKURL = "http://localhost:5009/onlineenglishacademy-eddb3/us-central1/api";
 //const ENDPOINT = "https://us-central1-onlineenglishacademy-eddb3.cloudfunctions.net/api";
 const ENDPOINT = URL.ENDPOINT;
 const CONFIRMREQUEST = "/request/confirm";
@@ -172,22 +172,38 @@ class RequestManagement extends Component{
         },
         {
             title: 'Status',
-            dataIndex: 'status',
-            width: 100,
+            width: 150,
+            render: (text, record)=>{
+              var displayStatus = "Illegal status";
+              if(record.status=="0"){
+                displayStatus = "Unconfirmed";
+              }else if(record.status=="1"){
+                displayStatus = "Confirmed & Unpaid";
+              }else if(record.status=="2"){
+                displayStatus = "Paid";
+              }
+              return(
+                <span>
+                    {displayStatus}
+                </span>
+            )},
         },
         {
             title: 'Action',
             width: 100,
             fixed: 'right',
             render: (text, record)=>(
-                <span>
-                <a className="reqConfirmBTN" onClick={(e)=>this.handleConfirm(record.id, record.studentId)}>
-                <Icon type="check" />
-                </a>
-
-                <a className="cancelBTN" onClick={(e)=>this.handleCancel(record.id, record.studentId)}>
-                <Icon type="close" />
-                </a>
+            <span>
+                <Popconfirm title="Sure to confirm?" onConfirm={(e)=>this.handleConfirm(record.id, record.studentId, record.status)}>
+                  <a className="reqConfirmBTN">
+                  <Icon type="check" />
+                  </a>
+                </Popconfirm>
+                <Popconfirm title="Sure to cancel?" onConfirm={(e)=>this.handleCancel(record.id, record.studentId, record.status)}>
+                  <a className="cancelBTN">
+                  <Icon type="close" />
+                  </a>
+                </Popconfirm>
 
             </span>
             ),
@@ -199,14 +215,28 @@ class RequestManagement extends Component{
             console.log(response);
             console.log(response.data.content);
             this.setState({ data : response.data.content });
+            notification.open({
+                message: 'Data reloaded!',
+              });
         }.bind(this))
         .catch(function (error) {
             console.log(error);// todo
+            notification.open({
+                message: 'Failed!',
+                description: error
+              });
         });
     };
 
-    handleConfirm = (requestID, studentID)=>{
+    handleConfirm = (requestID, studentID, status)=>{
         //alert("confirmed request from "+requestID);
+        if(status != "0"){
+            notification.open({
+              message: 'Failed!',
+              description:'This request has already been confirmed or illegal status',
+            });
+            return;
+        }
         axios.post(`${ENDPOINT}${CONFIRMREQUEST}`, {
                 id: requestID
         })
@@ -217,17 +247,30 @@ class RequestManagement extends Component{
                     studentID: studentID
                 }).then(function(response){
                     console.log("all done");
-
+                    notification.open({
+                        message: 'Request Confirmed!',
+                        description:'This request is confirmed and moved to the shopping cart of the user',
+                      });
                 });
                 this.refreshTable();
             }.bind(this))
             .catch(function (error) {
                 console.log(error);// todo
+                notification.open({
+                    message: 'Failed!',
+                    description: error
+                  });
             });
-
     }
 
-    handleCancel = (requestID, studentID)=>{
+    handleCancel = (requestID, studentID, status)=>{
+        if(status == "2"){
+            notification.open({
+              message: 'Failed!',
+              description:'The request can not be removed after the payment is completed',
+            });
+            return;
+        }
         console.log(`${ENDPOINT}`+"/request/cancel");
         console.log(requestID);
         axios.post(`${ENDPOINT}`+"/request/cancel", {
@@ -240,12 +283,18 @@ class RequestManagement extends Component{
                   studentID: studentID
               }).then(function(response){
                   console.log("all done");
-
+                  notification.open({
+                      message: 'Request Canceled!',
+                    });
               });
               this.refreshTable();
           }.bind(this))
           .catch(function (error) {
               console.log(error);// todo
+              notification.open({
+                  message: 'Failed!',
+                  description: error
+                });
           });
     }
 
@@ -261,17 +310,32 @@ class RequestManagement extends Component{
         });
         //console.log(newData[index]);
         //console.log(newData);
-
+        //validataion
+        var validNum = /^\d+(\.\d+)?$/.test(newData[index].price);
+        //var res = r.test(newData[index].price);
+        if(!validNum){
+            notification.open({
+              message: 'Illegal price',
+            });
+            return;
+        }
         axios.post(`${ENDPOINT}`+"/request/setPrice", {
                 id: item.id,
                 price: newData[index].price //? why here mush be newData[index] rather than item
         })
           .then(function (response) {
               console.log(response);
+              notification.open({
+                  message: 'Price Updated!',
+                });
               this.setState({ data: newData });
           }.bind(this))
           .catch(function (error) {
               console.log(error);// todo
+              notification.open({
+                  message: 'Failed!',
+                  description: error
+                });
           });
 
     };
