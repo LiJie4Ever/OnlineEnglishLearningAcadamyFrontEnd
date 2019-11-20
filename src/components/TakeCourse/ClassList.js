@@ -11,30 +11,25 @@ const defaultQuery = "/schedule/history";
 const axios = require('axios');
 
 class ClassList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            searchText: '',
-            data: []
-        };
-        this.addMeetingLink = this.addMeetingLink.bind(this);
-    }
+    state = {
+        searchText: '',
+        data: []
+    };
 
     componentDidMount() {
         let list = this.state.data;
-        console.log("lalallala");
         axios.post(`${URL.ENDPOINT}${defaultQuery}`, {
             id: this.props.data.uid
         }).then(response => {
             response.data.forEach((item, index) => {
                 let testPromise = new Promise( ( resolve, reject ) => {
                     // query tutor's name by tutorID (for display)
-                    let studentName = "";
-                    let studentItem = this.props.firebase.student(item[1].student);
-                    studentItem.get().then(function (doc) {
+                    let tutorName = "";
+                    let tutorItem = this.props.firebase.tutor(item[1].tutor);
+                    tutorItem.get().then(function (doc) {
                         if (doc.exists) {
-                            studentName = doc.data().userName;
-                            resolve(studentName);
+                            tutorName = doc.data().userName;
+                            resolve(tutorName);
                         } else {
                             console.log("No such document!");
                         }
@@ -51,9 +46,10 @@ class ClassList extends React.Component {
                     } else {
                         loacalTime = moment(item[1].meetingStartTime).subtract(parseInt(offset.split(":")[0].substring(1)), 'hours').format("LLL")
                     }
-                    let history = { key: index, startTime: loacalTime, student: result, topic: item[1].topic, duration: item[1].duration, link: item[1].link, requestID: item[0]};
+                    let history = { key: index, startTime: loacalTime, tutor: result, topic: item[1].topic, duration: item[1].duration, link: item[1].link};
                     list.push(history);
                     this.setState({ data : list });
+                    console.log(history);
                 });
             });
         }).catch(err => {
@@ -121,10 +117,6 @@ class ClassList extends React.Component {
         this.setState({ searchText: '' });
     };
 
-    addMeetingLink = id => {
-        this.props.handleAddLink(id);
-    };
-
     render() {
         const columns = [
             {
@@ -134,10 +126,10 @@ class ClassList extends React.Component {
                 ...this.getColumnSearchProps('startTime'),
             },
             {
-                title: 'Student',
-                dataIndex: 'student',
-                key: 'student',
-                ...this.getColumnSearchProps('student'),
+                title: 'Tutor',
+                dataIndex: 'tutor',
+                key: 'tutor',
+                ...this.getColumnSearchProps('tutor'),
             },
             {
                 title: 'Topic',
@@ -157,12 +149,6 @@ class ClassList extends React.Component {
                 key: 'link',
                 width: '30%',
                 dataIndex: 'link',
-            },
-            {
-                title: 'Add Meeting Link',
-                render: (text, record) => (
-                    <Button type="primary" onClick={() => this.addMeetingLink(record.requestID)}>Add meeting link and info</Button>
-                )
             },
         ];
         return <Table columns={columns} dataSource={this.state.data} />;

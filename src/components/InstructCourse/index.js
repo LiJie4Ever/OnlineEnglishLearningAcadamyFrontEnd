@@ -5,9 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import {compose} from "recompose";
 import {AuthUserContext, withAuthorization, withEmailVerification} from "../Session";
-import {Tabs} from "antd";
-import NewSessionForm from "./NewSessionForm";
-import UpcomingSessionTable from "./UpcomingSessionTable";
+
 
 const InstructPageWrapper = compose(
     withRouter,

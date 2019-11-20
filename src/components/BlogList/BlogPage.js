@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import { Card, BackTop } from 'antd';
 import './index.css';
-import {Link} from "react-router-dom";
-import moment from "moment";
 
 class BlogPage extends Component {
     constructor(props) {

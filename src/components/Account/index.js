@@ -2,8 +2,17 @@ import React, { Component } from 'react';
 import PasswordChangePage from '../PasswordChange/index';
 import { AuthUserContext, withAuthorization, withEmailVerification } from '../Session';
 import 'antd/dist/antd.css';
-import BoughtCourse from './BoughtCourse';
+import EditProfilPage from "./EditProfilePage";
 import { compose } from 'recompose';
+import { withRouter } from 'react-router-dom';
+import { withFirebase } from '../Firebase';
+import {Tabs} from "antd";
+
+const EditProfilPageWrapper = compose(
+    withRouter,
+    withFirebase,
+)(EditProfilPage);
+const { TabPane } = Tabs;
 
 class AccountPage extends Component {
     constructor(props) {
@@ -14,11 +23,16 @@ class AccountPage extends Component {
         return (
             <AuthUserContext.Consumer>
                 {data => (
-                    <div>
-                        <h1>Account: {data.authUser.email}</h1>
-                        <PasswordChangePage />
-                        <BoughtCourse />
-                    </div>
+                    <Tabs defaultActiveKey="1">
+                        <TabPane tab="Edit Profile" key="1">
+                            <div className="editProfile_container">
+                                <EditProfilPageWrapper data={data.authUser} />
+                            </div>
+                        </TabPane>
+                        <TabPane tab="Reset Password" key="2">
+                            <PasswordChangePage />
+                        </TabPane>
+                    </Tabs>
                 )}
             </AuthUserContext.Consumer>
         )
