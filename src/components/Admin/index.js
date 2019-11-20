@@ -49,12 +49,12 @@ class AdminPage extends Component {
                                 <span>Tutors</span>
                                 <Link to={`${match.url}${ROUTES.MANAGE_TUTOR}`} />
                             </Menu.Item>
-                            <Menu.Item key="5">
+                            <Menu.Item key="4">
                                 <Icon type="read" />
                                 <span>Courses</span>
                                 <Link to={`${match.url}${ROUTES.MANAGE_COURSE}`} />
                             </Menu.Item>
-                            <Menu.Item key="6">
+                            <Menu.Item key="5">
                                 <Icon type="play-square" />
                                 <span>Lessons</span>
                                 <Link to={`${match.url}${ROUTES.MANAGE_LESSON}`} />

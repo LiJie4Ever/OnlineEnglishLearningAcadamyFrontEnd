@@ -33,3 +33,4 @@ export const ADD_SCHEDULE='/addSchedule';
 export const MANAGE_LESSON = '/manageLesson';
 export const LESSONEDIT = '/editLesson/:lessonId';
 export const LESSONCREATE = '/createLesson';
+export const STUDENT_REQUEST_HISTORY='/requestHistory';
