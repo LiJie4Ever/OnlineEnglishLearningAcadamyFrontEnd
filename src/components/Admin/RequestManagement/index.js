@@ -124,6 +124,11 @@ class RequestManagement extends Component{
             width: 200,
         },
         {
+            title: 'Phone',
+            dataIndex: 'phone',
+            width: 180,
+        },
+        {
             title: 'Number',
             dataIndex: 'numOfS',
             width: 100,
