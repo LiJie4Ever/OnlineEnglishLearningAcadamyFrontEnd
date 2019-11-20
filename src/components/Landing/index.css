@@ -3,12 +3,11 @@
 }
 .ant-layout-header{
     color:black;
-    background: white;
-    height: 6vh;
+    background: #fff;
+    height: 16vh;
     text-align: center;
     font-size: 40px;
-    font-weight:600;
-    font-family: Muli,sans-serif;
+    padding-top: 15px;
 }
 .ant-layout-footer {
     text-align: center;
@@ -36,10 +35,11 @@
 }
 
 .ant-carousel .slick-slide {
-  text-align: center;
-  height: 75vh;
-  background: white;
-  overflow: hidden;
+    text-align: center;
+    height: 75vh;
+    line-height: 160px;
+    background: white;
+    overflow: hidden;
 }
 
 .ant-carousel .slick-slide h3 {
@@ -47,86 +47,13 @@
 }
 
 .WelcomePicContainer{
-    margin:auto;
     width:100%;
     height:500px;
     mode:'fit' ;
 }
-.diveInto{
-    width: 500px;
-    height:300px;
-    line-height: normal;
-    font-size: 20px;
-    font-family: Muli,sans-serif;
-    margin-left: 100px;
-    text-align: left;
-    font-weight: lighter;
-}
-.pic1{
-    width: 500px;
-    height: 400px;
-    margin-left:600px;
-    margin-top:-350px;
-}
+
 .infoCard{
-    font-size: 20px;
+    width: 320px;
+    height: 600px;
     background: #ededed;
-}
-.LearnFrom{
-    background:#001529;
-    font-size: 60px;
-    color: white;
-    text-align: center;
-    font-weight: 400;
-    height: 400px;
-}
-.letter{
-    height: 700px;
-    line-height: normal;
-    font-size: 20px;
-    font-family: Muli,sans-serif;
-    text-align: left;
-    font-weight: lighter;
-    padding-top: 40px;
-    margin-left: 300px;
-}
-.pic2{
-    width: 215px;
-    height: 190px;
-    margin-top: -600px;
-    margin-left:50px;
-}
-.WhatOffer{
-    line-height: normal;
-    font-size: 40px;
-    font-family: Muli,sans-serif;
-    margin-left: 100px;
-    text-align: center;
-    font-weight: 600;
-}
-.picClient{
-    width:220px;
-    height: 189px;
-    margin-left:50px;
-    margin-top: 20px;
-}
-.picClient2{
-    width:200px;
-    height: 200px;
-    margin-left:50px;
-    margin-top: 100px;
-}
-.client1{
-    line-height: normal;
-    font-size: 20px;
-    font-family: Muli,sans-serif;
-    text-align: left;
-    font-weight: lighter;
-    margin-left: 300px;
-    margin-top: -200px;
-}
-.copyright{
-    margin-top: 200px;
-    font-size:15px;
-    font-weight: bolder;
 }
