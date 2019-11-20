@@ -25,9 +25,6 @@ class TutorItem extends Component{
             <Card className="tutorCard" title={tutorName} hoverable onClick={this.showTutor}
                   cover={<img alt="tutorImg" src={tutorImg}/>}>
                 <div><p className="tutorBio">{tutorBio}</p></div>
-                <div className="moreBTN">
-                    <a href="" onClick={this.showTutor}>More</a>
-                </div>
             </Card>
         )
     }

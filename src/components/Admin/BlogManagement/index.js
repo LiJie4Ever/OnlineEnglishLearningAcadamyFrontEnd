@@ -32,7 +32,8 @@ class BlogManagement extends Component {
                     id: doc.id,
                     author: doc.data().author,
                     title: doc.data().title,
-                    content: doc.data().content
+                    content: doc.data().content,
+                    picUrl: doc.data().picUrl
                 };
                 list.push(blogObject);
             });

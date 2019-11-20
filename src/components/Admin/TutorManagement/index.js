@@ -70,18 +70,6 @@ class TutorManagement extends Component {
             },
             onCancel: () => {},
         });
-
-        // axios.post(`${URL.ENDPOINT}${DELETETUTOR}`, {
-        //     id: id
-        // })
-        //     .then(function (response) {
-        //         const list = this.state.dataList;
-        //         list.splice(index, 1);
-        //         this.setState({dataList: list});
-        //     }.bind(this))
-        //     .catch(function (error) {
-        //         console.log(error);// todo
-        //     });
     }
 
     handleChange = value => {

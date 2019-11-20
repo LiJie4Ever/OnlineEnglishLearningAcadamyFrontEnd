@@ -1,6 +1,8 @@
 .blogItem {
     margin: 5px auto;
-    width: 65%;
+    /*width: 65%;*/
+    width: 400px;
+    height: 440px;
     text-align: left;
 }
 
@@ -9,6 +11,19 @@
 }
 .ant-card-head:hover {
     color: #990000;;
+}
+
+img[alt="blogImg"] {
+    margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 220px;
+    width: 370px;
+}
+
+.blogItemTitle {
+    font-weight: bolder;
+    font-size: 1.3em;
 }
 
 .blogContent {
@@ -25,22 +40,29 @@
 .blogAuthor {
     margin-top: 1%;
     margin-bottom: 0;
-    width: 30%;
-    background: white;
 }
 
 .ant-pagination{
-    margin: 2% 40%;
+    text-align: center;
 }
 
-.blogPage {
+/* Blog Page */
+
+.blogPageItem {
     margin: 0 auto;
-    width: 80%;
+    width: 65%;
+}
+
+img[alt="blogPageImg"] {
+    margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 400px;
+    width: 700px;
 }
 
 .blogPageAuthor {
-    background: white;
+    font-style: italic;
 }
 .blogPageContent {
-    background: white;
 }

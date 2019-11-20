@@ -14,12 +14,13 @@ class BlogPage extends Component {
         let blogTitle = this.blogInfo.title;
         let blogContent = this.blogInfo.content;
         let blogAuthor = this.blogInfo.author;
+        let blogImg = this.blogInfo.picUrl;
         let utcdate = this.blogInfo.date.seconds;
-        let blogDate = moment.unix(utcdate).format('MM/DD/YYYY');
+        let blogDate = moment.unix(utcdate).format('MMM DD, YYYY');
 
         return (
             <div>
-                <Card className="blogItem" title={blogTitle} extra={blogDate}>
+                <Card className="blogPageItem" title={blogTitle} extra={blogDate} cover={<img alt="blogPageImg" src={blogImg}/>}>
                     <p className="blogPageAuthor"> Author：{blogAuthor} </p>
                     <div className="blogPageContent" dangerouslySetInnerHTML={{__html: blogContent}}/>
                 </Card>

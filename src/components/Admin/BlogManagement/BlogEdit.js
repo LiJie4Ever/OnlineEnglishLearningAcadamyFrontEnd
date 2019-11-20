@@ -31,7 +31,8 @@ class BlogEdit extends Component{
             this.props.form.setFieldsValue({
                 title: this.originBlog.title,
                 author: this.originBlog.author,
-                content: this.originBlog.content
+                content: this.originBlog.content,
+                picUrl: this.originBlog.picUrl
             })
             this.setState({text: this.originBlog.content})
         }
@@ -59,7 +60,8 @@ class BlogEdit extends Component{
                 let dataObj = {
                     title: values.title,
                     author: values.author,
-                    content: this.state.text
+                    content: this.state.text,
+                    picUrl: this.state.picUrl
                 };
                 if (this.originBlog == null) { // create blog
                     axios.post(`${URL.ENDPOINT}${ADDBLOG}`, {
@@ -109,6 +111,16 @@ class BlogEdit extends Component{
                             <Input
                                 prefix={<Icon type="contacts" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                 placeholder="Author"
+                            />,
+                        )}
+                    </Form.Item>
+                    <Form.Item className="picUrlEdit">
+                        {getFieldDecorator('picUrl', {
+                            rules: [{ required: true, message: 'Please input the Url Link of picture!' }],
+                        })(
+                            <Input
+                                prefix={<Icon type="file-image" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                placeholder="Url Link of Picture"
                             />,
                         )}
                     </Form.Item>

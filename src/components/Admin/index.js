@@ -13,6 +13,8 @@ import TutorManagement from "./TutorManagement";
 import TutorEdit from"./TutorManagement/TutorEdit";
 import CourseManagement from "./CourseManagement";
 import CourseEdit from "./CourseManagement/CourseEdit";
+import LessonManagement from "./LessonManagement";
+import LessonEdit from "./LessonManagement/LessonEdit"
 import MenuAuth from "../Navigation/MenuAuth";
 import MenuUnAuth from "../Navigation/MenuUnAuth";
 
@@ -74,6 +76,11 @@ class AdminPage extends Component {
                                 <span>Courses</span>
                                 <Link to={`${match.url}${ROUTES.MANAGE_COURSE}`} />
                             </Menu.Item>
+                            <Menu.Item key="6">
+                                <Icon type="play-square" />
+                                <span>Lessons</span>
+                                <Link to={`${match.url}${ROUTES.MANAGE_LESSON}`} />
+                            </Menu.Item>
                             <Menu.Item key="2">
                                 <Icon type="file" />
                                 <span>Blog</span>
@@ -103,6 +110,9 @@ class AdminPage extends Component {
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_COURSE}`} component={CourseManagement} />}
                                 <Route exact path={`${match.url}${ROUTES.COURSEEDIT}`} component={CourseEdit} />}
                                 <Route exact path={`${match.url}${ROUTES.COURSECREATE}`} component={CourseEdit} />}
+                                <Route exact path={`${match.url}${ROUTES.MANAGE_LESSON}`} component={LessonManagement} />}
+                                <Route exact path={`${match.url}${ROUTES.LESSONEDIT}`} component={LessonEdit} />}
+                                <Route exact path={`${match.url}${ROUTES.LESSONCREATE}`} component={LessonEdit} />}
                             </Switch>
                         </Content>
                     </Layout>

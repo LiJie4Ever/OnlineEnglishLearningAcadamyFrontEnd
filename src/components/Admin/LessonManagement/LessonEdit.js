@@ -4,41 +4,41 @@ import * as URL from "../../../constants/url";
 import './index.css';
 import app from "firebase";
 
-const ADDCOURSE = "/course/add";
-const MODIFYCOURSE = "/course/modify";
+const ADDLESSON = "/lesson/add";
+const MODIFYLESSON = "/lesson/modify";
 const axios = require('axios');
 const { Option } = Select;
 const { TextArea } = Input;
 const { confirm } = Modal;
 
-class CourseEdit extends Component{
+class LessonEdit extends Component{
     constructor(props) {
         super(props);
         this.cancelEdit = this.cancelEdit.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.originCourse = this.props.location.state.item;
+        this.originLesson = this.props.location.state.item;
         this.state = {
-            tutorSelectList : []
+            courseSelectList : []
         };
     }
 
     componentDidMount() {
-        if (this.originCourse != null) {
+        if (this.originLesson != null) {
             this.props.form.setFieldsValue({
-                title: this.originCourse.title,
-                tutor: this.originCourse.tutor,
-                price: this.originCourse.price,
-                content: this.originCourse.content
+                course_id: this.originLesson.course_id,
+                lessonTitle: this.originLesson.lessonTitle,
+                lessonIntro: this.originLesson.lessonIntro,
+                videoURL: this.originLesson.videoURL
             })
         }
-        let tutorRef = app.firestore().collection('tutors');
-        let allTutors = tutorRef.get().then(snapshot => {
-            let list = this.state.tutorSelectList;
+        let courseRef = app.firestore().collection('course');
+        let allCourses = courseRef.get().then(snapshot => {
+            let list = this.state.courseSelectList;
             snapshot.forEach(doc =>{
-                let tutorObject = {tutorId:doc.id, tutorName:doc.data().userName};
-                list.push(tutorObject);
+                let courseObject = {courseId:doc.id, courseTitle:doc.data().title};
+                list.push(courseObject);
             });
-            this.setState({ tutorSelectList : list });
+            this.setState({ courseSelectList : list });
         }).catch(err => {
             console.log('Error getting documents', err);
         });
@@ -51,7 +51,7 @@ class CourseEdit extends Component{
             visible: true,
             onOk:() => {
                 return new Promise((resolve, reject) => {
-                    this.props.history.push('/admin/manageCourse');
+                    this.props.history.push('/admin/manageLesson');
                     setTimeout(Math.random() > 0.5 ? resolve : reject, 100);
                 }).catch(() => console.log('Oops errors!'));
             },
@@ -64,28 +64,28 @@ class CourseEdit extends Component{
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 let dataObj = {
-                    title: values.title,
-                    tutor: values.tutor,
-                    content: values.content,
-                    price: values.price
+                    course_id: values.course_id,
+                    lessonTitle: values.lessonTitle,
+                    lessonIntro: values.lessonIntro,
+                    videoURL: values.videoURL
                 };
-                if (this.originCourse == null) { // create course
-                    axios.post(`${URL.ENDPOINT}${ADDCOURSE}`, {
+                if (this.originLesson == null) { // create lesson
+                    axios.post(`${URL.ENDPOINT}${ADDLESSON}`, {
                         fields: dataObj
                     })
                         .then(function (response) {
-                            this.props.history.push('/admin/manageCourse');
+                            this.props.history.push('/admin/manageLesson');
                         }.bind(this))
                         .catch(function (error) {
                             console.log(error);// todo
                         });
-                } else { // modify course
-                    axios.post(`${URL.ENDPOINT}${MODIFYCOURSE}`, {
-                        id: this.originCourse.id,
+                } else { // modify lesson
+                    axios.post(`${URL.ENDPOINT}${MODIFYLESSON}`, {
+                        id: this.originLesson.id,
                         fields: dataObj
                     })
                         .then(function (response) {
-                            this.props.history.push('/admin/manageCourse');
+                            this.props.history.push('/admin/manageLesson');
                         }.bind(this))
                         .catch(function (error) {
                             console.log(error);// todo
@@ -99,9 +99,9 @@ class CourseEdit extends Component{
         const { getFieldDecorator } = this.props.form;
         return(
             <div>
-                <Form onSubmit={this.handleSubmit} className="course-edit-form">
-                    <Form.Item className="titleEdit">
-                        {getFieldDecorator('title', {
+                <Form onSubmit={this.handleSubmit} className="lesson-edit-form">
+                    <Form.Item className="lessonTitleEdit">
+                        {getFieldDecorator('lessonTitle', {
                             rules: [{ required: true, message: 'Please input the title!' }],
                         })(
                             <Input
@@ -111,36 +111,37 @@ class CourseEdit extends Component{
                         )}
                     </Form.Item>
                     <Form.Item hasFeedback>
-                        {getFieldDecorator('tutor', {
-                            rules: [{ required: true, message: 'Please select the tutor!' }],
+                        {getFieldDecorator('course_id', {
+                            rules: [{ required: true, message: 'Please select the course!' }],
                         })(
-                            <Select placeholder="Please select a tutor" >
+                            <Select placeholder="Please select a course" >
                                 {
-                                    this.state.tutorSelectList.map((item, index) => {
+                                    this.state.courseSelectList.map((item, index) => {
                                         return (
-                                            <option key={item.tutorId}>{item.tutorName}</option>
+                                            <option key={item.courseId}>{item.courseTitle}</option>
                                         )
                                     })
                                 }
                             </Select>,
                         )}
                     </Form.Item>
-                    <Form.Item className="priceEdit">
-                        {getFieldDecorator('price', {
-                            rules: [{ required: true, message: 'Please input the price!' }],
+                    <Form.Item className="plessonIntroEdit">
+                        {getFieldDecorator('lessonIntro', {
+                            rules: [{ required: true, message: 'Please input the lesson introduction!' }],
                         })(
                             <Input
                                 prefix={<Icon type="dollar" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                placeholder="Price"
+                                placeholder="Introduction"
                             />,
                         )}
                     </Form.Item>
-                    <Form.Item className="contentEdit">
-                        {getFieldDecorator('content', {
-                            rules: [{ required: true, message: 'Please input the description!' }],
+                    <Form.Item className="videoURLEdit">
+                        {getFieldDecorator('videoURL', {
+                            rules: [{ required: true, message: 'Please input the URL link of video!' }],
                         })(
-                            <TextArea rows={12} className="contentEditInput"
-                                   placeholder="Description"
+                            <Input
+                                prefix={<Icon type="dollar" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                placeholder="video Url link"
                             />,
                         )}
                     </Form.Item>
@@ -154,6 +155,6 @@ class CourseEdit extends Component{
     }
 }
 
-const WrappedNormalForm = Form.create({ name: 'courseEdit' })(CourseEdit);
+const WrappedNormalForm = Form.create({ name: 'lessonEdit' })(LessonEdit);
 
 export default WrappedNormalForm;
