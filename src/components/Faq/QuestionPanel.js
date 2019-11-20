@@ -28,7 +28,7 @@ class QuestionPanel extends Component {
                                 />
                             }
                             content={
-                                <p>
+                                <p className='faq_paragraph'>
                                     In request form, you can choose select your desired tutor in "preferred tutor" section.
                                 </p>
                             }
@@ -49,7 +49,7 @@ class QuestionPanel extends Component {
                                 />
                             }
                             content={
-                                <p>
+                                <p className='faq_paragraph'>
                                     Course Hero provides a variety of learning resources to help students study more effectively and succeed in their courses,
                                     including one to one online live tutoring sessions, online videos, study documents and more.
                                 </p>

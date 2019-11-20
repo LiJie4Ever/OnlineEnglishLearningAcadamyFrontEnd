@@ -1,3 +1,9 @@
+.editProfile_container{
+    max-width: 500px;
+    margin: 20px auto;
+    align-content: center;
+}
+
 .list{
     margin-left: auto;
     margin-right: auto;

@@ -1,10 +1,11 @@
 import React, { Component} from 'react';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button, Modal } from 'antd';
 import * as URL from "../../../constants/url";
 import './index.css';
 
 const MODIFYTUTOR = "/tutor/modify";
 const axios = require('axios');
+const { confirm } = Modal;
 
 
 class TutorEdit extends Component{
@@ -21,12 +22,24 @@ class TutorEdit extends Component{
             userName: this.originTutor.userName,
             bio: this.originTutor.bio,
             picUrl: this.originTutor.picUrl,
-            teachExp: this.originTutor.teachExp
+            teachExp: this.originTutor.teachExp,
+            videoLink: this.originTutor.videoLink
         });
     }
 
     cancelEdit() {
-        this.props.history.push('/admin/manageTutor');
+        confirm({
+            title: 'Do you want to cancel editing?',
+            content: 'When clicked the OK button, the edit page will be closed and the change will not be saved.',
+            visible: true,
+            onOk:() => {
+                return new Promise((resolve, reject) => {
+                    this.props.history.push('/admin/manageTutor');
+                    setTimeout(Math.random() > 0.5 ? resolve : reject, 100);
+                }).catch(() => console.log('Oops errors!'));
+            },
+            onCancel() {},
+        });
     }
 
     handleSubmit = e => {
@@ -83,16 +96,25 @@ class TutorEdit extends Component{
                             rules: [{ required: true, message: 'Please input the length of teaching experience!' }],
                         })(
                             <Input prefix={<Icon type="calendar" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                   placeholder="Blog"
+                                   placeholder="Teaching Experience (years)"
                             />,
                         )}
                     </Form.Item>
                     <Form.Item className="picUrlEdit">
                         {getFieldDecorator('picUrl', {
-                            rules: [{ required: true, message: 'Please input the URL of tutor\'s portrait!' }],
+                            rules: [{ required: true, message: 'Please input the URL link of tutor\'s portrait!' }],
                         })(
                             <Input prefix={<Icon type="picture" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                   placeholder="URL"
+                                   placeholder="Url link of picture"
+                            />,
+                        )}
+                    </Form.Item>
+                    <Form.Item className="videoUrlEdit">
+                        {getFieldDecorator('videoLink', {
+                            rules: [{ required: true, message: 'Please input the URL link of tutor\'s video intro!' }],
+                        })(
+                            <Input prefix={<Icon type="play-square" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                   placeholder="Url link of video"
                             />,
                         )}
                     </Form.Item>

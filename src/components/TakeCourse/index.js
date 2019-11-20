@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import * as ROLES from "../../constants/roles";
 import {compose} from "recompose";
-import {withAuthorization, withEmailVerification} from "../Session";
+import {AuthUserContext, withAuthorization, withEmailVerification} from "../Session";
 import {withFirebase} from "../Firebase";
-import BoughtCourse from '../Account/BoughtCourse';
+import ClassList from "./ClassList";
+
+const ClassListWrapper = compose(
+    withFirebase
+)(ClassList);
 
 class TakeCoursePage extends Component {
     constructor(props) {
@@ -12,9 +16,11 @@ class TakeCoursePage extends Component {
 
     render() {
         return(
-            <div>
-                this is takeing courses
-            </div>
+            <AuthUserContext.Consumer>
+                {data =>
+                    <ClassListWrapper data={data.authUser}/>
+                }
+            </AuthUserContext.Consumer>
         );
     }
 }
