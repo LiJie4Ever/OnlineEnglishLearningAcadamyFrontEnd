@@ -3,10 +3,7 @@
   text-align: center;
 }
 .ant-layout{
-    margin-left: -14px;
-    margin-right: -14px;
     background:white;
-    margin-bottom: -10px;
 }
 .ant-layout-header{
     margin-top: -20px;
