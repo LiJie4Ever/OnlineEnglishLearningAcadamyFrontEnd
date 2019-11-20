@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import {Button, DatePicker, Form, Icon, Input, Select, Tooltip} from "antd";
 import * as URL from '../../constants/url.js';
+import "./index.css";
+
 const defaultQuery = '/user/modify';
 const { Option } = Select;
 const moment = require('moment');
@@ -81,59 +83,61 @@ class EditProfilPage extends Component {
             },
         };
         return(
-            <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                <Form.Item
-                    label={
-                        <span>
+            <div className="editProfile_container">
+                <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+                    <Form.Item
+                        label={
+                            <span>
                             UserName&nbsp;
-                            <Tooltip title="What do you want others to call you?">
+                                <Tooltip title="What do you want others to call you?">
                                 <Icon type="question-circle-o" />
                             </Tooltip>
                         </span>
-                    }
-                >
-                    {getFieldDecorator('userName', {
-                        rules: [{whitespace: true}],
-                        initialValue: this.state.userName
-                    })(<Input />)}
-                </Form.Item>
-                <Form.Item label="Birthday Date">
-                    {getFieldDecorator('birthDay', config)(<DatePicker format={dataFormat}/>)}
-                </Form.Item>
-                <Form.Item label="Gender" hasFeedback>
-                    {getFieldDecorator('gender', {
-                        rules: [],
-                        initialValue: this.state.gender
-                    })(
-                        <Select placeholder="Please select a gender">
-                            <Option value="male">Male</Option>
-                            <Option value="female">Female</Option>
-                            <Option value="unknown">Refused to answer</Option>
-                        </Select>,
-                    )}
-                </Form.Item>
-                <Form.Item label="Country" hasFeedback>
-                    {getFieldDecorator('country', {
-                        rules: [],
-                        initialValue: this.state.country
-                    })(
-                        <Select placeholder="Please select your country">
-                            <Option value="USA">The United States</Option>
-                            <Option value="CHINA">China</Option>
-                        </Select>,
-                    )}
-                </Form.Item>
-                <Form.Item
-                    wrapperCol={{
-                        xs: { span: 24, offset: 0 },
-                        sm: { span: 16, offset: 8 },
-                    }}
-                >
-                    <Button type="primary" htmlType="submit">
-                        Update
-                    </Button>
-                </Form.Item>
-            </Form>
+                        }
+                    >
+                        {getFieldDecorator('userName', {
+                            rules: [{whitespace: true}],
+                            initialValue: this.state.userName
+                        })(<Input />)}
+                    </Form.Item>
+                    <Form.Item label="Birthday Date">
+                        {getFieldDecorator('birthDay', config)(<DatePicker format={dataFormat}/>)}
+                    </Form.Item>
+                    <Form.Item label="Gender" hasFeedback>
+                        {getFieldDecorator('gender', {
+                            rules: [],
+                            initialValue: this.state.gender
+                        })(
+                            <Select placeholder="Please select a gender">
+                                <Option value="male">Male</Option>
+                                <Option value="female">Female</Option>
+                                <Option value="unknown">Refused to answer</Option>
+                            </Select>,
+                        )}
+                    </Form.Item>
+                    <Form.Item label="Country" hasFeedback>
+                        {getFieldDecorator('country', {
+                            rules: [],
+                            initialValue: this.state.country
+                        })(
+                            <Select placeholder="Please select your country">
+                                <Option value="USA">The United States</Option>
+                                <Option value="CHINA">China</Option>
+                            </Select>,
+                        )}
+                    </Form.Item>
+                    <Form.Item
+                        wrapperCol={{
+                            xs: { span: 24, offset: 0 },
+                            sm: { span: 16, offset: 8 },
+                        }}
+                    >
+                        <Button type="primary" htmlType="submit">
+                            Update
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
         )
     }
 }

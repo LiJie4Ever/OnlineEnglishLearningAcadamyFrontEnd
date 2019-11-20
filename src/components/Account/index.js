@@ -25,9 +25,7 @@ class AccountPage extends Component {
                 {data => (
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Edit Profile" key="1">
-                            <div className="editProfile_container">
-                                <EditProfilPageWrapper data={data.authUser} />
-                            </div>
+                            <EditProfilPageWrapper data={data.authUser} />
                         </TabPane>
                         <TabPane tab="Reset Password" key="2">
                             <PasswordChangePage />
