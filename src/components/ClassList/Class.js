@@ -136,11 +136,6 @@ class BroughtCourse extends React.Component {
                     renderItem={item => (
                         <List.Item
                             key={item.title}
-                            actions={[
-                                <IconText type="star-o" text={item.star} key="list-vertical-star-o" />,
-                                <IconText type="like-o" text={item.like} key="list-vertical-like-o" />,
-                                <IconText type="message" text={item.cmmt} key="list-vertical-message" />,
-                            ]}
                             extra={
                                 <img
                                     width={272}
