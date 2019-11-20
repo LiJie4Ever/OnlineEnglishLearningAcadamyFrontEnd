@@ -6,6 +6,7 @@ export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 export const PASSWORD_FORGET = '/pwdForget';
 export const CLASS_LIST = '/classList';
+export const CLASS = '/class/:classId';
 export const FAQ = '/FAQ';
 export const PROFILE = '/profile';
 export const CART = '/cart';
