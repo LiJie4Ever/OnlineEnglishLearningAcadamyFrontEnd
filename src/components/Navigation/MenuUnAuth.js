@@ -17,7 +17,7 @@ class MenuUnAuth extends Component {
                     <Link to={ROUTES.LANDING} />
                 </Menu.Item>
                 <Menu.Item key="2" className='menuUnAuth_menuItem'>
-                    <span>Classes</span>
+                    <span>Courses</span>
                     <Link to={ROUTES.CLASS_LIST} />
                 </Menu.Item>
                 <Menu.Item key="9" className='menuUnAuth_menuItem'>

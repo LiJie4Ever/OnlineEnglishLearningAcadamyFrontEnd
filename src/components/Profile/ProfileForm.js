@@ -157,20 +157,6 @@ class RegistrationForm extends React.Component {
                     )}
                 </Form.Item>
                 <Form.Item
-                    label={
-                        <span>
-                            Personal Meeting ID&nbsp;
-                            <Tooltip title="ID in your Zoom profile for instant meetings">
-                                <Icon type="question-circle-o" />
-                            </Tooltip>
-                        </span>
-                    }
-                >
-                    {getFieldDecorator('zoomAccountId', {
-                        rules: [{ required: true, message: 'Please input your Zoom Personal Meeting ID!', whitespace: true }],
-                    })(<Input />)}
-                </Form.Item>
-                <Form.Item
                     wrapperCol={{
                         xs: { span: 24, offset: 0 },
                         sm: { span: 16, offset: 8 },

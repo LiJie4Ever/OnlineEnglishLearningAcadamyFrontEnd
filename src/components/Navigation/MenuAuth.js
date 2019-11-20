@@ -21,7 +21,7 @@ class MenuAuth extends Component {
                     <Link to={ROUTES.LANDING} />
                 </Menu.Item>
                 <Menu.Item key="2">
-                    <span>Classes</span>
+                    <span>Courses</span>
                     <Link to={ROUTES.CLASS_LIST} />
                 </Menu.Item>
                 <Menu.Item key="10">
@@ -38,7 +38,7 @@ class MenuAuth extends Component {
                 </Menu.Item>
                 {!!this.props.authUser.roles[ROLES.STUDENT] && (
                     <Menu.Item>
-                        <Link to={ROUTES.COURSE_REQUEST}>CourseRequest</Link>
+                        <Link to={ROUTES.COURSE_REQUEST}>TutoringRequest</Link>
                     </Menu.Item>
                 )}
                 <SubMenu
