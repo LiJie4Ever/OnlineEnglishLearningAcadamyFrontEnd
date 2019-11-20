@@ -37,11 +37,6 @@ class MenuUnAuth extends Component {
                     <span>Log In</span>
                     <Link to={ROUTES.LOG_IN} />
                 </Menu.Item>
-                <Menu.Item key="8" className="Nav_Menu_Item">
-                    <Icon type="shopping-cart" />
-                    <span>Cart</span>
-                    <Link to={ROUTES.CART} />
-                </Menu.Item>
             </Menu>
         )
     }
