@@ -1,8 +1,8 @@
 import React from 'react';
 import AuthUserContext from './context';
 import { withFirebase } from '../Firebase';
-import 'antd/dist/antd.css';
 import { Button } from 'antd';
+import 'antd/dist/antd.css';
 
 const needsEmailVerification = authUser =>
     authUser &&

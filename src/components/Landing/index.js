@@ -1,6 +1,6 @@
 import React from 'react';
-import 'antd/dist/antd.css';
 import './index.css';
+import 'antd/dist/antd.css';
 import {Col, Layout, Row} from 'antd';
 import { Carousel } from 'antd';
 import { List, Card } from 'antd';
@@ -59,17 +59,17 @@ class landing extends React.Component {
                     <Footer>
                         <Row gutter={16}>
                             <Col span={8}>
-<Card title="Our Program" bordered={false}  className={"infoCard"}>
-    Our homeschool approach is a successful combination of personalized curriculum, hand-picked teachers and interactive lessons.</Card>
-                            </Col>
-                            <Col span={8}>
-<Card title="Our Advantage" bordered={false}  className={"infoCard"}>
-The beauty of technology has allowed us to reach students all over the world, whether they live elsewhere or are traveling for periods of time. </Card>
-                            </Col>
-                            <Col span={8}>
-<Card title="Our Outcomes" bordered={false}  className={"infoCard"}>
-    Our educators promote self-advocacy in our students, giving them the confidence and multitude of strategies to become successful, independent learners. </Card>
-</Col>
+                              <Card title="Our Program" bordered={false}  className={"infoCard"}>
+                                  Our homeschool approach is a successful combination of personalized curriculum, hand-picked teachers and interactive lessons.</Card>
+                                                          </Col>
+                                                          <Col span={8}>
+                              <Card title="Our Advantage" bordered={false}  className={"infoCard"}>
+                              The beauty of technology has allowed us to reach students all over the world, whether they live elsewhere or are traveling for periods of time. </Card>
+                                                          </Col>
+                                                          <Col span={8}>
+                              <Card title="Our Outcomes" bordered={false}  className={"infoCard"}>
+                                  Our educators promote self-advocacy in our students, giving them the confidence and multitude of strategies to become successful, independent learners. </Card>
+                              </Col>
                         </Row>
                     </Footer>
                     <div className='LearnFrom'>Better Grades.<br/>Higher Scores.<br/>Lower Stress.</div>

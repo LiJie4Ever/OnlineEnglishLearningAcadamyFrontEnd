@@ -7,49 +7,6 @@ import {AuthUserContext} from "../Session";
 import axios from 'axios';
 import app from 'firebase/app'
 
-
-
-const temp = {
-    "content": [
-    [
-        {
-            "timezone": "Beijing +8:00",
-            "status": "unpaid",
-            "numOfS": "1",
-            "student": "Hao",
-            "availableTime": "2-4PM, 6-9PM - Wed",
-            "price": "19.99"
-        }
-    ],
-    [
-        {
-            "lessonArray": [
-                "BB8tuSbC51FVLgA6VTjk"
-            ],
-            "url": "http://usc.edu",
-            "tutor": "VmytE8ZVT6VlGdMXqn6J",
-            "image": "https://adlc.uad.ac.id/wp-content/uploads/TOEFL-Exam-Prep-1.jpg",
-            "content": "This course prepares students for the TOEFL exam by presenting and practicing strategies to help improve the student’s listening skills. In addition, students are given practice in critical thinking and note-taking skills.",
-            "price": 49.99,
-            "title": "TOEFL No Brainer - Listening"
-        }
-    ],
-    [
-        {
-            "url": "http://usc.edu",
-            "tutor": "VmytE8ZVT6VlGdMXqn6J",
-            "image": "https://i.ytimg.com/vi/8SPTbmew5JY/maxresdefault.jpg",
-            "content": "This course prepares students for the TOEFL exam by presenting and practicing strategies to help improve the student’s listening skills. In addition, students are given practice in critical thinking and note-taking skills.",
-            "price": 49.99,
-            "title": "IELTS - Writing",
-            "lessonArray": [
-                "sVEE94QWgKzwiDTR30DF"
-            ]
-        }
-    ]
-]
-}
-
 class Cart extends React.Component {
 
     constructor(props) {
@@ -62,15 +19,49 @@ class Cart extends React.Component {
     }
 
     removeCourse = (index) => {
+        // TODO: Call API
+        // console.log("index" + index);
+        // console.log(this.state.courseList[index]);
+        // console.log(this.state.courseList[index].id);
+        axios.post(`${URL.ENDPOINT}${"/cart/course/delete"}`, {
+            studentID: this.state.uid,
+            courseID: this.state.courseList[index].id
+        })
+            .then(res =>{
+                // console.log("removed");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
         this.setState(this.state.courseList.splice(index, 1));
 
-        // TODO: Call API
     };
 
     removeSession = (index) => {
-        this.setState(this.state.sessionList.splice(index, 1));
-
         // TODO: Call API
+        axios.post(`${URL.ENDPOINT}${"/cart/tutor/delete"}`, {
+            studentID: this.state.uid,
+            requestID: this.state.sessionList[index].id
+        })
+            .then(res =>{
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        axios.post(`${URL.ENDPOINT}${"/request/cancel"}`, {
+            id: this.state.sessionList[index].id
+        })
+            .then(res =>{
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        this.setState(this.state.sessionList.splice(index, 1));
     };
 
     getSummary = () => {
@@ -92,55 +83,92 @@ class Cart extends React.Component {
         return sum;
     };
 
+    checkOut = () => {
+        // axios.post(`${URL.ENDPOINT}${"/pay"}`, {
+        //     studentID: this.state.uid
+        // })
+        //     .then(res =>{
+        //
+        //
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
+
+
+
+        for (let i in this.state.sessionList){
+            axios.post(`${URL.ENDPOINT}${"/request/setStatus"}`, {
+                id: this.state.sessionList[i].id,
+            })
+                .then(res =>{
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+        axios.post(`${URL.ENDPOINT}${"/cart/update_bought"}`, {
+            studentID: this.state.uid
+        })
+            .then(res =>{
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        this.setState({courseList: [], sessionList: []});
+    }
+
     componentDidMount() {
         if (this.state.uid !== ""){
             // console.log("aaa: " + this.state.uid);
 
-            // axios.post(`${URL.ENDPOINT}${"/cart"}`,{
-            //     studentID: this.state.uid
-            // })
-            //     .then(res => {
-            //         let json = res.data;
-            //         console.log(json);
-            //
-            //         // TODO: Check JSON File
-            //
-            //
-            //     });
-
-            let cartArray = temp.content;
-
-            for (let i in cartArray){
-                let item  = cartArray[i][0];
-                if (item.hasOwnProperty("timezone")){
-                    this.state.sessionList.push(item);
-                }
-                else{
-                    let courseItem = app.firestore().collection('tutors').doc(item.tutor);
-                    courseItem.get().then(function(doc) {
-                        if (doc.exists) {
-                            item.avatar = doc.data().picUrl;
-                            item.tutorName = doc.data().userName;
-                        } else {
-                            console.log("No such document!");
-                        }}).catch(err => {
-                        console.log('Error getting documents', err);
-                    });
-                    this.state.courseList.push(item);
-                }
-            }
-
-
-
-
-
-
+            axios.post(`${URL.ENDPOINT}${"/cart"}`, {
+                studentID: this.state.uid
+            })
+                .then(res =>{
+                    let cartArray = res.data.content;
+                    for (let i in cartArray){
+                        let item  = cartArray[i];
+                        if (item.hasOwnProperty("offset")){
+                            // console.log(item);
+                            if (item.status == 1){
+                                this.state.sessionList.push(item);
+                                this.setState({sessionList: this.state.sessionList});
+                            }
+                        }
+                        else{
+                            let tutorPromise = new Promise((resolve => {
+                            let tutorItem = app.firestore().collection('tutors').doc(item.tutor);
+                                tutorItem.get().then(function(doc) {
+                                    if (doc.exists) {
+                                        console.log("get tutor");
+                                        item.avatar = doc.data().picUrl;
+                                        item.tutorName = doc.data().userName;
+                                    }
+                                    else {
+                                        console.log("No such document!");
+                                    }
+                                    resolve();
+                                }).catch(err => {
+                                    console.log('Error getting documents', err);
+                                });
+                            }));
+                            tutorPromise.then(()=>{
+                                this.state.courseList.push(item);
+                                this.setState({courseList: this.state.courseList});
+                            });
+                        }
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
-
     }
 
     render() {
-
         return (
             <div>
                 <AuthUserContext.Consumer>
@@ -168,10 +196,10 @@ class Cart extends React.Component {
                                         avatar={
                                             <Avatar className='img' src={item.avatar} />
                                         }
-                                        title={<a href="/">{item.title}</a>}
+                                        title={item.title}
                                         description={item.tutorName}
                                     />
-                                    <div>US$ {item.price}</div>
+                                    <div className={"cartPrice"}>US$ {item.price}</div>
                                 </Skeleton>
                             </List.Item>
                         )}
@@ -193,9 +221,9 @@ class Cart extends React.Component {
                                             <Avatar className='img' icon="user" size={50} />
                                         }
                                         title={"Live Tutoring"}
-                                        description={item.availableTime + " · " + item.numOfS + " session"}
+                                        description={item.createTime + " · " + item.numOfS + " session"}
                                     />
-                                    <div>US$ {item.price}</div>
+                                    <div className={"cartPrice"}>US$ {item.price}</div>
                                 </Skeleton>
                             </List.Item>
                         )}
@@ -219,7 +247,7 @@ class Cart extends React.Component {
                         <div className='summary-right'>{this.getSummary().total }</div>
                         <div className="clear"></div>
                     </div>
-                    <Button className='button'>Check Out</Button>
+                    <Button className='button' onClick={this.checkOut}>Check Out</Button>
                 </div>
 
                 <div className="clear"></div>

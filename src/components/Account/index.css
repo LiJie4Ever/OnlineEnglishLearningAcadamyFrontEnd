@@ -77,6 +77,11 @@ a:hover{
     text-align: center;
 }
 
+.editProfile_container{
+    max-width: 500px;
+    margin: 20px auto;
+    align-content: center;
+}
 
 
 
