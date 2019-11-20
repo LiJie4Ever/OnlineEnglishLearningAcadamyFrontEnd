@@ -5,7 +5,6 @@ import 'antd/dist/antd.css';
 import './index.css';
 import * as ROUTES from '../../constants/routes';
 import { AuthUserContext } from '../Session';
-
 import Landing from "../Landing";
 import Faq from "../Faq";
 import LogIn from "../SignIn";
@@ -18,6 +17,7 @@ import Cart from '../Cart/index';
 import Admin from '../Admin/index';
 import TakeCoursePage from "../TakeCourse";
 import PurchasedCourses from "../PurchasedCourses"
+import RequestHistory from "../RequestHistory"
 import InstructPage from "../InstructCourse/index";
 
 import MenuAuth from "./MenuAuth";
@@ -53,8 +53,8 @@ class Navbar extends Component {
             <Router>
                 <Layout style={{ minHeight: '100vh' }}>
                     <CustomizedMenu />
-                    <Layout>
-                        <Content style={{ padding: 40, background: '#fff', minHeight: 280 }}>
+                    <Layout className='.navigation_layout'>
+                        <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
                             <Switch>
                                 <Route exact path={ROUTES.LANDING} component={Landing} />
                                 <Route exact path={ROUTES.CLASS_LIST} component={ClassList} />
@@ -70,6 +70,7 @@ class Navbar extends Component {
                                 <Route exact path={ROUTES.ADMIN} component={Admin} />
                                 <Route exact path={ROUTES.STUDENT_TUTORING} component={TakeCoursePage} />
                                 <Route exact path={ROUTES.STUDENT_COURSES} component={PurchasedCourses} />
+                                <Route exact path={ROUTES.STUDENT_REQUEST_HISTORY} component={RequestHistory} />
                                 <Route exact path={ROUTES.TUTOR_TUTORING} component={InstructPage} />
                                 <Route exact path={ROUTES.BLOGLIST} component={BlogList}/>
                                 <Route exact path={ROUTES.BLOG} component={BlogPage} />

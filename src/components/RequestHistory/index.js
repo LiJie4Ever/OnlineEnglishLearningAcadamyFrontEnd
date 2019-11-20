@@ -1,15 +1,15 @@
+//edited by hao
 import React, { Component } from 'react';
 import * as ROLES from "../../constants/roles";
 import {compose} from "recompose";
 import {AuthUserContext, withAuthorization, withEmailVerification} from "../Session";
 import {withFirebase} from "../Firebase";
-import ClassList from "./ClassList";
+import UserRequestList from "./UserRequestList";
 
-const ClassListWrapper = compose(
+const UserRequestListWrapper = compose(
     withFirebase
-)(ClassList);
-
-class TakeCoursePage extends Component {
+)(UserRequestList);
+class RequestHistory extends Component {
     constructor(props) {
         super(props);
     }
@@ -18,7 +18,7 @@ class TakeCoursePage extends Component {
         return(
             <AuthUserContext.Consumer>
                 {data =>
-                    <ClassListWrapper data={data.authUser}/>
+                    <UserRequestListWrapper data={data.authUser}/>
                 }
             </AuthUserContext.Consumer>
         );
@@ -26,9 +26,9 @@ class TakeCoursePage extends Component {
 }
 
 const condition = authUser =>
-    authUser && !!authUser.roles[ROLES.STUDENT];
+    authUser && !! authUser.roles[ROLES.STUDENT];
 export default compose(
     withEmailVerification,
     withAuthorization(condition),
     withFirebase
-)(TakeCoursePage);
+)(RequestHistory);

@@ -6,7 +6,7 @@
 .tutorList {
     margin: 0 auto;
     background: white;
-    padding: 10px 120px;
+    padding: 10px 70px;
 }
 
 .tutorCard {
@@ -14,6 +14,12 @@
     border-color:  #f2f2f2;
     border-width: 2px;
     border-radius: 8px;
+    width: 300px;
+    height:400px;
+}
+
+.tutorCard>div {
+    text-align: center;
 }
 
 .ant-card-head-title {
@@ -22,12 +28,79 @@
     color: #990000;
 }
 
-img[alt] {
+img[alt="tutorImg"] {
     margin: 0 auto;
     height: 193px;
-    width: 65%;
+    width: 95%;
+}
+
+.tutorBio {
+    background: white;
+    text-align: left;
+    height: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
 }
 
 .moreBTN {
-    margin: 10% auto;
+    margin: 0 auto;
+    float: right;
+}
+
+/* card in tutor page */
+.tutorPage {
+    background: #cccccc;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.tutorPageCard {
+    margin: 0 auto;
+    width: 65%;
+}
+
+.tutorPageName {
+    line-height: normal;
+    font-size: xx-large;
+    font-weight: bolder;
+    background: white;
+    padding: 0 0 1% 0;
+    color: #990000;
+}
+
+.tutorPageInfo {
+    width: 35%;
+    float: left;
+    line-height: normal;
+}
+img[alt="tutorPageImg"] {
+    margin: 0 auto;
+    width: 80%;
+    height: 80%;
+    border-radius: 5px;
+}
+
+.tutorPageExpTitle {
+    font-size: larger;
+    text-decoration: underline;
+}
+.tutorPageExpContent {
+    padding-top: 2%;
+}
+
+.tutorPageBioTitle {
+    font-size: larger;
+    text-decoration: underline;
+}
+.tutorPageBioContent {
+    padding-top: 2%;
+    padding-right: 5%;
+}
+
+.tutorPageVideo {
+    width: 65%;
+    float: right;
 }

@@ -6,37 +6,126 @@ import {
     Select,
     Checkbox,
     Row,
-    Col
+    Col,
+    InputNumber,
+    DatePicker,
+    notification
 } from 'antd';
 import 'antd/dist/antd.css';
+import {withRouter} from "react-router-dom";
+
 const { Option } = Select;
 const { TextArea } = Input;
-
+const moment_tz = require('moment-timezone');
+const moment = require('moment');
+const uuid = require('uuid/v1');
 
 class CourseRequestForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             tutorList: [],
-            courseList: [],
+            top1: "",
+            top2: "",
+            top3: "",
         }
     }
 
     componentDidMount() {
+        this.unsubscribe = this.props.firebase.tutors().onSnapshot(snapshot => {
+            let tutors = [];
+            snapshot.forEach(doc => {
+                tutors.push({
+                        uid: doc.id,
+                        userName: doc.data().userName
+                    });
+                }
+            );
+            this.setState({
+                tutorList: tutors,
+                top1: "",
+                top2: "",
+                top3: "",
+            });
+        });
+    }
 
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                let offset = moment_tz().tz(moment_tz.tz.guess(true)).format('Z');
+                let now = moment_tz().tz(moment_tz.tz.guess(true));
+                let UTCTimeString = now.utc().format();
+                let timeData = UTCTimeString.split('T');
+                let createTime = timeData[0] + ' ' + timeData[1].substring(0, timeData[1].length - 1);
+                let price = 0;
+
+                let data = {
+                    studentId: this.props.data.authUser.uid,
+                    createTime: createTime,
+                    note: values.note === undefined ? "" : values.note,
+                    offset: offset,
+                    numOfS: values.cntOfSessions,
+                    price: price,
+                    availableDay: values.daysOfWeek,
+                    availableTimeSlot: values.timeSlots,
+                    preferredT1: values.firstTutorName,
+                    preferredT2: values.secondTutorName,
+                    preferredT3: values.thirdTutorName,
+                    phone: values.prefix + values.phone,
+                    graduationYear: values.graduate.format('YYYY-MM-DD'),
+                    status: 0
+                };
+                this.props.firebase.request().doc(uuid()).set(data).then(() => {
+                    notification.open({
+                      message: 'Request submitted!',
+                    });
+                    let history = this.props.history;
+                    setTimeout(function () {
+                        history.push('/');
+                    }, 2000);
+
+                    console.log("successfully");
+                }).catch(() => {
+                    console.log("error");
+                })
             }
         });
     };
 
+    changeTop1 = value => {
+        this.setState({
+            top1: value
+        })
+    };
+
+    changeTop2 = value => {
+        this.setState({
+            top2: value
+        })
+    };
+
+    changeTop3 = value => {
+        this.setState({
+            top3: value
+        })
+    };
+
     render() {
         const { getFieldDecorator } = this.props.form;
+        const prefixSelector = getFieldDecorator('prefix', {
+            initialValue: '+86',
+        })(
+            <Select style={{ width: 70 }}>
+                <Option value="+86">+86</Option>
+                <Option value="+1">+1</Option>
+            </Select>,
+        );
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
@@ -47,51 +136,106 @@ class CourseRequestForm extends Component {
                 sm: { span: 16 },
             },
         };
+        const config = {
+            rules: [{ type: 'object', required: true, message: 'Please select time!' },
+                {
+                    validator: (rule, value, callback) => {
+                        if (moment(value).isBefore(moment(new Date()))) {
+                            console.log(value);
+                            callback("You can not choose the date before today!");
+                        } else {
+                            callback();
+                        }
+                    }
+                }],
+        };
         return(
             <div>
                 <h1 className="Form_tittle">Request 1:1 Live Session</h1>
                 <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                    <Form.Item label="Course" hasFeedback>
-                        {getFieldDecorator('selectedCourse', {
-                            rules: [{ required: true, message: 'Please select your course!' }],
-                        })(
-                            <Select placeholder="Please select a course">
-                                <Option value="Learning English">Male</Option>
-                                <Option value="Learning Spanish">Female</Option>
-                                <Option value="Learning Chinese">Refused to answer</Option>
-                            </Select>,
-                        )}
+                    <Form.Item label="Phone Number">
+                        {getFieldDecorator('phone', {
+                            rules: [{ required: true, message: 'Please input your phone number!' }],
+                        })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
+                    </Form.Item>
+                    <Form.Item label="Current school">
+                        {getFieldDecorator('school', {
+                            rules: [{ required: true, message: 'Please input your current school!', whitespace: true }],
+                        })(<Input />)}
+                    </Form.Item>
+                    <Form.Item label="Graduate year">
+                        {getFieldDecorator('graduate', config)(<DatePicker />)}
                     </Form.Item>
                     <Form.Item label="Preferred Tutor #1" hasFeedback>
                         {getFieldDecorator('firstTutorName', {
-                            rules: [{ required: true, message: 'Please select your first preferred tutor!' }],
+                            rules: [{ required: true, message: 'Please select your first preferred tutor!' },
+                                { validator: (rule, value, callback) => {
+                                        if (value && (value === this.state.top2 || value === this.state.top3)) {
+                                            callback("You can not choose the same tutor!");
+                                        } else {
+                                            callback();
+                                        }
+                                    }
+                                }
+                            ],
                         })(
-                            <Select placeholder="Please select your first preferred tutor">
-                                <Option value="Lijie">Lijie</Option>
-                                <Option value="shuquXiao">ShuqiXiao</Option>
-                                <Option value="HanLi">HanHanLi</Option>
+                            <Select placeholder="Please select your first preferred tutor" onChange={this.changeTop1}>
+                                {
+                                    this.state.tutorList.map((item, index) => {
+                                        return(
+                                            <Option key={item.uid} value={item.uid}>{item.userName}</Option>
+                                        )
+                                    })
+                                }
                             </Select>,
                         )}
                     </Form.Item>
                     <Form.Item label="Preferred Tutor #2" hasFeedback>
                         {getFieldDecorator('secondTutorName', {
-                            rules: [{ required: true, message: 'Please select your second preferred tutor!' }],
+                            rules: [
+                                { required: true, message: 'Please select your second preferred tutor!' },
+                                { validator: (rule, value, callback) => {
+                                        if (value && (value === this.state.top1 || value === this.state.top3)) {
+                                            callback("You can not choose the same tutor!");
+                                        } else {
+                                            callback();
+                                        }
+                                    }
+                                }
+                                ],
                         })(
-                            <Select placeholder="Please select your second preferred tutor">
-                                <Option value="STUDENT">Lijie</Option>
-                                <Option value="TUTOR">ShuqiXiao</Option>
-                                <Option value="HanHanLi">HanHanLi</Option>
+                            <Select placeholder="Please select your second preferred tutor" onChange={this.changeTop2}>
+                                {
+                                    this.state.tutorList.map((item, index) => {
+                                        return(
+                                            <Option key={item.uid} value={item.uid}>{item.userName}</Option>
+                                        )
+                                    })
+                                }
                             </Select>,
                         )}
                     </Form.Item>
                     <Form.Item label="Preferred Tutor #3" hasFeedback>
                         {getFieldDecorator('thirdTutorName', {
-                            rules: [{ required: true, message: 'Please select your third preferred tutor!' }],
+                            rules: [{ required: true, message: 'Please select your third preferred tutor!' },
+                                { validator: (rule, value, callback) => {
+                                        if (value && (value === this.state.top1 || value === this.state.top2)) {
+                                            callback("You can not choose the same tutor!");
+                                        } else {
+                                            callback();
+                                        }
+                                    }
+                                }
+                                ],
                         })(
-                            <Select placeholder="Please select your third preferred tutor">
-                                <Option value="STUDENT">Lijie</Option>
-                                <Option value="TUTOR">ShuqiXiao</Option>
-                                <Option value="TUTOR">HanHanLi</Option>
+                            <Select placeholder="Please select your third preferred tutor" onChange={this.changeTop3}>
+                                {
+                                    this.state.tutorList.map((item, index) => {
+                                        return(
+                                            <Option key={item.uid} value={item.uid}>{item.userName}</Option>
+                                        )
+                                    })
+                                }
                             </Select>,
                         )}
                     </Form.Item>
@@ -99,10 +243,7 @@ class CourseRequestForm extends Component {
                         {getFieldDecorator('cntOfSessions', {
                             rules: [{ required: true, message: 'Please select your sessions!' }],
                         })(
-                            <Select placeholder="Please select your sessions">
-                                <Option value="USA">1</Option>
-                                <Option value="CHINA">1</Option>
-                            </Select>,
+                            <InputNumber min={1} max={10} step={1} />
                         )}
                     </Form.Item>
                     <Form.Item label="Preferred Time Slot" hasFeedback>
@@ -115,22 +256,22 @@ class CourseRequestForm extends Component {
                                 placeholder="select preferred time slot"
                                 optionLabelProp="label"
                             >
-                                <Option value="1" label="Morning">
+                                <Option value="6am~9am" label="Morning">
                                     Morning (6am ~ 9am)
                                 </Option>
-                                <Option value="2" label="Late Morning">
+                                <Option value="9am~12am" label="Late Morning">
                                     Late Morning (9am ~ 12am)
                                 </Option>
-                                <Option value="3" label="Afternoon">
+                                <Option value="12am~3pm" label="Afternoon">
                                     Afternoon (12am ~ 3pm)
                                 </Option>
-                                <Option value="4" label="late Afternoon">
+                                <Option value="3pm~6pm" label="late Afternoon">
                                     late Afternoon (3pm ~ 6pm)
                                 </Option>
-                                <Option value="5" label="Evening">
+                                <Option value="6pm~9pm" label="Evening">
                                     Evening (6pm ~ 9pm)
                                 </Option>
-                                <Option value="6" label="Late Evening">
+                                <Option value="9pm~24pm" label="Late Evening">
                                     Late Evening (9pm ~ 24pm)
                                 </Option>
                             </Select>,
@@ -167,8 +308,8 @@ class CourseRequestForm extends Component {
                             </Checkbox.Group>,
                         )}
                     </Form.Item>
-                    <Form.Item label="Additional Comments" hasFeedback>
-                        {getFieldDecorator('comments', {
+                    <Form.Item label="Extra Info:" hasFeedback>
+                        {getFieldDecorator('note', {
                             rules: [{ required: false }]
                         })(
                             <TextArea rows={4} />,

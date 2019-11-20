@@ -1,45 +1,59 @@
 import React, { Component } from 'react';
 import { Tabs } from 'antd';
-import NewSessionForm from "./NewSessionForm";
+import NewSessionForm from "./NewSessionTable";
 import UpcomingSessionTable from "./UpcomingSessionTable";
 import * as URL from "../../constants/url"
+import {compose} from "recompose";
+import { withRouter } from 'react-router-dom';
+import {withFirebase} from "../Firebase";
 
 const axios = require('axios');
 const { TabPane } = Tabs;
-const defaultQuery = '/meeting/getCode';
+
+const UpcomingSessionTableWrapper = compose(
+    withRouter,
+    withFirebase
+)(UpcomingSessionTable);
 
 class InstructPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             accessToken: '',
-            errorMessage: ''
-        }
+            errorMessage: '',
+            requestID: '',
+            currentActiveKey: '1'
+        };
+        this.handleAddLink = this.handleAddLink.bind(this);
+        this.hancleChange = this.hancleChange.bind(this);
     }
 
     componentDidMount() {
-
-        axios.post(`${URL.ENDPOINT}${defaultQuery}`, {
-            uid: this.props.data.uid,
-        })
-        .then(function (response) {
-            console.log(response.data.redirect);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-        console.log(this.props.data.uid);
     }
+
+    handleAddLink = childId => {
+        this.setState({
+            requestID: childId,
+            currentActiveKey: '2'
+        });
+        console.log(childId);
+    };
+
+    hancleChange = () => {
+        this.setState({
+            currentActiveKey: '1'
+        });
+    };
 
     render() {
         return(
             <div>
-                <Tabs defaultActiveKey="1">
+                <Tabs defaultActiveKey="1" activeKey={this.state.currentActiveKey} onTabClick={this.hancleChange}>
                     <TabPane tab="Upcoming Sessions" key="1">
-                        <UpcomingSessionTable data={this.props.data}  />
+                        <UpcomingSessionTableWrapper data={this.props.data} handleAddLink={this.handleAddLink}/>
                     </TabPane>
-                    <TabPane tab="Create New Session" key="2">
-                        <NewSessionForm data={this.props.data} />
+                    <TabPane tab="Create New Session" key='2'>
+                        <NewSessionForm data={this.props.data} requestID={this.state.requestID}/>
                     </TabPane>
                 </Tabs>
             </div>
