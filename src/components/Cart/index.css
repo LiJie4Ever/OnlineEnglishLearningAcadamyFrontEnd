@@ -13,8 +13,15 @@
 
 h1{
     font-size: 25px;
-    height: 80px;
+    height: 50px;
+    margin-bottom: 40px;
 }
+
+h2{
+    margin: 20px 0px 0px 0px;
+    line-height: 30px;
+}
+
 
 .img{
     width: 50px;

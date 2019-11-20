@@ -18,6 +18,7 @@ import TutorPage from "../Tutor/TutorPage";
 import Cart from '../Cart/index';
 import Admin from '../Admin/index';
 import TakeCoursePage from "../TakeCourse";
+import PurchasedCourses from "../PurchasedCourses"
 import InstructPage from "../InstructCourse/index";
 
 import MenuAuth from "./MenuAuth";
@@ -51,7 +52,7 @@ class Navbar extends Component {
                 <Layout style={{ minHeight: '100vh' }}>
                     <CustomizedMenu />
                     <Layout>
-                        <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+                        <Content style={{ padding: 40, background: '#fff', minHeight: 280 }}>
                             <Switch>
                                 <Route exact path={ROUTES.LANDING} component={Landing} />
                                 <Route exact path={ROUTES.CLASS_LIST} component={ClassList} />
@@ -66,6 +67,7 @@ class Navbar extends Component {
                                 <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
                                 <Route exact path={ROUTES.ADMIN} component={Admin} />
                                 <Route exact path={ROUTES.STUDENT_TUTORING} component={TakeCoursePage} />
+                                <Route exact path={ROUTES.STUDENT_COURSES} component={PurchasedCourses} />
                                 <Route exact path={ROUTES.TUTOR_TUTORING} component={InstructPage} />
                                 <Route exact path={ROUTES.BLOGLIST} component={BlogList}/>
                                 <Route exact path={ROUTES.BLOG} component={BlogPage} />

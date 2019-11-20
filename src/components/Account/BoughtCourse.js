@@ -4,40 +4,6 @@ import './index.css';
 import { Tabs, List, Avatar, Icon} from 'antd';
 
 const { TabPane } = Tabs;
-const data1 = [
-    {
-        title: 'TOEFL No Brainer - Speaking',
-        description:"Lesson 1",
-        tutor: 'Lisa Brian',
-        date: '10/05/2019',
-        time: '8:00pm',
-        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/KaitlynM_e13daf1e.png'
-    },
-    {
-        title: 'TOEFL No Brainer - Speaking',
-        description:"Lesson 2",
-        tutor: 'Lisa Brian',
-        date: '10/06/2019',
-        time: '8:00pm',
-        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/KaitlynM_e13daf1e.png'
-    },
-    {
-        title: 'TOEFL No Brainer - Speaking',
-        description:"Lesson 3",
-        tutor: 'Lisa Brian',
-        date: '10/07/2019',
-        time: '8:00pm',
-        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/KaitlynM_e13daf1e.png'
-    },
-    {
-        title: 'TOEFL No Brainer - Speaking',
-        description:"Lesson 4",
-        tutor: 'Lisa Brian',
-        date: '10/08/2019',
-        time: '8:00pm',
-        avatar: 'https://s.vipkidstatic.com/fe-static/parent/panda/web/plugs/teachersbanner/img/people/KaitlynM_e13daf1e.png'
-    },
-];
 const listData = [
     {   href: 'http://usc.edu',
         title: 'TOEFL No Brainer - Listening',
@@ -84,23 +50,7 @@ class BoughtCourse extends React.Component {
         return (
             <div className='table'>
                 <Tabs type="card">
-                    <TabPane tab="1:1 Recording" key="1">
-                        <p>Here is your 1:1 tutoring recorded videos</p>
-                        <p>Tutoring sessions are customized to meet identified learning objectives and areas for enrichment. Most importantly, our tutors use the most progressive and creative methods of instruction, utilizing a variety of supplemental resources and technology, to increase a student’s self-worth, personal development and joy.</p>
-                        <List
-                            itemLayout="vertical"
-                            dataSource={data1}
-                            renderItem={item => (
-                                <List.Item>
-                                    <List.Item.Meta
-                                        avatar={<Avatar src={item.avatar} />}
-                                        title={<a href="https://usc.edu">{item.title}</a>}
-                                        description={<span>{item.description} ·  {item.tutor} · {item.date} {item.time}</span>}
-                                    />
-                                </List.Item>
-                            )}
-                        />
-                    </TabPane>
+
                     <TabPane tab="Purchased Lessons" key="2">
                         <p>Here is your purchased coursed</p>
                         <List
