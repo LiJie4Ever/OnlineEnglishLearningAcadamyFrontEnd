@@ -9,6 +9,7 @@ import { withFirebase } from '../Firebase';
 import app from 'firebase/app';
 import {AuthUserContext} from "../Session";
 import List from "antd/lib/list";
+import PasswordChangePage from "../Account";
 
 
 const BlogItemWrapper = compose(
@@ -60,6 +61,15 @@ class CourseList extends Component {
 
     render() {
         return(
+            <div>
+                <AuthUserContext.Consumer>
+                {data => (
+                    <div>
+                        <h1>Account: {data.authUser.userName}  ,here are your purchased courses.</h1>
+
+                    </div>
+                )}
+            </AuthUserContext.Consumer>
            <div className='list'>
                 <List
                     itemLayout="vertical"
@@ -97,6 +107,7 @@ class CourseList extends Component {
                     )}
                 />
             </div>
+                </div>
         )
     }
 }
