@@ -50,3 +50,6 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
 }
+.user{
+    display:none;
+}

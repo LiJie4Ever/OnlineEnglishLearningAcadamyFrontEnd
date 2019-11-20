@@ -31,24 +31,51 @@ class CourseList extends Component {
         let courselist = [];
         let listLength;
         let courseRef = app.firestore().collection('students').doc(this.userId);
-        courseRef.get().then(doc =>{
+        courseRef.get().then(doc => {
             console.log(doc.data());
             list.push(doc.data().courseArray);
             list = list[0];
             listLength = list.length;
             console.log(list);
             console.log(listLength);
-            for(var i =0;i<listLength;i++){
+            for (var i = 0; i < listLength; i++) {
                 let CourseItem = app.firestore().collection('course').doc(list[i]);
-                CourseItem.get().then(doc =>{
-                    console.log(doc.data());
-                    let courseObject = {id:doc.id, title:doc.data().title, tutor:doc.data().tutor, content:doc.data().content,
-                        image:doc.data().image, price:doc.data().price};
-                    courselist.push(courseObject);
-                    this.setState({ dataList : courselist });
-                    console.log(this.state.dataList);
+                CourseItem.get().then(doc => {
+                    let testPromise = new Promise((resolve, reject) => {
+                        // query tutor's name by tutorID (for display)
+                        let tutorName = "tutorName";
+                        let tutorPic = "";
+                        let tutorItem = app.firestore().collection('tutors').doc(doc.data().tutor);
+                        tutorItem.get().then(function (doc) {
+                            if (doc.exists) {
+                                tutorName = doc.data().userName;
+                                tutorPic = doc.data().picUrl;
+                                resolve([tutorName, tutorPic]);
+                            } else {
+                                console.log("No such document!");
+                            }
+                        }).catch(err => {
+                            console.log('Error getting documents', err);
+                        });
+                    });
+                    testPromise.then((result => {
+                        let courseObject = {
+                            id: doc.id,
+                            title: doc.data().title,
+                            tutor: doc.data().tutor,
+                            tutorName: result[0],
+                            content: doc.data().content,
+                            image: doc.data().image,
+                            price: doc.data().price,
+                            url: doc.data().url,
+                            tutorPic: result[1]
+                        };
+                        courselist.push(courseObject);
+                        this.setState({dataList: courselist});
+                    }));
                 });
             }
+            ;
         }).catch(err => {
             console.log('Error getting documents', err);
         });
@@ -56,13 +83,15 @@ class CourseList extends Component {
     render() {
         return(
             <div>
+                <div className='user'>
                 <AuthUserContext.Consumer>
                 {data => (
                     <div>
                         <h1>Account: {this.userId = data.authUser.uid}  ,here are your purchased courses.</h1>
                     </div>
                 )}
-            </AuthUserContext.Consumer>
+                </AuthUserContext.Consumer>
+                </div>
            <div className='list'>
                 <List
                     itemLayout="vertical"
