@@ -1,0 +1,35 @@
+.courseAdminManagement {
+    margin: 0 auto;
+    width: 65%;
+}
+
+.courseAdminCard {
+    margin: 5px 0;
+}
+
+.courseAdminTitle {
+    background: white;
+    text-align: left;
+    font-weight: bolder;
+    border-bottom: 1px dashed lightgrey;
+}
+
+.courseAdminAuthor {
+    text-align: left;
+    display: inline-block;
+    float: left;
+    margin: 0;
+    padding: 5px;
+}
+
+/* Course Edit Page */
+
+.course-edit-form {
+    margin: 0 auto;
+    width: 60%;
+}
+
+.contentEditInput {
+    height: 300px;
+    white-space: pre-wrap;
+}

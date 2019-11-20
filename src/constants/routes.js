@@ -28,3 +28,6 @@ export const TUTOREDIT = '/editTutor/:tutorId';
 export const MANAGE_COURSE = '/manageCourse';
 export const COURSEEDIT = '/editCourse/:courseId';
 export const COURSECREATE = '/createCourse';
+export const MANAGE_LESSON = '/manageLesson';
+export const LESSONEDIT = '/editLesson/:lessonId';
+export const LESSONCREATE = '/createLesson';

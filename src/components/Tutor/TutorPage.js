@@ -1,6 +1,9 @@
 import React, {Component} from "react";
-import {BackTop, Card} from 'antd';
+import {BackTop, Card, Icon} from 'antd';
 import './index.css';
+import "../../../node_modules/video-react/dist/video-react.css"; // import css
+import { Player } from 'video-react';
+
 
 class TutorPage extends Component {
     constructor(props) {
@@ -13,15 +16,36 @@ class TutorPage extends Component {
         let tutorBio = this.tutorInfo.bio;
         let tutorImg = this.tutorInfo.picUrl;
         let tutorExp = this.tutorInfo.teachExp;
+        let tutorVideo = this.tutorInfo.videoLink;
 
         return (
-            <Card className="tutorCard" title={tutorName} hoverable style={{ width: 300, height:400 }}
-                  cover={<img alt="example" src={tutorImg}/>}>
-                <p className="tutorExp">{tutorExp}</p>
-                <p className="tutorBio">{tutorBio}</p>
-            </Card>
-        )
+            <div className="tutorPage">
+                <div className="tutorPageName">{tutorName}</div>
+                <div className="tutorPageInfo">
+                    <div className="tutorPageImg">
+                        <img alt="tutorPageImg" src={tutorImg}/>
+                    </div>
+                    <div className="tutorPageExp">
+                        <div className="tutorPageExpTitle"><br/><Icon type="calendar"/>&nbsp;&nbsp;Teaching Experience</div>
+                        <div className="tutorPageExpContent">{tutorExp} years</div>
+                    </div>
+                    <div className="tutorPageBio">
+                        <div className="tutorPageBioTitle"><br/><Icon type="profile"/>&nbsp;&nbsp;Self-Introduction</div>
+                        <div className="tutorPageBioContent">{tutorBio}</div>
+                    </div>
+                </div>
+                <div className="tutorPageVideo">
+                    <Player
+                        playsInline
+                        poster="/assets/poster.png"
+                        autoPlay={true}
+                        src={tutorVideo}
+                    >
+                    </Player>
+                </div>
+            </div>
+    )
     }
-}
+    }
 
-export default TutorPage;
+    export default TutorPage;

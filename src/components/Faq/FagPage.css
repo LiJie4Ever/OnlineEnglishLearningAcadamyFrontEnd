@@ -2,7 +2,7 @@
 h1{
     font-size: large;
 }
-p{
+.faq_paragraph{
      padding: 5px;
      background-color: #ededed;
  }
