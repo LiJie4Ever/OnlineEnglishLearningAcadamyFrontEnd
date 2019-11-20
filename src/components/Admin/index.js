@@ -13,6 +13,9 @@ import TutorManagement from "./TutorManagement";
 import TutorEdit from"./TutorManagement/TutorEdit";
 import CourseManagement from "./CourseManagement";
 import CourseEdit from "./CourseManagement/CourseEdit";
+import RequestManagement from "./RequestManagement"
+import ScheduleManagement from "./ScheduleManagement"
+import AddSchedule from "./ScheduleManagement/AddSchedule"
 import LessonManagement from "./LessonManagement";
 import LessonEdit from "./LessonManagement/LessonEdit"
 import MenuAuth from "../Navigation/MenuAuth";
@@ -31,6 +34,7 @@ class AdminPage extends Component {
     }
 
     componentDidMount() {
+        /*
         this.setState({ loading: true });
         this.unsubscribe = this.props.firebase.users().onSnapshot(snapshot => {
             let users = [];
@@ -45,10 +49,12 @@ class AdminPage extends Component {
                 hasData: true
             });
         });
+
+         */
     }
 
     componentWillUnmount() {
-        this.unsubscribe();
+        //this.unsubscribe();
     }
 
     render() {
@@ -96,6 +102,11 @@ class AdminPage extends Component {
                                 <span>Payment</span>
                                 <Link to={`${match.url}${ROUTES.PAYMENT}`} />
                             </Menu.Item>
+                            <Menu.Item key="6">
+                                <Icon type="money-collect" />
+                                <span>Request</span>
+                                <Link to={`${match.url}${ROUTES.MANAGE_REQUEST}`} />
+                            </Menu.Item>
                         </Menu>
                     </Sider>
                     <Layout>
@@ -106,6 +117,9 @@ class AdminPage extends Component {
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_BLOG}`} component={BlogManagement} />}
                                 <Route exact path={`${match.url}${ROUTES.BLOGEDIT}`} component={BlogEdit} />}
                                 <Route exact path={`${match.url}${ROUTES.BLOGCREATE}`} component={BlogEdit} />}
+                                <Route exact path={`${match.url}${ROUTES.MANAGE_REQUEST}`} component={RequestManagement} />}
+                                <Route exact path={`${match.url}${ROUTES.SCHEDULE}`} component={ScheduleManagement} />}
+                                <Route exact path={`${match.url}${ROUTES.ADD_SCHEDULE}`} component={AddSchedule} />}
                                 <Route exact path={`${match.url}${ROUTES.TUTOREDIT}`} component={TutorEdit} />}
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_COURSE}`} component={CourseManagement} />}
                                 <Route exact path={`${match.url}${ROUTES.COURSEEDIT}`} component={CourseEdit} />}
@@ -125,7 +139,7 @@ class AdminPage extends Component {
 const condition = authUser =>
     authUser && !!authUser.roles[ROLES.ADMIN];
 export default compose(
-    withEmailVerification,
-    withAuthorization(condition),
-    withFirebase
+    //withEmailVerification,
+    //withAuthorization(condition),
+    //withFirebase
 )(AdminPage);
