@@ -35,7 +35,7 @@
     "recompose": "^0.30.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "video-react": "^0.14.1"
+    "video-react": "^0.14.1",
     "uuid": "^3.3.3"
   },
   "scripts": {

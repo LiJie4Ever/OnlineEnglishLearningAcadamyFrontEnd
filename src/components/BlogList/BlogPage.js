@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import { Card, BackTop } from 'antd';
 import './index.css';
 
+const moment = require('moment');
+
 class BlogPage extends Component {
     constructor(props) {
         super(props);
