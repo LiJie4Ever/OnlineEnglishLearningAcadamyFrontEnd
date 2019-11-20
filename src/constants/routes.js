@@ -24,3 +24,4 @@ export const BLOGEDIT = '/editBlog/:blogId';
 export const BLOGCREATE = '/createBlog';
 export const MANAGE_TUTOR='/editTutor/:uid';
 export const MANAGE_REQUEST='/manageRequest';
+export const ADD_SCHEDULE='/addSchedule';

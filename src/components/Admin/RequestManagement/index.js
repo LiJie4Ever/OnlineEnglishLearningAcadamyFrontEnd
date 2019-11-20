@@ -3,91 +3,97 @@ import { Table, Icon, Form, Input } from 'antd';
 import app from "firebase";
 import './index.css';
 
+const BACKURL = "http://localhost:5009/onlineenglishacademy-eddb3/us-central1/api";
+//const ENDPOINT = "https://us-central1-onlineenglishacademy-eddb3.cloudfunctions.net/api";
+const ENDPOINT = "http://localhost:5009/onlineenglishacademy-eddb3/us-central1/api";
+const CONFIRMREQUEST = "/request/confirm";
+const axios = require('axios');
+
 const EditableContext = React.createContext();
 
 const EditableRow = ({ form, index, ...props }) => (
-    <EditableContext.Provider value={form}>
-        <tr {...props} />
-    </EditableContext.Provider>
+  <EditableContext.Provider value={form}>
+    <tr {...props} />
+  </EditableContext.Provider>
 );
 
 const EditableFormRow = Form.create()(EditableRow);
 
 class EditableCell extends React.Component {
-    state = {
-        editing: false,
-    };
+  state = {
+    editing: false,
+  };
 
-    toggleEdit = () => {
-        const editing = !this.state.editing;
-        this.setState({ editing }, () => {
-            if (editing) {
-                this.input.focus();
-            }
-        });
-    };
+  toggleEdit = () => {
+    const editing = !this.state.editing;
+    this.setState({ editing }, () => {
+      if (editing) {
+        this.input.focus();
+      }
+    });
+  };
 
-    save = e => {
-        const { record, handleSave } = this.props;
-        this.form.validateFields((error, values) => {
-            if (error && error[e.currentTarget.id]) {
-                return;
-            }
-            this.toggleEdit();
-            handleSave({ ...record, ...values });
-        });
-    };
+  save = e => {
 
-    renderCell = form => {
-        this.form = form;
-        const { children, dataIndex, record, title } = this.props;
-        const { editing } = this.state;
-        return editing ? (
-            <Form.Item style={{ margin: 0 }}>
-                {form.getFieldDecorator(dataIndex, {
-                    rules: [
-                        {
-                            required: true,
-                            message: `${title} is required.`,
-                        },
-                    ],
-                    initialValue: record[dataIndex],
-                })(<Input ref={node => (this.input = node)} onPressEnter={this.save} onBlur={this.save} />)}
-            </Form.Item>
+    const { record, handleSave } = this.props;
+    this.form.validateFields((error, values) => {
+      if (error && error[e.currentTarget.id]) {
+        return;
+      }
+      this.toggleEdit();
+      handleSave({ ...record, ...values });
+    });
+  };
+
+  renderCell = form => {
+    this.form = form;
+    const { children, dataIndex, record, title } = this.props;
+    const { editing } = this.state;
+    return editing ? (
+      <Form.Item style={{ margin: 0 }}>
+        {form.getFieldDecorator(dataIndex, {
+          rules: [
+            {
+              required: true,
+              message: `${title} is required.`,
+            },
+          ],
+          initialValue: record[dataIndex],
+        })(<Input ref={node => (this.input = node)} onPressEnter={this.save} onBlur={this.save} />)}
+      </Form.Item>
+    ) : (
+      <div
+        className="editable-cell-value-wrap"
+        style={{ paddingRight: 24 }}
+        onClick={this.toggleEdit}
+      >
+        {children}
+      </div>
+    );
+  };
+
+  render() {
+    const {
+      editable,
+      dataIndex,
+      title,
+      record,
+      index,
+      handleSave,
+      children,
+      ...restProps
+    } = this.props;
+    return (
+      <td {...restProps}>
+        {editable ? (
+          <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer>
         ) : (
-            <div
-                className="editable-cell-value-wrap"
-                style={{ paddingRight: 24 }}
-                onClick={this.toggleEdit}
-            >
-                {children}
-            </div>
-        );
-    };
-
-    render() {
-        const {
-            editable,
-            dataIndex,
-            title,
-            record,
-            index,
-            handleSave,
-            children,
-            ...restProps
-        } = this.props;
-        return (
-            <td {...restProps}>
-                {editable ? (
-                    <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer>
-                ) : (
-                    children
-                )}
-            </td>
-        );
-    }
+          children
+        )}
+      </td>
+    );
+  }
 }
-
 
 class RequestManagement extends Component{
 
@@ -163,11 +169,11 @@ class RequestManagement extends Component{
             fixed: 'right',
             render: (text, record)=>(
                 <span>
-                <a className="reqConfirmBTN" onClick={(e)=>this.handleConfirm(record.student)}>
+                <a className="reqConfirmBTN" onClick={(e)=>this.handleConfirm(record.id)}>
                 <Icon type="check" />
                 </a>
 
-                <a className="cancelBTN" onClick={(e)=>this.handleCancel(record.student)}>
+                <a className="cancelBTN" onClick={(e)=>this.handleCancel(record.id)}>
                 <Icon type="close" />
                 </a>
 
@@ -177,35 +183,83 @@ class RequestManagement extends Component{
 
         },
     ];
+    refreshTable=()=>{
+      axios.get(`${ENDPOINT}`+"/request/getList", {})
+        .then(function (response) {
+            console.log(response);
+            console.log(response.data.content);
+            this.setState({ data : response.data.content });
+        }.bind(this))
+        .catch(function (error) {
+            console.log(error);// todo
+        });
+    };
 
-    handleConfirm = (student)=>{
-        alert("confirmed request from "+student);
+    handleConfirm = (requestID)=>{
+        //alert("confirmed request from "+requestID);
+        axios.post(`${ENDPOINT}${CONFIRMREQUEST}`, {
+                id: requestID
+        })
+            .then(function (response) {
+                console.log(response);
+                this.refreshTable();
+            }.bind(this))
+            .catch(function (error) {
+                console.log(error);// todo
+            });
+
     }
 
-    handleCancel = (student)=>{
-        alert("canceled request from "+student);
+    handleCancel = (requestID)=>{
+        console.log(`${ENDPOINT}`+"/request/cancel");
+        console.log(requestID);
+        axios.post(`${ENDPOINT}`+"/request/cancel", {
+                id: requestID
+        })
+          .then(function (response) {
+              console.log(response);
+              this.refreshTable();
+          }.bind(this))
+          .catch(function (error) {
+              console.log(error);// todo
+          });
     }
 
     handleSave = row => {
-        return;
+        //console.log(this.state.data);
         const newData = [...this.state.data];
-        const index = newData.findIndex(item => row.key === item.key);
+        const index = newData.findIndex(item => row.id === item.id);
         const item = newData[index];
+
         newData.splice(index, 1, {
             ...item,
             ...row,
         });
-        this.setState({ data: newData });
+        //console.log(newData[index]);
+        //console.log(newData);
+
+        axios.post(`${ENDPOINT}`+"/request/setPrice", {
+                id: item.id,
+                price: newData[index].price //? why here mush be newData[index] rather than item
+        })
+          .then(function (response) {
+              console.log(response);
+              this.setState({ data: newData });
+          }.bind(this))
+          .catch(function (error) {
+              console.log(error);// todo
+          });
+
     };
 
     componentDidMount(){
         //get data
         this.data=null;
-        let reqRef = app.firestore().collection('request');
+        /*let reqRef = app.firestore().collection('request');
         let requests = reqRef.get().then(snapshot => {
             let list = this.state.data;
             snapshot.forEach(doc =>{
-                let reqObject = {student:doc.data().student, availableTime:doc.data().availableTime, status:doc.data().status,
+                let reqObject = {id:doc.id, student:doc.data().student, availableTime:doc.data().availableTime, status:doc.data().status,
                     numOfS:doc.data().numOfS, note:doc.data().note, preferredT1:doc.data().preferredT1, email:doc.data().email,
                     preferredT2:doc.data().preferredT2, preferredT3:doc.data().preferredT3, price:doc.data().price, timezone:doc.data().timezone};
                 list.push(reqObject);
@@ -214,7 +268,9 @@ class RequestManagement extends Component{
             console.log(list);
         }).catch(err => {
             console.log('Error getting documents', err);
-        });
+        });*/
+        //use ajax to get data
+        this.refreshTable();
     }
 
 
@@ -245,6 +301,7 @@ class RequestManagement extends Component{
             <div>
                 <Table
                 components={components}
+                rowClassName={() => 'editable-row'}
                 columns={columns}
                 dataSource={this.state.data}
                 scroll={{x:1500}}

@@ -11,6 +11,8 @@ import * as ROUTES from "../../constants/routes";
 import BlogManagement from "./BlogManagement";
 import BlogEdit from "./BlogManagement/BlogEdit";
 import RequestManagement from "./RequestManagement"
+import ScheduleManagement from "./ScheduleManagement"
+import AddSchedule from "./ScheduleManagement/AddSchedule"
 
 const { Sider, Content } = Layout;
 
@@ -90,6 +92,8 @@ class AdminPage extends Component {
                                 <Route exact path={`${match.url}${ROUTES.BLOGEDIT}`} component={BlogEdit} />}
                                 <Route exact path={`${match.url}${ROUTES.BLOGCREATE}`} component={BlogEdit} />}
                                 <Route exact path={`${match.url}${ROUTES.MANAGE_REQUEST}`} component={RequestManagement} />}
+                                <Route exact path={`${match.url}${ROUTES.SCHEDULE}`} component={ScheduleManagement} />}
+                                <Route exact path={`${match.url}${ROUTES.ADD_SCHEDULE}`} component={AddSchedule} />}
                                 />
                             </Switch>
                         </Content>
