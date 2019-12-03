@@ -13,37 +13,37 @@ const axios = require('axios');
 class ScheduleManagement extends Component{
   columns = [
       {
-          title: 'student',
+          title: 'Student',
           dataIndex: 'student',
           width: 120,
       },
       {
-          title: 'tutor',
+          title: 'Tutor',
           dataIndex: 'tutor',
           width: 120,
       },
       {
-          title: 'meetingStartTime',
+          title: 'Meeting Start Time',
           dataIndex: 'meetingStartTime',
           width: 150,
       },
       {
-          title: 'duration',
+          title: 'Duration',
           dataIndex: 'duration',
           width: 80,
       },
       {
-          title: 'offset',
+          title: 'Offset',
           dataIndex: 'offset',
           width: 80,
       },
       {
-          title: 'createTime',
+          title: 'Create Time',
           dataIndex: 'createTime',
           width: 150,
       },
       {
-          title: 'link',
+          title: 'Link',
           dataIndex: 'link',
           width: 120,
       },
@@ -53,7 +53,7 @@ class ScheduleManagement extends Component{
           //fixed: 'right',
           render: (text, record)=>(
           <span>
-              <Popconfirm title="Sure to confirm?" onConfirm={(e)=>this.handleDelete(record.id)}>
+              <Popconfirm title="Remove this schedule?" onConfirm={(e)=>this.handleDelete(record.id)}>
                 <a className="scheDeleteBTN">
                 <Icon type="close" />
                 </a>
@@ -85,9 +85,7 @@ class ScheduleManagement extends Component{
     refreshTable=()=>{
       axios.get(`${ENDPOINT}`+"/schedule/getList", {})
         .then(function (response) {
-            notification.open({
-              message: 'Data reloaded!',
-            });
+
             this.setState({ data : response.data.content });
         }.bind(this))
         .catch(function (error) {

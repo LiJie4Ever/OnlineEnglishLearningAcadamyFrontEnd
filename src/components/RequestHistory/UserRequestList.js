@@ -87,8 +87,8 @@ class UserRequestList extends React.Component {
         var user = this.props.data;
         axios.get(`${URL.ENDPOINT}`+"/request/getList", {})
           .then(function (response) {
-              console.log(response);
-              console.log(response.data.content);
+              //console.log(response);
+              //console.log(response.data.content);
               var oldList = response.data.content;
               var newList = [];
               for(var i=0;i<oldList.length;i++){

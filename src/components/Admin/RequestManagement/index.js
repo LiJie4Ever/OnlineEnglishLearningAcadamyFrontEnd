@@ -238,7 +238,7 @@ class RequestManagement extends Component{
         if(status != "0"){
             notification.open({
               message: 'Failed!',
-              description:'This request has already been confirmed or illegal status',
+              description:'This request has already been confirmed',
             });
             return;
         }
