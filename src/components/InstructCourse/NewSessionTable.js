@@ -13,7 +13,8 @@ const axios = require('axios');
 const AutoCompleteOption = AutoComplete.Option;
 const moment_tz = require('moment-timezone');
 const moment = require('moment');
-const defaultQuery = '/schedule/setScheduleLink'
+const defaultQuery = '/schedule/setScheduleLink';
+const sendEmailQuey = '/schedule/sendConfirmation';
 
 class NewSessionTable extends Component {
     constructor(props) {
@@ -24,23 +25,26 @@ class NewSessionTable extends Component {
     }
 
     componentDidMount() {
-
+        console.log(this.props.studentID);
+        console.log(this.props.tutorID);
     }
 
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
+                let studentID = this.props.studentID;
+                let tutorID = this.props.tutorID;
                 let offset = moment_tz().tz(moment_tz.tz.guess(true)).format('Z');
                 let now = moment_tz().tz(moment_tz.tz.guess(true));
                 let UTCTimeString = now.utc().format();
                 let timeData = UTCTimeString.split('T');
                 let createTime = timeData[0] + ' ' + timeData[1].substring(0, timeData[1].length - 1);
-                console.log(offset);
-                console.log(createTime);
-                console.log(this.props.requestID);
+                // console.log(offset);
+                // console.log(createTime);
+                // console.log(this.props.requestID);
                 let data = {
-                    createTime: createTime,
+                    meetingStartTime: createTime,
                     offset: offset,
                     link: values.website,
                     topic: values.topic
@@ -50,6 +54,17 @@ class NewSessionTable extends Component {
                     id: this.props.requestID,
                     fields: data
                 }) .then(function (response) {
+                    // console.log(studentID);
+                    // console.log(tutorID);
+                    axios.post(`${URL.ENDPOINT}${sendEmailQuey}`, {
+                        student_uid: studentID,
+                        tutor_uid: tutorID,
+                        start_time: createTime,
+                    }).then(response => {
+                        console.log(response)
+                    }).catch(err => {
+                        console.log(err)
+                    });
                     notification.open({
                         message: 'Add successfully',
                         description:
@@ -121,7 +136,7 @@ class NewSessionTable extends Component {
                             rules: [{ required: true, message: 'Please input your topic!' }],
                         })(<Input />)}
                     </Form.Item>
-                    <Form.Item label="Date and time">
+                    <Form.Item label="Meeting Start Time">
                         {getFieldDecorator('start_time', {
                             rules: [{ type: 'object', required: true, message: 'Please select time!' }],
                         })(

@@ -88,8 +88,8 @@ class EditProfilPage extends Component {
                     <Form.Item
                         label={
                             <span>
-                            UserName&nbsp;
-                                <Tooltip title="What do you want others to call you?">
+                            User Name&nbsp;
+                                <Tooltip title="What name do you want displayed?">
                                 <Icon type="question-circle-o" />
                             </Tooltip>
                         </span>
@@ -111,7 +111,7 @@ class EditProfilPage extends Component {
                             <Select placeholder="Please select a gender">
                                 <Option value="male">Male</Option>
                                 <Option value="female">Female</Option>
-                                <Option value="unknown">Refused to answer</Option>
+                                <Option value="unknown">Other</Option>
                             </Select>,
                         )}
                     </Form.Item>
@@ -121,7 +121,7 @@ class EditProfilPage extends Component {
                             initialValue: this.state.country
                         })(
                             <Select placeholder="Please select your country">
-                                <Option value="USA">The United States</Option>
+                                <Option value="USA">United States of America</Option>
                                 <Option value="CHINA">China</Option>
                             </Select>,
                         )}

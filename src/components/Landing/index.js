@@ -86,7 +86,7 @@ The beauty of technology has allowed us to reach students all over the world, wh
                     <img className='picClient2' src={'https://greenbay.usc.edu/csci577/fall2019/projects/team02/assets/img/photo_liyan.jpg'}/>
                     <div className={'client1'}><h1>Liyan Wang, Lecturer</h1> is lecturer of clinical education and chair of the Master of Arts in Teaching English to Speakers of Other Languages (MAT—TESOL) program. His areas of focus include international education, language teacher preparation, online and technology enhanced learning and creativity and innovation in education.</div>
                     <div className={'copyright'} style={{textAlign:'center',fontSize:'bold',color:'black'}}>
-                    COPYRIGHT©USC CSCI577A TEMA #2
+                    COPYRIGHT©USC CSCI577A TEAM #2
                     </div>
                 </Layout>
             </div>

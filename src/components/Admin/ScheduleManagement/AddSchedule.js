@@ -185,7 +185,7 @@ class AddSchedule extends Component{
                           </Select>,
                         )}
                     </Form.Item>
-                    <Form.Item label="Duration">
+                    <Form.Item label="Duration (Hour)">
                         {getFieldDecorator('duration', {
                             rules: [{ required: true, message: 'Please input the duration!' }],
                         })(
@@ -200,7 +200,7 @@ class AddSchedule extends Component{
                         sm: { span: 16, offset: 8 },
                     }}>
                     <Button type="primary" htmlType="submit" className="comfirmBTN">
-                        Comfirm
+                        Confirm
                     </Button>
                     <a className="cancelBTN" onClick={this.cancelAdd}>cancel</a>
 

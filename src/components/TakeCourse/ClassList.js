@@ -120,7 +120,7 @@ class ClassList extends React.Component {
     render() {
         const columns = [
             {
-                title: 'startTime(local)',
+                title: 'start Time(local)',
                 dataIndex: 'startTime',
                 key: 'startTime',
                 ...this.getColumnSearchProps('startTime'),

@@ -31,12 +31,12 @@ class InstructPage extends Component {
     componentDidMount() {
     }
 
-    handleAddLink = childId => {
+    handleAddLink = data => {
         this.setState({
-            requestID: childId,
+            requestID: data.request,
+            studnetID: data.student,
             currentActiveKey: '2'
         });
-        console.log(childId);
     };
 
     hancleChange = () => {
@@ -60,7 +60,7 @@ class InstructPage extends Component {
                         <UpcomingSessionTableWrapper data={this.props.data} handleAddLink={this.handleAddLink}/>
                     </TabPane>
                     <TabPane tab="Create New Session" key='2'>
-                        <NewSessionForm data={this.props.data} requestID={this.state.requestID}/>
+                        <NewSessionForm data={this.props.data} requestID={this.state.requestID} studentID={this.state.studnetID} tutorID={this.props.data.uid}/>
                     </TabPane>
                 </Tabs>
             </div>
