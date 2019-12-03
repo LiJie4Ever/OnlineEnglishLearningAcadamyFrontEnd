@@ -17,7 +17,7 @@ class QuestionPanel extends Component {
     render() {
         return(
             <div style={{textAlign: 'left'}}>
-                <Collapse defaultActiveKey={['1']} onChange={callback}>
+                <Collapse onChange={callback}>
                     <Panel header="How do I schedule a live session only with the tutor I want?" key="1">
                         <Comment
                             author={<a>Jie Li</a>}

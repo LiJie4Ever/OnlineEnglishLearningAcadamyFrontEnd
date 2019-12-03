@@ -160,14 +160,14 @@ class AddSchedule extends Component{
                             </Select>,
                         )}
                     </Form.Item>
-                    <Form.Item label="start date">
+                    <Form.Item label="Start Date">
                         {getFieldDecorator('startDate', {
                             rules: [{ required: true }],
                         })(
                           <DatePicker onChange={this.onChangeD} placeholder="Select date" />
                         )}
                     </Form.Item>
-                    <Form.Item label="start time">
+                    <Form.Item label="Start Time">
                       {getFieldDecorator('startTime', {
                           rules: [{ required: true }],
                       })(
@@ -175,9 +175,9 @@ class AddSchedule extends Component{
 
                       )}
                     </Form.Item>
-                    <Form.Item label="timezone">
+                    <Form.Item label="Timezone">
                         {getFieldDecorator('timezone', {
-                            rules: [{ required: true, message: 'Please input the author!' }],
+                            rules: [{ required: true, message: 'Please input the timezone!' }],
                         })(
                             <Input
                                 prefix={<Icon type="edit" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -185,9 +185,9 @@ class AddSchedule extends Component{
                             />,
                         )}
                     </Form.Item>
-                    <Form.Item label="duration">
+                    <Form.Item label="Duration (Hour)">
                         {getFieldDecorator('duration', {
-                            rules: [{ required: true, message: 'Please input the author!' }],
+                            rules: [{ required: true, message: 'Please input the duration!' }],
                         })(
                             <Input
                                 prefix={<Icon type="edit" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -200,7 +200,7 @@ class AddSchedule extends Component{
                         sm: { span: 16, offset: 8 },
                     }}>
                     <Button type="primary" htmlType="submit" className="comfirmBTN">
-                        Comfirm
+                        Confirm
                     </Button>
                     <a className="cancelBTN" onClick={this.cancelAdd}>cancel</a>
 

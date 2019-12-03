@@ -40,9 +40,13 @@ class MenuAuth extends Component {
                 </Menu.Item>
                 {!!this.props.authUser.roles[ROLES.STUDENT] && (
                     <Menu.Item>
-                        <Link to={ROUTES.COURSE_REQUEST}>TutoringRequest</Link>
+                        <Link to={ROUTES.COURSE_REQUEST}>Tutoring Request</Link>
                     </Menu.Item>
                 )}
+                {!!this.props.authUser.roles[ROLES.STUDENT] && (
+                    <Menu.Item>
+                        <Link to={ROUTES.STUDENT_TUTORING}>Take Course</Link>
+                    </Menu.Item>)}
                 <SubMenu
                     key="sub1"
                     title={
@@ -55,10 +59,6 @@ class MenuAuth extends Component {
                         <span>Profile</span>
                         <Link to={ROUTES.ACCOUNT} />
                     </Menu.Item>
-                    {!!this.props.authUser.roles[ROLES.STUDENT] && (
-                        <Menu.Item>
-                            <Link to={ROUTES.STUDENT_TUTORING}>Take Course</Link>
-                        </Menu.Item>)}
                     {!!this.props.authUser.roles[ROLES.STUDENT] && (
                         <Menu.Item>
                             <Link to={ROUTES.STUDENT_COURSES}>Purchased Courses</Link>
