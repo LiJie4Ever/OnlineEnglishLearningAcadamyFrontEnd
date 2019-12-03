@@ -52,11 +52,8 @@ class Firebase {
 
     // *** Blog API ***
     blog = uid => this.db.doc(`blog/${uid}`);
-    blogs = () => this.db.collection('blog');
     // *** Course API ***
     course = uid => this.db.doc(`course/${uid}`);
-    courses = () => this.db.collection('course');
-
     //*** request API ***
     request = () => this.db.collection('request');
 }

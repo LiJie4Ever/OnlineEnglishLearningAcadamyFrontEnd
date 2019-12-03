@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Button, DatePicker, Form, Icon, Input, Select, Tooltip} from "antd";
+import {Button, DatePicker, Form, Icon, Input, Select, Tooltip, notification} from "antd";
 import * as URL from '../../constants/url.js';
 import "./index.css";
 
@@ -43,15 +43,25 @@ class EditProfilPage extends Component {
                     gender: values.gender,
                     userName: values.userName === "" ? originalName : values.userName,
                 });
+                console.log(this.state);
+                console.log(this.props.data.uid);
                 axios.post(`${URL.ENDPOINT}${defaultQuery}`, {
                     id: this.props.data.uid,
                     fields: this.state
                 })
                 .then(function (response) {
-                    console.log(response);
+                    notification['success']({
+                        message: 'Update successfully!',
+                        description:
+                            'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+                    });
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    notification['error']({
+                        message: 'Unexpected Error!',
+                        description:
+                            'Please try again.',
+                    });
                 });
             }
         });

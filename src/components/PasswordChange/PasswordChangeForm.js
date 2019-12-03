@@ -4,6 +4,7 @@ import {
     Form,
     Input,
     Button,
+    notification
 } from 'antd';
 import * as ROUTES from "../../constants/routes";
 
@@ -20,15 +21,24 @@ class PasswordChangeForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                console.log('Received values of form: ', values.password);
                 this.props.firebase
                     .doPasswordUpdate(values.password)
                     .then(() => {
+                        notification['success']({
+                            message: 'Change Password Successfully',
+                            description:
+                                'Please log in again.',
+                        });
                         this.props.firebase.doSignOut();
                         this.props.history.push(ROUTES.LOG_IN);
                     })
                     .catch(error => {
-                        console.log(error);
+                        notification['error']({
+                            message: 'Unexpected Error!',
+                            description:
+                                'Please try again.',
+                        });
                         this.setState({ error });
                     });
             }
