@@ -160,14 +160,14 @@ class AddSchedule extends Component{
                             </Select>,
                         )}
                     </Form.Item>
-                    <Form.Item label="start date">
+                    <Form.Item label="Start date">
                         {getFieldDecorator('startDate', {
                             rules: [{ required: true }],
                         })(
                           <DatePicker onChange={this.onChangeD} placeholder="Select date" />
                         )}
                     </Form.Item>
-                    <Form.Item label="start time">
+                    <Form.Item label="Start time">
                       {getFieldDecorator('startTime', {
                           rules: [{ required: true }],
                       })(
@@ -175,19 +175,19 @@ class AddSchedule extends Component{
 
                       )}
                     </Form.Item>
-                    <Form.Item label="timezone">
+                    <Form.Item label="Timezone">
                         {getFieldDecorator('timezone', {
-                            rules: [{ required: true, message: 'Please input the author!' }],
+                            rules: [{ required: true, message: 'Please input the timezone!' }],
                         })(
-                            <Input
-                                prefix={<Icon type="edit" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                placeholder="Time zone of the student"
-                            />,
+                          <Select placeholder="Please select a course">
+                              <Option key="-8:00" value="-8:00">Pacific Standard Time</Option>
+                              <Option key="+8:00" value="+8:00">China Standard Time</Option>
+                          </Select>,
                         )}
                     </Form.Item>
-                    <Form.Item label="duration">
+                    <Form.Item label="Duration">
                         {getFieldDecorator('duration', {
-                            rules: [{ required: true, message: 'Please input the author!' }],
+                            rules: [{ required: true, message: 'Please input the duration!' }],
                         })(
                             <Input
                                 prefix={<Icon type="edit" style={{ color: 'rgba(0,0,0,.25)' }} />}

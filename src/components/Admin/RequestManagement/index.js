@@ -199,7 +199,7 @@ class RequestManagement extends Component{
             fixed: 'right',
             render: (text, record)=>(
             <span>
-                <Popconfirm title="Sure to confirm?" onConfirm={(e)=>this.handleConfirm(record.id, record.studentId, record.status)}>
+                <Popconfirm title="Confirm?" onConfirm={(e)=>this.handleConfirm(record.id, record.studentId, record.status)}>
                   <a className="reqConfirmBTN">
                   <Icon type="check" />
                   </a>
@@ -238,7 +238,7 @@ class RequestManagement extends Component{
         if(status != "0"){
             notification.open({
               message: 'Failed!',
-              description:'This request has already been confirmed or illegal status',
+              description:'This request has already been confirmed',
             });
             return;
         }

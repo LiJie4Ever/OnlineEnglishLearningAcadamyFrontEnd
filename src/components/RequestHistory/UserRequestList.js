@@ -87,8 +87,8 @@ class UserRequestList extends React.Component {
         var user = this.props.data;
         axios.get(`${URL.ENDPOINT}`+"/request/getList", {})
           .then(function (response) {
-              console.log(response);
-              console.log(response.data.content);
+              //console.log(response);
+              //console.log(response.data.content);
               var oldList = response.data.content;
               var newList = [];
               for(var i=0;i<oldList.length;i++){
@@ -96,9 +96,9 @@ class UserRequestList extends React.Component {
                       newList.push(oldList[i]);
               }
               this.setState({ data : newList });
-              notification.open({
-                  message: 'Data reloaded!',
-                });
+              //notification.open({
+              //    message: 'Data reloaded!',
+              //  });
           }.bind(this))
           .catch(function (error) {
               console.log(error);// todo
