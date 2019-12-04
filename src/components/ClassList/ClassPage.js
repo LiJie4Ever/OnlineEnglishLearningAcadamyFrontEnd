@@ -21,7 +21,7 @@ class ClassPage extends Component {
     }
 
     addToCart = (index) => {
-        this.state.classInfo.state = "Already in Cart";
+        this.state.classInfo.state = "Added to Cart";
         this.state.classInfo.bool = true;
         this.setState({classInfo: this.state.classInfo});
 
@@ -51,7 +51,7 @@ class ClassPage extends Component {
 
     componentDidMount() {
         if (this.state.authStatus == "exists"){
-            if (this.state.classInfo.state == "Already Bought"){
+            if (this.state.classInfo.state == "Purchased"){
                 let sourceList = [];
                 for (let i in this.state.classInfo.lessonArray) {
                     let lessonPromise = new Promise((resolve => {

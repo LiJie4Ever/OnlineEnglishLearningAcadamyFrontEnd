@@ -5,7 +5,6 @@ import {Tabs, List, Avatar, Icon, Button} from 'antd';
 import {AuthUserContext} from "../Session";
 import app from 'firebase/app';
 import axios from 'axios';
-import boolean from "less/lib/less/functions/boolean";
 import * as URL from "../../constants/url";
 
 class Class extends React.Component {
