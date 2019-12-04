@@ -90,10 +90,14 @@ class Class extends React.Component {
 
                             let cartArray = res.cartArray;
                             let boughtArray = res.boughtArray;
-
+                            
                             for (let i in courseArray){
                                 let item  = courseArray[i][1];
                                 item.id = courseArray[i][0];
+                                item.free = false
+                                if (item.price == 0){
+                                    item.free = true
+                                }
                                 let tutorItem = app.firestore().collection('tutors').doc(item.tutor);
                                 tutorItem.get().then(doc => {
                                     if (doc.exists) {
@@ -102,6 +106,9 @@ class Class extends React.Component {
 
                                         item.bool = false;
                                         item.state = "Add to Cart";
+                                        if (item.free){
+                                            item.bool = true
+                                        }
 
                                         for (let j in cartArray){
                                             // console.log(cartArray[j]);
@@ -143,6 +150,10 @@ class Class extends React.Component {
                     for (let i in courseArray){
                         let item  = courseArray[i][1];
                         item.id = courseArray[i][0];
+                        item.free = false
+                        if (item.price == 0){
+                            item.free = true
+                        }
                         let tutorItem = app.firestore().collection('tutors').doc(item.tutor);
                         tutorItem.get().then(doc => {
                             if (doc.exists) {
@@ -212,7 +223,7 @@ class Class extends React.Component {
                                 description={
                                     <div>
                                         <div className='tutor'>{item.tutorName}</div>
-                                        <div className='price'>${item.price} (US)</div>
+                                        <div className='price'>{(item.free) ? 'Free' : '$' + item.price + ' (US)'}</div>
                                     </div>
                                 }
                             />
