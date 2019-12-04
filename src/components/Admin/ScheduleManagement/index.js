@@ -23,7 +23,7 @@ class ScheduleManagement extends Component{
           width: 120,
       },
       {
-          title: 'Meeting Start Time',
+          title: 'Meeting Start Time(UTC)',
           dataIndex: 'meetingStartTime',
           width: 150,
       },
