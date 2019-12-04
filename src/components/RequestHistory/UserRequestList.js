@@ -67,7 +67,7 @@ class UserRequestList extends React.Component {
             title: 'Status',
             width: 150,
             render: (text, record)=>{
-              var displayStatus = "Illegal status";
+              let displayStatus = "Illegal status";
               if(record.status=="0"){
                 displayStatus = "Unconfirmed";
               }else if(record.status=="1"){
@@ -96,9 +96,6 @@ class UserRequestList extends React.Component {
                       newList.push(oldList[i]);
               }
               this.setState({ data : newList });
-              //notification.open({
-              //    message: 'Data reloaded!',
-              //  });
           }.bind(this))
           .catch(function (error) {
               console.log(error);// todo

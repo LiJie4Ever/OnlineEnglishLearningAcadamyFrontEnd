@@ -26,7 +26,7 @@ class Class extends React.Component {
         this.props.history.push({pathname:'/class/' + classInfo.id, state:{classInfo, authStatus}});
     };
     addToCart = (index) => {
-        this.state.courseList[index].state = "Already in Cart";
+        this.state.courseList[index].state = "Added to Cart”";
         this.state.courseList[index].bool = true;
         this.setState(this.state.courseList);
 
@@ -108,7 +108,7 @@ class Class extends React.Component {
                                             // console.log(cartArray[j]);
                                             if (cartArray[j] === item.id){
                                                 item.bool = true;
-                                                item.state = "Already in Cart";
+                                                item.state = "Added to Cart";
                                                 break;
                                             }
                                         }
@@ -116,7 +116,7 @@ class Class extends React.Component {
                                             // console.log(boughtArray[k]);
                                             if (boughtArray[k] === item.id){
                                                 item.bool = true;
-                                                item.state = "Already Bought";
+                                                item.state = "Purchased";
                                                 break;
                                             }
                                         }
@@ -213,7 +213,7 @@ class Class extends React.Component {
                                 description={
                                     <div>
                                         <div className='tutor'>{item.tutorName}</div>
-                                        <div className='price'>US$ {item.price}</div>
+                                        <div className='price'>${item.price} (US)</div>
                                     </div>
                                 }
                             />

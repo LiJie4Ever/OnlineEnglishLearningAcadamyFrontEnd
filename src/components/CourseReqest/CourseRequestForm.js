@@ -12,13 +12,14 @@ import {
     notification
 } from 'antd';
 import 'antd/dist/antd.css';
-import {withRouter} from "react-router-dom";
 
 const { Option } = Select;
 const { TextArea } = Input;
 const moment_tz = require('moment-timezone');
 const moment = require('moment');
 const uuid = require('uuid/v1');
+
+const { MonthPicker } = DatePicker;
 
 class CourseRequestForm extends Component {
     constructor(props) {
@@ -78,7 +79,7 @@ class CourseRequestForm extends Component {
                     preferredT2: values.secondTutorName,
                     preferredT3: values.thirdTutorName,
                     phone: values.prefix + values.phone,
-                    graduationYear: values.graduate.format('YYYY-MM-DD'),
+                    graduationYear: values.graduate.format('YYYY-MM'),
                     status: 0
                 };
                 this.props.firebase.request().doc(uuid()).set(data).then(() => {
@@ -142,7 +143,7 @@ class CourseRequestForm extends Component {
                     validator: (rule, value, callback) => {
                         if (moment(value).isBefore(moment(new Date()))) {
                             console.log(value);
-                            callback("You can not choose the date before today!");
+                            callback("Please choose a date in the future!");
                         } else {
                             callback();
                         }
@@ -151,20 +152,20 @@ class CourseRequestForm extends Component {
         };
         return(
             <div>
-                <h1 className="Form_tittle">Request 1:1 Live Session</h1>
+                <h1 className="Form_tittle">Request 1 on 1 Live Tutoring</h1>
                 <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                     <Form.Item label="Phone Number">
                         {getFieldDecorator('phone', {
                             rules: [{ required: true, message: 'Please input your phone number!' }],
                         })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
                     </Form.Item>
-                    <Form.Item label="Current school">
+                    <Form.Item label="Current School">
                         {getFieldDecorator('school', {
                             rules: [{ required: true, message: 'Please input your current school!', whitespace: true }],
                         })(<Input />)}
                     </Form.Item>
-                    <Form.Item label="Graduate year">
-                        {getFieldDecorator('graduate', config)(<DatePicker />)}
+                    <Form.Item label="Graduation year">
+                        {getFieldDecorator('graduate', config)(<MonthPicker />)}
                     </Form.Item>
                     <Form.Item label="Preferred Tutor #1" hasFeedback>
                         {getFieldDecorator('firstTutorName', {
@@ -182,8 +183,9 @@ class CourseRequestForm extends Component {
                             <Select placeholder="Please select your first preferred tutor" onChange={this.changeTop1}>
                                 {
                                     this.state.tutorList.map((item, index) => {
+                                        let changeFormat = item.userName.substring(0, 1).toUpperCase() + item.userName.substring(1);
                                         return(
-                                            <Option key={item.uid} value={item.uid}>{item.userName}</Option>
+                                            <Option key={item.uid} value={item.uid}>{changeFormat}</Option>
                                         )
                                     })
                                 }
@@ -207,8 +209,9 @@ class CourseRequestForm extends Component {
                             <Select placeholder="Please select your second preferred tutor" onChange={this.changeTop2}>
                                 {
                                     this.state.tutorList.map((item, index) => {
+                                        let changeFormat = item.userName.substring(0, 1).toUpperCase() + item.userName.substring(1);
                                         return(
-                                            <Option key={item.uid} value={item.uid}>{item.userName}</Option>
+                                            <Option key={item.uid} value={item.uid}>{changeFormat}</Option>
                                         )
                                     })
                                 }
@@ -231,8 +234,9 @@ class CourseRequestForm extends Component {
                             <Select placeholder="Please select your third preferred tutor" onChange={this.changeTop3}>
                                 {
                                     this.state.tutorList.map((item, index) => {
+                                        let changeFormat = item.userName.substring(0, 1).toUpperCase() + item.userName.substring(1);
                                         return(
-                                            <Option key={item.uid} value={item.uid}>{item.userName}</Option>
+                                            <Option key={item.uid} value={item.uid}>{changeFormat}</Option>
                                         )
                                     })
                                 }
@@ -265,7 +269,7 @@ class CourseRequestForm extends Component {
                                 <Option value="12am~3pm" label="Afternoon">
                                     Afternoon (12am ~ 3pm)
                                 </Option>
-                                <Option value="3pm~6pm" label="late Afternoon">
+                                <Option value="3pm~6pm" label="Late Afternoon">
                                     late Afternoon (3pm ~ 6pm)
                                 </Option>
                                 <Option value="6pm~9pm" label="Evening">

@@ -91,7 +91,7 @@ class LessonManagement extends Component {
                                     <Col span={24} key={index}>
                                         <Card className="lessonAdminCard" courseinfo={item} key={index} hoverable>
                                             <p className="lessonAdminTitle">{item.lessonTitle}</p>
-                                            <div className="lessonAdminIntro">Introductio: {item.lessonIntro}</div>
+                                            <div className="lessonAdminIntro">Introduction: {item.lessonIntro}</div>
                                             <div className="actionBTN">
                                                 <a className="editBTN" onClick={() => this.editLesson(item)}>Edit</a>
                                                 <a className="deleteBTN" onClick={() => this.deleteLesson(item.id, index)}>Delete</a>
