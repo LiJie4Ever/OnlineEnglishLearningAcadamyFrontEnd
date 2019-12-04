@@ -252,7 +252,7 @@ class CourseRequestForm extends Component {
                     </Form.Item>
                     <Form.Item label="Preferred Time Slot" hasFeedback>
                         {getFieldDecorator('timeSlots', {
-                            rules: [{ required: false }],
+                            rules: [{ required: true }],
                         })(
                             <Select
                                 mode="multiple"
@@ -283,6 +283,7 @@ class CourseRequestForm extends Component {
                     </Form.Item>
                     <Form.Item label="Preferred Days of Week">
                         {getFieldDecorator('daysOfWeek', {
+                            rules: [{ required: true }],
                             initialValue: [],
                         })(
                             <Checkbox.Group style={{ width: '100%' }}>
