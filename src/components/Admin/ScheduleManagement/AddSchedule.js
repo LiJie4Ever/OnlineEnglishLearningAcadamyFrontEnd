@@ -101,13 +101,13 @@ class AddSchedule extends Component{
                     .then(function (response) {
                         axios.post(`${URL.ENDPOINT}`+"/request/sendConfirm",{
                             student_uid: values.selectedStudent,
-                            content: "Your have a new tutoring session"
+                            content: "Your have a new tutoring session",
                         }).then(function(response){
                             console.log(response);
                         });
                         axios.post(`${URL.ENDPOINT}`+"/request/sendConfirm",{
                             student_uid: values.selectedTutor,
-                            content: "Your have a new tutoring session"
+                            content: "Your have a new tutoring session. The date and time in UTC: "+UTCStartTime,
                         }).then(function(response){
                             console.log(response);
                         });
