@@ -257,6 +257,12 @@ class RequestManagement extends Component{
                         description:'This request is confirmed and moved to the shopping cart of the user',
                       });
                 });
+                axios.post(`${URL.ENDPOINT}`+"/request/sendConfirm",{
+                    student_uid: studentID,
+                    content: "Your tutoring request has been confirmed"
+                }).then(function(response){
+                    console.log(response);
+                });
                 this.refreshTable();
             }.bind(this))
             .catch(function (error) {
@@ -291,6 +297,12 @@ class RequestManagement extends Component{
                   notification.open({
                       message: 'Request Canceled!',
                     });
+              });
+              axios.post(`${URL.ENDPOINT}`+"/request/sendConfirm",{
+                  student_uid: studentID,
+                  content: "Your tutoring request has been deleted"
+              }).then(function(response){
+                  console.log(response);
               });
               this.refreshTable();
           }.bind(this))

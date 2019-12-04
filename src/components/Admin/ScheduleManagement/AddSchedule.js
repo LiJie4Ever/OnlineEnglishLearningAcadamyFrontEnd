@@ -13,7 +13,7 @@ const ADDBLOG = "/blog/add";
 const MODIFYBLOG = "/blog/modify";
 const axios = require('axios');
 const ENDPOINT = URL.ENDPOINT;
-
+const moment_tz = require('moment-timezone');
 class AddSchedule extends Component{
     constructor(props) {
         super(props);
@@ -71,14 +71,21 @@ class AddSchedule extends Component{
             //return;
             if (!err) {
                 var myD = new Date();
-                let date = myD.getFullYear()+"-"+(myD.getMonth()+1)+"-"+myD.getDate()
-                +" "+myD.getHours()+":"+myD.getMinutes()+":"+myD.getSeconds();
+                let date = moment_tz().tz(moment_tz.tz.guess(true)).format("YYYY-MM-DD HH:mm:ss");
+                let operation = values.timezone.split(":")[0][0];
+                let UTCStartTime = "";
+                if (operation === '+') {
+                    UTCStartTime = moment(this.state.pickD+" "+this.state.pickT).subtract(parseInt(values.timezone.split(":")[0].substring(1)), 'hours').format("YYYY-MM-DD HH:mm:ss");
+                } else {
+                    UTCStartTime = moment(this.state.pickD+" "+this.state.pickT).add(parseInt(values.timezone.split(":")[0].substring(1)), 'hours').format("YYYY-MM-DD HH:mm:ss");
+                }
+
                 //console.log(date);
                 //return;
                 let dataObj = {
                     student: values.selectedStudent,
                     tutor: values.selectedTutor,
-                    meetingStartTime: this.state.pickD+" "+this.state.pickT,
+                    meetingStartTime: UTCStartTime,
                     offset: values.timezone,
                     duration: values.duration,
                     createTime: date,
@@ -92,6 +99,18 @@ class AddSchedule extends Component{
                     fields: dataObj
                 })
                     .then(function (response) {
+                        axios.post(`${URL.ENDPOINT}`+"/request/sendConfirm",{
+                            student_uid: values.selectedStudent,
+                            content: "Your have a new tutoring session"
+                        }).then(function(response){
+                            console.log(response);
+                        });
+                        axios.post(`${URL.ENDPOINT}`+"/request/sendConfirm",{
+                            student_uid: values.selectedTutor,
+                            content: "Your have a new tutoring session"
+                        }).then(function(response){
+                            console.log(response);
+                        });
                         this.props.history.push({pathname: '/admin/schedule' , state:{message:"Schedule created successfully!"}});
                     }.bind(this))
                     .catch(function (error) {
