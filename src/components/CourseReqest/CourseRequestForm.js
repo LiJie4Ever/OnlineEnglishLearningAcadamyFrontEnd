@@ -250,7 +250,7 @@ class CourseRequestForm extends Component {
                             <InputNumber min={1} max={10} step={1} />
                         )}
                     </Form.Item>
-                    <Form.Item label="Preferred Time Slot" hasFeedback>
+                    <Form.Item label="Preferred Time Slot(Beijing Time)" hasFeedback>
                         {getFieldDecorator('timeSlots', {
                             rules: [{ required: true }],
                         })(
