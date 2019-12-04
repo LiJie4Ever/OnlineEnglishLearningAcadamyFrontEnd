@@ -51,7 +51,7 @@ class ClassPage extends Component {
 
     componentDidMount() {
         if (this.state.authStatus == "exists"){
-            if (this.state.classInfo.state == "Purchased"){
+            if (this.state.classInfo.state == "Purchased" || this.state.classInfo.free){
                 let sourceList = [];
                 for (let i in this.state.classInfo.lessonArray) {
                     let lessonPromise = new Promise((resolve => {
@@ -116,7 +116,7 @@ class ClassPage extends Component {
                             <div className={"detailClassImageContainer"} >
                                 <img className={"detailClassImage"} src={classInfo.image} />
                             </div>
-                            <div className={"detailClassPrice"}>US$ {classInfo.price}</div>
+                            <div className={"detailClassPrice"}>{(classInfo.free) ? 'Free' : 'US$ ' + classInfo.price}</div>
                             <div className={"detailClassButtonContainer"}>
                                 <Button
                                     className={"detailClassButton"}
