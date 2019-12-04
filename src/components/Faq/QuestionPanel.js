@@ -50,7 +50,7 @@ class QuestionPanel extends Component {
                             }
                             content={
                                 <p className='faq_paragraph'>
-                                    Course Hero provides a variety of learning resources to help students study more effectively and succeed in their courses,
+                                    Online English Academy provides a variety of learning resources to help students study more effectively and succeed in their courses,
                                     including one to one online live tutoring sessions, online videos, study documents and more.
                                 </p>
                             }
@@ -61,7 +61,7 @@ class QuestionPanel extends Component {
                             }
                         />
                     </Panel>
-                </Collapse>,
+                </Collapse>
             </div>
         )
     }
