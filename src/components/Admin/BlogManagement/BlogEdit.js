@@ -60,8 +60,8 @@ class BlogEdit extends Component{
                 let dataObj = {
                     title: values.title,
                     author: values.author,
-                    content: this.state.text,
-                    picUrl: this.state.picUrl
+                    content: values.text,
+                    picUrl: values.picUrl
                 };
                 if (this.originBlog == null) { // create blog
                     axios.post(`${URL.ENDPOINT}${ADDBLOG}`, {
