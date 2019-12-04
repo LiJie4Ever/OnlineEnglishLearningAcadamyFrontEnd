@@ -28,7 +28,8 @@ class CourseEdit extends Component{
                 title: this.originCourse.title,
                 tutor: this.originCourse.tutor,
                 price: this.originCourse.price,
-                content: this.originCourse.content
+                content: this.originCourse.content,
+                image: this.originCourse.image
             })
         }
         let tutorRef = app.firestore().collection('tutors');
@@ -67,7 +68,8 @@ class CourseEdit extends Component{
                     title: values.title,
                     tutor: values.tutor,
                     content: values.content,
-                    price: values.price
+                    price: values.price,
+                    image: values.image
                 };
                 if (this.originCourse == null) { // create course
                     axios.post(`${URL.ENDPOINT}${ADDCOURSE}`, {
@@ -132,6 +134,16 @@ class CourseEdit extends Component{
                             <Input
                                 prefix={<Icon type="dollar" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                 placeholder="Price"
+                            />,
+                        )}
+                    </Form.Item>
+                    <Form.Item className="imageEdit">
+                        {getFieldDecorator('image', {
+                            rules: [{ required: true, message: 'Please input the Url Link of picture!' }],
+                        })(
+                            <Input
+                                prefix={<Icon type="file-image" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                placeholder="Url Link of Picture"
                             />,
                         )}
                     </Form.Item>
