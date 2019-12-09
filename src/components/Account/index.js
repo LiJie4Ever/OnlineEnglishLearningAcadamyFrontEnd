@@ -20,6 +20,7 @@ const EditProfilPageWrapper = compose(
 )(EditProfilPage);
 const { TabPane } = Tabs;
 
+// This is Account page contains profile Info page, profile edit page and password change page
 class AccountPage extends Component {
     constructor(props) {
         super(props);

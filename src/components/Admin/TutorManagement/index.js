@@ -16,7 +16,6 @@ class TutorManagement extends Component {
         this.deleteTutor = this.deleteTutor.bind(this);
         this.state = {
             dataList: [],
-            // pagination
             minValue: 0,
             maxValue: 5
         }

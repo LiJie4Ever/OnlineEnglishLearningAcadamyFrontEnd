@@ -5,6 +5,7 @@ import { Descriptions } from 'antd';
 const moment = require('moment');
 const dataFormat = 'YYYY-MM-DD';
 
+// This is the page that show the information of the page
 class ProfileInfoPage extends Component {
     constructor(props) {
         super(props);

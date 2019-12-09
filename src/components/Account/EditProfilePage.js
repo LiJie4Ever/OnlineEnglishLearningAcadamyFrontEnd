@@ -9,6 +9,7 @@ const moment = require('moment');
 const axios = require('axios');
 const dataFormat = 'YYYY-MM-DD';
 
+// This is the page that contains a form that customers could use to edit profile
 class EditProfilPage extends Component {
     constructor(props) {
         super(props);

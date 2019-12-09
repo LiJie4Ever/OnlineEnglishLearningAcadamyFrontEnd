@@ -4,6 +4,7 @@ import { withFirebase } from '../Firebase';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
 
+// this is the hoc that verify the email
 const needsEmailVerification = authUser =>
     authUser &&
     !authUser.emailVerified &&

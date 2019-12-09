@@ -6,7 +6,7 @@ import AuthUserContext from './context';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
-
+// this is the hoc that check the identify of the users
 const withAuthorization = condition => Component => {
 
     class WithAuthorization extends React.Component {

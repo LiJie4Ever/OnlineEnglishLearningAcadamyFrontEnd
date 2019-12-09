@@ -21,6 +21,7 @@ import LessonEdit from "./LessonManagement/LessonEdit"
 
 const { Sider, Content } = Layout;
 
+// This is the admin page
 class AdminPage extends Component {
     constructor(props) {
         super(props);
@@ -29,12 +30,6 @@ class AdminPage extends Component {
             hasData: false,
             users: [],
         };
-    }
-
-    componentDidMount() {
-    }
-
-    componentWillUnmount() {
     }
 
     render() {

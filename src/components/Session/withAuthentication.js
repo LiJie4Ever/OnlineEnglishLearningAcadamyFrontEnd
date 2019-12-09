@@ -2,7 +2,7 @@ import React from 'react';
 import AuthUserContext from './context';
 import { withFirebase } from '../Firebase';
 
-
+// this is the hoc that check the identify of the users
 const withAuthentication = Component => {
     class WithAuthentication extends React.Component {
         constructor(props) {
