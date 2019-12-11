@@ -8,6 +8,10 @@ import axios from 'axios';
 import * as URL from "../../constants/url";
 
 class Class extends React.Component {
+
+    // authStatus: if user is logged in
+    // uid: if logged in, will store user id
+    // courseList: all the courses available
     constructor(props) {
         super(props);
         this.state = {
@@ -18,14 +22,18 @@ class Class extends React.Component {
         this.showClass = this.showClass.bind(this);
     }
 
+    // open detail page of a course
+    // pass down authStatus and info of this class
     showClass = (index) => {
         let classInfo = this.state.courseList[index];
         let authStatus = this.state.authStatus;
         // console.log(this.props.history);
         this.props.history.push({pathname:'/class/' + classInfo.id, state:{classInfo, authStatus}});
     };
+
+    // add class to cart, disable button and change button text
     addToCart = (index) => {
-        this.state.courseList[index].state = "Added to Cart”";
+        this.state.courseList[index].state = "Added to Cart";
         this.state.courseList[index].bool = true;
         this.setState(this.state.courseList);
 
@@ -41,6 +49,19 @@ class Class extends React.Component {
             });
 
     };
+
+    // if is logged in
+    // get all the courses
+    // get bought courses of user
+    // get courses in user's cart
+    // if the course has a price of 0, mark it as free
+    // get tutor's avatar and tutor name for this course
+    // if course is free or is in cart or has been purchased, disable button (item.bool), change button text
+    // 
+    // if is not logged in
+    // get all the courses, if the course has a price of 0, mark it as free
+    // get tutor's avatar and tutor name for this course
+    // disbale button, set button text
 
     componentDidMount() {
         if (this.state.authStatus == "exists"){
@@ -176,6 +197,9 @@ class Class extends React.Component {
         }
     }
 
+    // display courses
+    // if course is free, display "free" instead of price
+    // item.bool decides if button should be disabled 
     render() {
         return (
             <div className='list'>

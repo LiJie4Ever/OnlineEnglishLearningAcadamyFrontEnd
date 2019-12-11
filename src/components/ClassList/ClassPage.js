@@ -8,6 +8,12 @@ import { Player } from 'video-react';
 import {AuthUserContext} from "../Session";
 
 class ClassPage extends Component {
+    // show: decides if need to display video lessons, default to not displaying
+    // uid: user id if logged in
+    // authStatus: if user is logged in
+    // sourceList: list of video lessons
+    // vid: current video lesson
+    // classInfo: info of this course
     constructor(props) {
         super(props);
         this.state = {
@@ -20,6 +26,7 @@ class ClassPage extends Component {
         }
     }
 
+    // Add this course to cart, disable button, change button text
     addToCart = (index) => {
         this.state.classInfo.state = "Added to Cart";
         this.state.classInfo.bool = true;
@@ -37,6 +44,7 @@ class ClassPage extends Component {
             });
     };
 
+    // when an item in video list is clicked, change color, update current video
     changeSource = (index) =>{
         for (let i in this.state.sourceList){
             if (i == index){
@@ -49,6 +57,9 @@ class ClassPage extends Component {
         this.setState({vid: this.state.sourceList[index]});
     };
 
+    // if user is logged in
+    // if course if free or user has purchased the course
+    // get all the lessons of this course, set this.state.show to "block"
     componentDidMount() {
         if (this.state.authStatus == "exists"){
             if (this.state.classInfo.state == "Purchased" || this.state.classInfo.free){
@@ -82,6 +93,9 @@ class ClassPage extends Component {
         }
     }
 
+    // sort video lessons 
+    // display course info
+    // this.state.show will decides if need to display video lessons
     render() {
         let classInfo = this.state.classInfo;
         this.state.sourceList.sort((a,b) =>

@@ -8,7 +8,9 @@ import axios from 'axios';
 import app from 'firebase/app'
 
 class Cart extends React.Component {
-
+    // uid: user id
+    // courseList: courses in cart
+    // sessionList: confirmed but unpaid tutoring sessions
     constructor(props) {
         super(props);
         this.state = {
@@ -18,6 +20,7 @@ class Cart extends React.Component {
         }
     }
 
+    // remove course from cart
     removeCourse = (index) => {
         // TODO: Call API
         // console.log("index" + index);
@@ -38,6 +41,7 @@ class Cart extends React.Component {
 
     };
 
+    // remove tutoring list from cart, and also cancel the request
     removeSession = (index) => {
         // TODO: Call API
         axios.post(`${URL.ENDPOINT}${"/cart/tutor/delete"}`, {
@@ -64,6 +68,7 @@ class Cart extends React.Component {
         this.setState(this.state.sessionList.splice(index, 1));
     };
 
+    // calculate subtotal, tax, and total cost in cart
     getSummary = () => {
         let sum = {
             cost: 0,
@@ -83,6 +88,8 @@ class Cart extends React.Component {
         return sum;
     };
 
+    // paypal thing not working
+    // mark courses as bought, live sessions as paid, clear cart
     checkOut = () => {
         // axios.post(`${URL.ENDPOINT}${"/pay"}`, {
         //     studentID: this.state.uid
@@ -126,6 +133,10 @@ class Cart extends React.Component {
         this.setState({courseList: [], sessionList: []});
     }
 
+    // if is logged in, get items in cart
+    // categorize items into tutoring sessions and courses
+    // if items have attribute "offset", it is a tutoring session
+    // if item is a course, get tutor's avatar by tutor id
     componentDidMount() {
         if (this.state.uid !== ""){
             // console.log("aaa: " + this.state.uid);
@@ -174,6 +185,7 @@ class Cart extends React.Component {
         }
     }
 
+    // display items and cost
     render() {
         return (
             <div>
@@ -205,7 +217,7 @@ class Cart extends React.Component {
                                         title={item.title}
                                         description={item.tutorName}
                                     />
-                                    <div className={"cartPrice"}>US$ {item.price}</div>
+                                    <div className={"cartPrice"}>US$ {Number(item.price).toFixed(2)}</div>
                                 </Skeleton>
                             </List.Item>
                         )}
@@ -229,7 +241,7 @@ class Cart extends React.Component {
                                         title={"Live Tutoring"}
                                         description={item.createTime + " · " + item.numOfS + " session"}
                                     />
-                                    <div className={"cartPrice"}>US$ {item.price}</div>
+                                    <div className={"cartPrice"}>US$ {Number(item.price).toFixed(2)}</div>
                                 </Skeleton>
                             </List.Item>
                         )}
