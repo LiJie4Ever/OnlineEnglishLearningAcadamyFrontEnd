@@ -153,7 +153,7 @@ class AddSchedule extends Component{
                         {getFieldDecorator('selectedTutor', {
                             rules: [{ required: true, message: 'Please select the tutor!' }],
                         })(
-                            <Select placeholder="Please select a course">
+                            <Select placeholder="Please select a tutor">
                                 {
                                     this.state.tutorList.map((item, index) => {
                                         return(
@@ -168,7 +168,7 @@ class AddSchedule extends Component{
                         {getFieldDecorator('selectedStudent', {
                             rules: [{ required: true, message: 'Please select the student!' }],
                         })(
-                            <Select placeholder="Please select a course">
+                            <Select placeholder="Please select a student">
                             {
                                 this.state.studentList.map((item, index) => {
                                     return(
@@ -198,7 +198,7 @@ class AddSchedule extends Component{
                         {getFieldDecorator('timezone', {
                             rules: [{ required: true, message: 'Please input the timezone!' }],
                         })(
-                          <Select placeholder="Please select a course">
+                          <Select placeholder="Please select timezone">
                               <Option key="-8:00" value="-8:00">Pacific Standard Time</Option>
                               <Option key="+8:00" value="+8:00">China Standard Time</Option>
                           </Select>,
